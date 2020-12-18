@@ -1,11 +1,12 @@
 var xFraction = 0.5;
+var yFraction = 0.5;
 var oldIndex = 0;
 
 onmousemove = function(e){
 	// console.log("mouse location:", e.clientX, e.clientY);
 	let xFraction = e.clientX/window.innerWidth;
-	
-	let index = Math.round(xFraction * 48);
+	let yFraction = e.clientY/window.innerHeight;
+	let index = Math.round((xFraction * 24) + (yFraction * 24));
 	if (index != oldIndex){
 		// console.log("mouse index= ", index);
 		// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
@@ -57,3 +58,21 @@ preload(
 
 
 
+
+
+// /
+const spotlight = document.getElementById("spotlight");
+const spotlight_child = document.getElementById("spotlight-child");
+const darkContainer = document.getElementById("darkContainer");
+darkContainer.addEventListener("mousemove", moveSpotlight);
+darkContainer.addEventListener("touchmove", moveSpotlight);
+function moveSpotlight(e) {
+  let pos, x, y;
+  e.preventDefault();
+  x = e.clientX - 200;
+  y = e.clientY - 200;
+  spotlight.style.left = x + "px";
+  spotlight.style.top = y + "px";
+  spotlight_child.style.left = x + "px";
+  spotlight_child.style.top = y + "px";
+}

@@ -1,76 +1,100 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml>
 
-	  <head>
-
-	      <meta charset="utf-8"/>
-	      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-	      <meta name="viewport" content="width=device-width, initial-scale=1"/>
-	      <meta name="description" content=""/>
-	      <meta name="author" content=""/>
-
-
-	      <title>Zack</title>
-
-	      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-		  <link rel="stylesheet" href="style.css">
-	     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-
-	  </head>
+<head>
+	
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+	
+	
+	<title>Zack</title>
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	<link rel="stylesheet" href="style.css">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	
+	
+</head>
 
 <body>
 	
-<div class="topContainer" id="topContainer">
-</div>
-<div class="gradientContainer" id="gradientContainer">
-</div>
-<div class="darkContainer" id="darkContainer">
+	<div class="topContainer" id="topContainer">
+		<div class="arrowContainer">
+		   <a onclick="scrollToBottom()" >
+			   <svg class="bounce" height="100%" viewBox="0 0 100 110" fill ="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+				   <path stroke="white" d="M 50 0 L 50 100 M 25 75 L 50 100 L 75 75" stroke-width="3"/>
+			   </svg>
+		   </a>
+	   </div>
+	</div>
+	<div class="gradientContainer" id="gradientContainer">
+	</div>
+	<div class="darkContainer" id="darkContainer">
+		<div id="spotlight">
+			<div id="spotlight-child"></div>
+		</div>
+		
+		<div onclick="scrollToTop()" id="darkText1"><a>back to top</a></div>
+		<div id="darkText2"><a href="https://www.linkedin.com/in/zack-dove-533ab692/">linkedin</a></div>
+		<div onclick="toggleLights()" id="darkText3">
+			<p>zack dove</p>
+			<p>programmer, full stack developer, engineer, also have a degree in computer science and make music sometimes</p>
+			<a  id="lightsToggleLabel">turn the lights on</a>
+		</div>
+		<div id="darkText4"><a href="https://github.com/zackdove">github</a></div>
+		<div id="darkText5"><a href="https://www.instagram.com/zackdove/">instagram</a></div>
+		<div id="darkText6"><a href="https://soundcloud.com/zack-dove">soundcloud</a></div>
+		<div id="darkText7"><a href="albums.html">favourite albums</a></div>
+		<div id="darkText8"><a href="https://zckdcode.tumblr.com/">code blog</a></div>
+	</div>
 	
-</div>
-
-
-<div class="container" data-aos="fade-up" data-aos-duration="3000">
-    <div class="card mx-auto mt-5" style="width: 18rem">
-        <div class="card-header">
-            zckd
-        </div>
-        <div class="card-body">
-            <p class="card-text">A website to display some photographs and link things together.</p>
-            <p class="card-text">.</p>
-            <p class="text-center">
-                <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
-                    ⬖
-                </button>
-            </p>
-            <div class="collapse" id="collapseLinks">
-                <div class="card card-body">
-                    <a href="/photographs">photographs</a>
-                    <a href="https://github.com/zackdove">github</a>
-                    <a href="https://www.linkedin.com/in/zack-dove-533ab692/">linkedin</a>
-                    <a href="https://zckdcode.tumblr.com/">code blog</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="animateWithMouse.js"></script>
- <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-
-
-   <script>
-	   AOS.init();
-   </script>
-
+	
+	<!-- <div class="container" data-aos="fade-up" data-aos-duration="3000">
+		<div class="card mx-auto mt-5" style="width: 18rem">
+			<div class="card-header">
+				zckd
+			</div>
+			<div class="card-body">
+				<p class="card-text">A website to display some photographs and link things together.</p>
+				<p class="card-text">.</p>
+				<p class="text-center">
+					<button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
+						⬖
+					</button>
+				</p>
+				<div class="collapse" id="collapseLinks">
+					<div class="card card-body">
+						<a href="/photographs">photographs</a>
+						<a href="https://github.com/zackdove">github</a>
+						<a href="https://www.linkedin.com/in/zack-dove-533ab692/">linkedin</a>
+						<a href="https://zckdcode.tumblr.com/">code blog</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="animateWithMouse.js"></script>
+	<script src="scrollTo.js"></script>
+	<script src="lightsToggle.js"></script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	
+	
+	
+	<script>
+		AOS.init();
+	</script>
+	
 </body>
 
 </html>
