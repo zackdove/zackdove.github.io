@@ -45,7 +45,8 @@ if (imagesLoaded = 49){
 	let topContainer = document.getElementById("topContainer");
 	topContainer.classList.remove("rainbowLoad");
 	let loadingMessage = document.getElementById("loadingMessage");
-	loadingMessage.remove();
+	// loadingMessage.remove();
+	loadingMessage.innerHTML = "loaded";
 	oldIndex=24;
 	onmousemove = function(e){
 		// console.log("mouse location:", e.clientX, e.clientY);
