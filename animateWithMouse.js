@@ -53,6 +53,7 @@ function preload() {
 		image.classList.add("imageMain");
 		topContainer.appendChild(image);
 	}
+	console.log("images loaded");
 	
 }
 preload(
