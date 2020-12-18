@@ -56,13 +56,10 @@ a{
 }
 
 #darkContainer  a{
-	color: #00aa00;
+	color: inherit;
 	text-decoration: underline;
 }
 
-#darkContainer  a:hover{
-	color: #007700;
-}
 
 #spotlight{
 	width: 400px;

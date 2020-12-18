@@ -43,7 +43,7 @@ function preload() {
 	image.classList.add("imageMain");
 	image.style.setProperty("display", "block");
 	topContainer.appendChild(image);
-
+	
 	for (i = 1; i < imagePaths.length; i++) {
 		let image = document.createElement("img");
 		console.log(imagePaths[i]);
@@ -71,12 +71,22 @@ const darkContainer = document.getElementById("darkContainer");
 darkContainer.addEventListener("mousemove", moveSpotlight);
 darkContainer.addEventListener("touchmove", moveSpotlight);
 function moveSpotlight(e) {
-  let pos, x, y;
-  e.preventDefault();
-  x = e.clientX - 200;
-  y = e.clientY - 200;
-  spotlight.style.left = x + "px";
-  spotlight.style.top = y + "px";
-  spotlight_child.style.left = x + "px";
-  spotlight_child.style.top = y + "px";
+	let pos, x, y;
+	e.preventDefault();
+	x = e.clientX - 200;
+	y = e.clientY - 200;
+	spotlight.style.left = x + "px";
+	spotlight.style.top = y + "px";
+	spotlight_child.style.left = x + "px";
+	spotlight_child.style.top = y + "px";
+	if (lightsOn){
+		console.log("lighhts on");
+		let red = (e.clientX/window.innerWidth)*235;
+		let green = 40+((e.clientY/window.innerHeight)*195)
+		darkContainer.style.setProperty("background", "rgb("+red+","+green+",150)");
+		darkContainer.style.setProperty("color", "#EEEEEE");
+		let gradientContainer = document.getElementById("gradientContainer");
+		gradientContainer.style.setProperty("background", "linear-gradient(180deg, rgba(209,211,255,1) 0%, rgba(30,106,195,1) 55%, rgb("+red+","+green+",150) 100%)")
+		
+	}
 }
