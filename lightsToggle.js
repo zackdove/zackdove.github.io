@@ -17,7 +17,8 @@ function toggleLights(){
 		lightsOn = 1;
 		console.log("turnjng lights on");
 		lightsToggleLabel.innerHTML = "turn the lights off"
-		darkContainer.style.setProperty("background", "#FFFFFF");
+		darkContainer.style.setProperty("background", "rgb(41, 127, 150)");
+		darkContainer.style.setProperty("color", "#EEEEEE");
 		spotlight.style.setProperty("box-shadow", "none")
 		spotlight_child.style.setProperty("box-shadow", "none")
 	}

@@ -6,3 +6,4 @@
 * move on scroll https://levelup.gitconnected.com/how-to-create-frame-by-frame-moving-image-on-scroll-effect-30ce577c63c2 falling down, crumblind, block breaking with scroll
 * on turn lights on screen, maybe have some wiggly stuff in bg?
 * colour changes with mouse https://plinth.media/
+* mobile responsive

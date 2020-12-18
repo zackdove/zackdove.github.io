@@ -84,7 +84,6 @@ function moveSpotlight(e) {
 		let red = (e.clientX/window.innerWidth)*235;
 		let green = 40+((e.clientY/window.innerHeight)*195)
 		darkContainer.style.setProperty("background", "rgb("+red+","+green+",150)");
-		darkContainer.style.setProperty("color", "#EEEEEE");
 		let gradientContainer = document.getElementById("gradientContainer");
 		gradientContainer.style.setProperty("background", "linear-gradient(180deg, rgba(209,211,255,1) 0%, rgba(30,106,195,1) 55%, rgb("+red+","+green+",150) 100%)")
 		
