@@ -6,7 +6,11 @@ onmousemove = function(e){
 	// console.log("mouse location:", e.clientX, e.clientY);
 	let xFraction = e.clientX/window.innerWidth;
 	let yFraction = e.clientY/window.innerHeight;
-	let index = Math.round((xFraction * 24) + (yFraction * 24));
+	let index = Math.round((xFraction * 48) + (yFraction * 48));
+	console.log(index);
+	if (index > 48){
+		index = 96 - index;
+	}
 	if (index != oldIndex){
 		// console.log("mouse index= ", index);
 		// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
@@ -22,7 +26,7 @@ const imagePaths = []
 for (i = 0; i<10; i++){
 	imagePaths.push("graphics/desktopRender/000"+i.toString(10)+".png")
 }
-for (i = 10; i<=96; i++){
+for (i = 10; i<=48; i++){
 	imagePaths.push("graphics/desktopRender/00"+i.toString(10)+".png")
 }
 
