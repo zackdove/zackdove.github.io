@@ -7,3 +7,5 @@
 * on turn lights on screen, maybe have some wiggly stuff in bg?
 * colour changes with mouse https://plinth.media/
 * mobile responsive
+* loading screen, maybe colours changing, then fade in https://stackoverflow.com/questions/2342132/waiting-for-image-to-load-in-javascript
+* prob make the bottom bit flex

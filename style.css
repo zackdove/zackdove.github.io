@@ -8,17 +8,43 @@
 .topContainer{
 	width:100%;
 	/* height:100vh; */
-	z-index: 999;
 	/* box-shadow: inset 0 -120px 120px 0 rgba(209,211,255,1); */
 	/* box-shadow: inset 40px -120px 15px 0 yellow; */
 	position: relative;
+	z-index: 99;
+	background-color: rgb(41, 127, 150);
+	display: flex;
+	align-items: center;
+  justify-content: center;
+
+	
+}
+
+#loadingMessage{
+	max-width: 50%;
+	position: absolute;
+	color: #EEEEEE;
+	font-size: 2rem;
+	z-index: 100;
+}
+
+.rainbowLoad{
+	animation: rainbowLoad 5s infinite alternate;
+}
+
+@keyframes rainbowLoad {
+  0% {background-color: rgb(41, 127, 150);}
+  25% {background-color: rgb(41, 235, 150);}
+  50% {background-color: rgb(65, 65, 150);}
+  75% {background-color: rgb(255, 65, 150);}
+  100% {background-color: rgb(255, 255, 150);}
 }
 
 .imageMain{
 	width:100%;
 	height:auto;
 	display:none;
-	z-index: 100;
+	z-index: 101;
 	position: relative;
 	/* box-shadow: inset 40px -120px 15px 0 yellow; */
 }
@@ -164,9 +190,16 @@ a{
     }
 }
 
+.fullScreen{
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+}
+
 .arrowContainer {
     position: absolute;
-    bottom: 20vh;
+    bottom: 5vh;
     width:100vw;
     height: 5vh;
     text-align:center;

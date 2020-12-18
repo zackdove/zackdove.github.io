@@ -1,26 +1,6 @@
-var xFraction = 0.5;
-var yFraction = 0.5;
-var oldIndex = 0;
 
-onmousemove = function(e){
-	// console.log("mouse location:", e.clientX, e.clientY);
-	let xFraction = e.clientX/window.innerWidth;
-	let yFraction = e.clientY/window.innerHeight;
-	let index = Math.round((xFraction * 48) + (yFraction * 48));
-	console.log(index);
-	if (index > 48){
-		index = 96 - index;
-	}
-	if (index != oldIndex){
-		// console.log("mouse index= ", index);
-		// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
-		let nextImg = document.getElementById(index);
-		nextImg.style.setProperty("display", "block");
-		let oldImg = document.getElementById(oldIndex);
-		oldImg.style.setProperty("display", "none");
-		oldIndex = index;
-	}
-}
+
+
 
 const imagePaths = []
 for (i = 0; i<10; i++){
@@ -32,20 +12,15 @@ for (i = 10; i<=48; i++){
 
 var images = new Array();
 var topContainer = document.getElementById("topContainer");
-
+var imagesLoaded = 0;
 function preload() {
 	// Show the first one
-	let image = document.createElement("img");
-	console.log(imagePaths[0]);
-	image.src = imagePaths[0];
-	image.id = 0;
-	// let imageContainer = document.createElement("div");
-	image.classList.add("imageMain");
-	image.style.setProperty("display", "block");
-	topContainer.appendChild(image);
 	
-	for (i = 1; i < imagePaths.length; i++) {
+	for (i = 0; i < imagePaths.length; i++) {
 		let image = document.createElement("img");
+		image.onload = function(){
+			imagesLoaded++;
+		}
 		console.log(imagePaths[i]);
 		image.src = imagePaths[i];
 		image.id = i;
@@ -53,7 +28,7 @@ function preload() {
 		image.classList.add("imageMain");
 		topContainer.appendChild(image);
 	}
-	console.log("images loaded");
+	console.log("images loaded = "+imagesLoaded);
 	
 }
 preload(
@@ -61,7 +36,37 @@ preload(
 )
 // console.log(images);
 
-
+var xFraction = 0.5;
+var yFraction = 0.5;
+var oldIndex = 0;
+if (imagesLoaded = 49){
+	let firstImg = document.getElementById('24');
+	firstImg.style.setProperty("display", "block");
+	let topContainer = document.getElementById("topContainer");
+	topContainer.classList.remove("rainbowLoad");
+	let loadingMessage = document.getElementById("loadingMessage");
+	loadingMessage.remove();
+	oldIndex=24;
+	onmousemove = function(e){
+		// console.log("mouse location:", e.clientX, e.clientY);
+		let xFraction = e.clientX/window.innerWidth;
+		let yFraction = e.clientY/window.innerHeight;
+		let index = Math.round((xFraction * 48) + (yFraction * 48));
+		console.log(index);
+		if (index > 48){
+			index = 96 - index;
+		}
+		if (index != oldIndex){
+			// console.log("mouse index= ", index);
+			// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
+			let nextImg = document.getElementById(index);
+			nextImg.style.setProperty("display", "block");
+			let oldImg = document.getElementById(oldIndex);
+			oldImg.style.setProperty("display", "none");
+			oldIndex = index;
+		}
+	}
+}
 
 
 
