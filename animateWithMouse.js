@@ -18,11 +18,9 @@ function preload() {
 	
 	for (i = 0; i < imagePaths.length; i++) {
 		let image = document.createElement("img");
-		image.onload = function(){
-			imagesLoaded++;
-		}
 		console.log(imagePaths[i]);
 		image.src = imagePaths[i];
+		image.setAttribute("onload", "incrementLoaded()")
 		image.id = i;
 		// let imageContainer = document.createElement("div");
 		image.classList.add("imageMain");
@@ -35,6 +33,10 @@ preload(
 	imagePaths
 )
 // console.log(images);
+
+function incrementLoaded(){
+	imagesLoaded++;
+}
 
 var xFraction = 0.5;
 var yFraction = 0.5;

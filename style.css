@@ -205,3 +205,8 @@ a{
     text-align:center;
 	z-index: 99999;
 }
+
+/* #hiddenImages img{
+	visibility:hidden;
+	display:none;
+} */
