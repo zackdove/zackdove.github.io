@@ -33,43 +33,44 @@ preload(
 	imagePaths
 )
 // console.log(images);
-
-function incrementLoaded(){
-	imagesLoaded++;
-}
-
 var xFraction = 0.5;
 var yFraction = 0.5;
 var oldIndex = 0;
-if (imagesLoaded = 49){
-	let firstImg = document.getElementById('24');
-	firstImg.style.setProperty("display", "block");
-	let topContainer = document.getElementById("topContainer");
-	topContainer.classList.remove("rainbowLoad");
-	let loadingMessage = document.getElementById("loadingMessage");
-	// loadingMessage.remove();
-	loadingMessage.innerHTML = "loaded";
-	oldIndex=24;
-	onmousemove = function(e){
-		// console.log("mouse location:", e.clientX, e.clientY);
-		let xFraction = e.clientX/window.innerWidth;
-		let yFraction = e.clientY/window.innerHeight;
-		let index = Math.round((xFraction * 48) + (yFraction * 48));
-		console.log(index);
-		if (index > 48){
-			index = 96 - index;
-		}
-		if (index != oldIndex){
-			// console.log("mouse index= ", index);
-			// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
-			let nextImg = document.getElementById(index);
-			nextImg.style.setProperty("display", "block");
-			let oldImg = document.getElementById(oldIndex);
-			oldImg.style.setProperty("display", "none");
-			oldIndex = index;
+
+function incrementLoaded(){
+	imagesLoaded++;
+	if (imagesLoaded == 49){
+		let firstImg = document.getElementById('24');
+		firstImg.style.setProperty("display", "block");
+		let topContainer = document.getElementById("topContainer");
+		topContainer.classList.remove("rainbowLoad");
+		let loadingMessage = document.getElementById("loadingMessage");
+		// loadingMessage.remove();
+		loadingMessage.innerHTML = "loaded";
+		oldIndex=24;
+		onmousemove = function(e){
+			// console.log("mouse location:", e.clientX, e.clientY);
+			let xFraction = e.clientX/window.innerWidth;
+			let yFraction = e.clientY/window.innerHeight;
+			let index = Math.round((xFraction * 48) + (yFraction * 48));
+			console.log(index);
+			if (index > 48){
+				index = 96 - index;
+			}
+			if (index != oldIndex){
+				// console.log("mouse index= ", index);
+				// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
+				let nextImg = document.getElementById(index);
+				nextImg.style.setProperty("display", "block");
+				let oldImg = document.getElementById(oldIndex);
+				oldImg.style.setProperty("display", "none");
+				oldIndex = index;
+			}
 		}
 	}
 }
+
+
 
 
 
