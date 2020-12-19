@@ -9,3 +9,4 @@
 * mobile responsive
 * loading screen, maybe colours changing, then fade in https://stackoverflow.com/questions/2342132/waiting-for-image-to-load-in-javascript
 * prob make the bottom bit flex
+* center 'loading' properly
