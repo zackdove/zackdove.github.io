@@ -4,14 +4,14 @@
 
 const imagePaths = []
 for (i = 0; i<10; i++){
-	imagePaths.push("graphics/desktopRender/000"+i.toString(10)+".png")
+	imagePaths.push("graphics/jpgDesktopRender/000"+i.toString(10)+".jpg")
 }
 for (i = 10; i<=48; i++){
-	imagePaths.push("graphics/desktopRender/00"+i.toString(10)+".png")
+	imagePaths.push("graphics/jpgDesktopRender/00"+i.toString(10)+".jpg")
 }
 
 var images = new Array();
-var topContainer = document.getElementById("topContainer");
+var imagesContainer = document.getElementById("imagesContainer");
 var imagesLoaded = 0;
 function preload() {
 	// Show the first one
@@ -24,7 +24,7 @@ function preload() {
 		image.id = i;
 		// let imageContainer = document.createElement("div");
 		image.classList.add("imageMain");
-		topContainer.appendChild(image);
+		imagesContainer.appendChild(image);
 	}
 	console.log("images loaded = "+imagesLoaded);
 	
