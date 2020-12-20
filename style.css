@@ -98,7 +98,7 @@ a{
 
 #darkContainer  a{
 	color: inherit;
-	text-decoration: underline;
+	/* text-decoration: underline; */
 }
 
 
@@ -192,6 +192,10 @@ a{
 	left: 4rem;
 	cursor: pointer;
 	z-index: 9!important;
+}
+
+#darkText1:hover{
+	text-decoration: underline;
 }
 
 #darkText2{
