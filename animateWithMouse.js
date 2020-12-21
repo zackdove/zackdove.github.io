@@ -2,20 +2,31 @@
 
 
 
-const imagePaths = []
+const landscapePaths = []
+const portraitPaths = []
 for (i = 0; i<10; i++){
-	imagePaths.push("graphics/jpgDesktopRender/000"+i.toString(10)+".jpg")
+	landscapePaths.push("graphics/jpgDesktopRender/000"+i.toString(10)+".jpg")
+	portraitPaths.push("graphics/mobileRender/000"+i.toString(10)+".jpg")
 }
 for (i = 10; i<=48; i++){
-	imagePaths.push("graphics/jpgDesktopRender/00"+i.toString(10)+".jpg")
+	landscapePaths.push("graphics/jpgDesktopRender/00"+i.toString(10)+".jpg")
+	portraitPaths.push("graphics/mobileRender/00"+i.toString(10)+".jpg")
 }
+
+var landscapeQuery = window.matchMedia("(orientation: landscape)");
 
 var images = new Array();
 var imagesContainer = document.getElementById("imagesContainer");
 var imagesLoaded = 0;
+var imagePaths = [];
 function preload() {
 	// Show the first one
 	
+	if (landscapeQuery.matches){
+		imagePaths = landscapePaths;
+	} else {
+		imagePaths = portraitPaths;
+	}
 	for (i = 0; i < imagePaths.length; i++) {
 		let image = document.createElement("img");
 		console.log(imagePaths[i]);
@@ -35,7 +46,7 @@ preload(
 // console.log(images);
 var xFraction = 0.5;
 var yFraction = 0.5;
-var oldIndex = 0;
+
 
 function incrementLoaded(){
 	imagesLoaded++;
@@ -47,25 +58,63 @@ function incrementLoaded(){
 		let loadingMessage = document.getElementById("loadingMessage");
 		// loadingMessage.remove();
 		loadingMessage.innerHTML = "loaded";
-		oldIndex=24;
-		onmousemove = function(e){
-			// console.log("mouse location:", e.clientX, e.clientY);
-			let xFraction = e.clientX/window.innerWidth;
-			let yFraction = e.clientY/window.innerHeight;
-			let index = Math.round((xFraction * 48) + (yFraction * 48));
-			console.log(index);
-			if (index > 48){
-				index = 96 - index;
+		// checking whether touch or mouse
+		let mouseQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+		if (mouseQuery.matches){
+			// If mouse, not touchh
+			var oldIndex = 24;
+			// oldIndex=24;
+			onmousemove = function(e){
+				// console.log("mouse location:", e.clientX, e.clientY);
+				let xFraction = e.clientX/window.innerWidth;
+				let yFraction = e.clientY/window.innerHeight;
+				let index = Math.round((xFraction * 48) + (yFraction * 48));
+				console.log(index);
+				if (index > 48){
+					index = 96 - index;
+				}
+				if (index != oldIndex){
+					// console.log("mouse index= ", index);
+					// $('.mainContainer').css('background-image', `url('${landscapePaths[index]}')`);
+					let nextImg = document.getElementById(index);
+					nextImg.style.setProperty("display", "block");
+					let oldImg = document.getElementById(oldIndex);
+					oldImg.style.setProperty("display", "none");
+					oldIndex = index;
+				}
 			}
-			if (index != oldIndex){
-				// console.log("mouse index= ", index);
-				// $('.mainContainer').css('background-image', `url('${imagePaths[index]}')`);
-				let nextImg = document.getElementById(index);
-				nextImg.style.setProperty("display", "block");
-				let oldImg = document.getElementById(oldIndex);
+		} else {
+			// if touch
+			var index = 0;
+			var t_index = 0;
+			window.setInterval(function(){
+				// workaround since we cant have a for loop with a wait
+				
+				console.log(t_index);
+				// console.log(index);
+				if (index > 48){
+					t_index = 96-index;
+				} else {
+					t_index = index;
+				}
+				let oldImg = document.getElementById(t_index);
+				if (index < 95){
+					index++;
+				}
+				else {
+					index = 0;
+				}
+				if (index > 48){
+					t_index = 96-index;
+				} else {
+					t_index = index;
+				}
+				
+				let nextImg = document.getElementById(t_index);
+				
 				oldImg.style.setProperty("display", "none");
-				oldIndex = index;
-			}
+				nextImg.style.setProperty("display", "block");
+			}, 41)
 		}
 	}
 }

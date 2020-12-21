@@ -8,7 +8,7 @@ function toggleLights(){
 		// turn off
 		console.log("turning lights off");
 		lightsOn = 0;
-		lightsToggleLabel.innerHTML = "turn the lights on";
+		lightsToggleLabel.innerHTML = "click to turn the lights on";
 		darkContainer.style.setProperty("background", "#222222");
 		spotlight.style.setProperty("box-shadow", "0 0 0 10000px rgba(0, 0, 0, 1.0)")
 		darkContainer.style.setProperty("color", "#00aa00");
@@ -19,7 +19,7 @@ function toggleLights(){
 		// turn on
 		lightsOn = 1;
 		console.log("turnjng lights on");
-		lightsToggleLabel.innerHTML = "turn the lights off"
+		lightsToggleLabel.innerHTML = "click to turn the lights off"
 		darkContainer.style.setProperty("background", "rgb(41, 127, 150)");
 		let gradientContainer = document.getElementById("gradientContainer2");
 		gradientContainer.style.setProperty("background", "linear-gradient(180deg, rgba(30,106,195,1) 0%, rgb(41, 127, 150) 100%)")
