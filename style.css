@@ -5,6 +5,9 @@
 	font-family: "Courier New";
 }
 
+body{
+	margin: 0px;
+}
 
 
 @media (orientation: landscape){
@@ -75,9 +78,9 @@
 	height: 400vh;
 	position: relative;
 	background: rgb(209,211,255);
-	/* box-shadow: 0 -20px 10px 0 black; */
+	box-shadow: 0 -20px 10px 0 black;
 	animation: rainbowLoad 20s infinite alternate;
-	box-shadow: inset 0 -100vh 100vh 20vh rgba(30,106,195,1);
+	
 }
 
 
@@ -99,7 +102,7 @@
 	background: rgb(209,211,255);
 	background: linear-gradient(180deg, rgba(209,211,255,1) 0%, rgba(30,106,195,1) 100%);
 	/* box-shadow: 0 -20px 10px 0 black; */
-	
+	box-shadow: 0 100vh 100vh 20vh rgba(30,106,195,1);
 }
 
 
@@ -181,6 +184,7 @@ a{
 		background: rgb(209,211,255);
 		background: linear-gradient(180deg, rgba(30,106,195,1) 0%, rgba(0,0,0,1) 100%);
 		/* box-shadow: 0 -20px 10px 0 black; */
+		animation: none;
 	}
 	#gradientContainer1{
 		box-shadow: none;
