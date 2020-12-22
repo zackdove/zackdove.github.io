@@ -106,10 +106,7 @@
 
 
 
-#darkContainer > div{
-	position: absolute;
-	
-}
+
 
 .pointerCursor{
 	cursor: pointer;
@@ -134,7 +131,13 @@ a{
 	color: #EEEEEE;
 	font-size: 20px;
 	animation: rainbowLoad 20s infinite alternate;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
 }
+
 
 @media (orientation: landscape) and (hover: hover) and (pointer: fine){
 	#spotlight{
@@ -257,14 +260,21 @@ visibility:hidden;
 display:none;
 } */
 
-#darkContainer div{
-	/* z-index: 9; */
+
+#lightsToggleLabel{
+	display: none;
+}
+
+
+#darkText3Container{
+	/* display: block; */
+	/* position: relative!important; */
+	
+	/* text-align: center; */
 }
 
 #darkText1{
 	
-	top: 4rem;
-	left: 4rem;
 	cursor: pointer;
 	z-index: 9!important;
 }
@@ -274,24 +284,11 @@ display:none;
 }
 
 #darkText2{
-	right: 4rem;
-	top: 4rem;
 	cursor: pointer;
 	z-index: 9!important;
 }
 
-#darkText3Container{
-	/* display: block; */
-	/* position: relative!important; */
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	width: 100vw;
-	text-align: center;
-	z-index: 8!important;
-}
+
 
 
 #darkText3 p {
@@ -301,15 +298,13 @@ display:none;
 }
 
 #darkText4{
-	bottom: 4rem;
-	right: 4rem;
+	
 	cursor: pointer;
 	z-index: 9!important;
 }
 
 #darkText5{
-	bottom: 4rem;
-	left: 4rem;
+	
 	cursor: pointer;
 	z-index: 9!important;
 }
@@ -317,26 +312,118 @@ display:none;
 #darkText6{
 	
 	/* position: absolute!important; */
-	width: 20vw;
-	left: 40vw;
-	bottom: 4rem;
+	
 	text-align: center;
 	cursor: pointer;
 	z-index: 9!important;
 }
 
 #darkText7{
-	width: 20vw;
-	left: 40vw;
-	top: 4rem;
+	
 	text-align: center;
 	cursor: pointer;
 	z-index: 9!important;
 }
 
 #darkText8{
-	top: 48vh;
-	right: 4rem;
+	
+	
 	cursor: pointer;
 	z-index: 9!important;
 }
+
+
+@media (orientation: landscape){
+	
+	
+	#darkContainer > div{
+		position: absolute;
+		
+	}
+	#lightsToggleLabel{
+		display: block;
+	}
+	#darkText3Container{
+		/* display: block; */
+		/* position: relative!important; */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 100vh;
+		width: 100vw;
+		text-align: center;
+		z-index: 8!important;
+	}
+
+	#darkText1{
+		
+		top: 4rem;
+		left: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText1:hover{
+		text-decoration: underline;
+	}
+
+	#darkText2{
+		right: 4rem;
+		top: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+
+
+
+	#darkText3 p {
+		max-width: 20rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText4{
+		bottom: 4rem;
+		right: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText5{
+		bottom: 4rem;
+		left: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText6{
+		
+		/* position: absolute!important; */
+		width: 20vw;
+		left: 40vw;
+		bottom: 4rem;
+		text-align: center;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText7{
+		width: 20vw;
+		left: 40vw;
+		top: 4rem;
+		text-align: center;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+
+	#darkText8{
+		top: 48vh;
+		right: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+}
+
+
