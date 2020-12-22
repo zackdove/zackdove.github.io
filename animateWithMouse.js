@@ -121,14 +121,6 @@ function incrementLoaded(){
 
 
 
-
-
-// /
-const spotlight = document.getElementById("spotlight");
-const spotlight_child = document.getElementById("spotlight-child");
-const darkContainer = document.getElementById("darkContainer");
-darkContainer.addEventListener("mousemove", moveSpotlight);
-darkContainer.addEventListener("touchmove", moveSpotlight);
 function moveSpotlight(e) {
 	let pos, x, y;
 	e.preventDefault();
@@ -148,3 +140,15 @@ function moveSpotlight(e) {
 		
 	}
 }
+
+// /
+const spotlight = document.getElementById("spotlight");
+const spotlight_child = document.getElementById("spotlight-child");
+const darkContainer = document.getElementById("darkContainer");
+let mouseQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+if (mouseQuery.matches){
+	darkContainer.addEventListener("mousemove", moveSpotlight);
+} else {
+	
+}
+

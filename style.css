@@ -90,13 +90,13 @@
 }
 
 #gradientContainer1{
-	z-index: 999;
+	z-index: 99999;
 	height: 400vh;
 	position: relative;
 	background: rgb(209,211,255);
 	background: linear-gradient(180deg, rgba(209,211,255,1) 0%, rgba(30,106,195,1) 100%);
 	/* box-shadow: 0 -20px 10px 0 black; */
-	/* box-shadow: 0 -100px 100px 100px rgb(209,211,255); */
+	box-shadow: 0 100vh 100vh 20vh rgba(30,106,195,1);
 }
 
 
@@ -175,6 +175,9 @@ a{
 		background: rgb(209,211,255);
 		background: linear-gradient(180deg, rgba(30,106,195,1) 0%, rgba(0,0,0,1) 100%);
 		/* box-shadow: 0 -20px 10px 0 black; */
+	}
+	#gradientContainer1{
+		box-shadow: none;
 	}
 }
 
