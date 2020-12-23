@@ -446,7 +446,7 @@ display:none;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 20vh;
+	padding-top: 8vh;
 }
 
 .cubeContainer{
@@ -460,7 +460,7 @@ display:none;
 	height: 70vw;
 	position: relative;
 	transform-style: preserve-3d;
-	/* transform: translateZ(-35vw); */
+	transform: translateZ(-35vw) rotateX(-14deg) rotateY(-14deg);
 	transition: transform 1s;
 }
 
@@ -514,6 +514,24 @@ display:none;
 	background-image: url("cover_art/kicki.jpg");
 	background-position: center;
 	background-size: cover;
+}
+
+#albumBg{
+	min-height:100vh;
+	width:100vw;
+	background-color: rgb(126, 56, 130);
+	color: #EEEEEE;
+	transition: background-color 1.5s ease;
+}
+
+#albumTextContainer{
+	padding-top: 20vh;
+	padding-left: 8vw;
+	padding-right: 8vw;
+	width: 84vw;
+	text-align: center;
+	font-size: 1.3rem;
+	line-height: 150%;
 }
 
 .cube__face--front  { transform: rotateY(  0deg) translateZ(35vw); }
