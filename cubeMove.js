@@ -1,12 +1,13 @@
 var xN = 10, yN = 15;
-document.addEventListener('mousedown',function(e){
+var cubeContainer = document.getElementById("cube");
+cubeContainer.addEventListener('mousedown',function(e){
 	var cube = document.getElementById("cube");
 	e.preventDefault();
 	e.stopPropagation();
 	var x = e.clientX;
 	var y = e.clientY;
-	document.addEventListener('mousemove',move);
-	document.addEventListener('mouseup', up);
+	cubeContainer.addEventListener('mousemove',move);
+	cubeContainer.addEventListener('mouseup', up);
 	function move(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -15,12 +16,15 @@ document.addEventListener('mousedown',function(e){
 		xN += (x1 - x)*0.04;
 		yN += (y1 - y)*0.04;
 		cube.style.transform = 'translateZ(-150px) rotateY(' + xN + 'deg) rotateX(' + -yN + 'deg)';
+		t_xN = ((xN % 360)+360)%360;
+		t_yN = ((yN % 360)+360)%360;
+		let album = whichAlbum(t_xN, t_yN);
 	}
 	function up(){
-		document.removeEventListener('mousemove', move);
+		cubeContainer.removeEventListener('mousemove', move);
 	}
 });
-var cubeContainer = document.getElementById("cube");
+
 cubeContainer.addEventListener('touchstart',function(e){
 	var cube = document.getElementById("cube");
 	e.preventDefault();
@@ -64,29 +68,29 @@ function whichAlbum(y, x){
 	if (((y > 315 || y < 45) && (x > 315 || x < 45)) || ((y > 135 && y < 225) && ( x>135 && x < 225))){
 		// A
 		albumBg.style.setProperty("background-color", " rgb(126, 56, 130)");
-		albumTextContainer.innerHTML = "grimes</br><i>visions</i></br>2012"
+		albumTextContainer.innerHTML = "<p>grimes</p><p><i>visions</i></p><p>2012</p>"
 		return("front");
 	}
 	else if (225 < y && y < 315) {
 		// B
 		albumBg.style.setProperty("background-color", " rgb(56, 189, 15)");
-		albumTextContainer.innerHTML = "animal collective</br><i>merriweather post pavilion</i></br>2009"
+		albumTextContainer.innerHTML = "<p>animal collective</p><p><i>merriweather post pavilion</i></p><p>2009</p>"
 		return("right");
 	} else if (((135 < y && y < 225) && (x > 315 || x < 45)) || ((y > 315 || y < 45) && ( 135 < x && x < 225))){
 		albumBg.style.setProperty("background-color", " rgb(36, 164, 214)");
-		albumTextContainer.innerHTML = "radiohead</br><i>ok computer</i></br>1997"
+		albumTextContainer.innerHTML = "<p>radiohead</p><p><i>ok computer</i></p><p>1997</p>"
 		return("back");
 	} else if (45 < y && y < 135){
 		albumBg.style.setProperty("background-color", " rgb(93, 107, 112)");
-		albumTextContainer.innerHTML = "burial</br><i>untrue</i></br>2007"
+		albumTextContainer.innerHTML = "<p>burial</p><p><i>untrue</i></p><p>2007</p>"
 		return("left");
 	} else if (((y > 315 || y < 45) && (225 < x && x < 315)) || ((y > 135 && y < 225) && ( x>45 && x < 135))){
 		albumBg.style.setProperty("background-color", " rgb(230, 199, 179)");
-		albumTextContainer.innerHTML = "arca</br><i>kick i</i></br>2020"
+		albumTextContainer.innerHTML = "<p>arca</p><p><i>kick i</i></p><p>2020</p>"
 		return("bottom");
 	} else if (((y > 315 || y < 45) && (45 < x && x < 135)) || ((y > 135 && y < 225) && ( x>225 && x < 315))){
 		albumBg.style.setProperty("background-color", " rgb(255, 0, 0)");
-		albumTextContainer.innerHTML = "primal scream & andrew weatherall</br><i>screamadelica</i></br>1991"
+		albumTextContainer.innerHTML = "<p>primal scream & andrew weatherall</p><p><i>screamadelica</i></p><p>1991</p>"
 		return("top");
 	}
 }

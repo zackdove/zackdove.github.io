@@ -447,11 +447,12 @@ display:none;
 	flex-direction: column;
 	align-items: center;
 	padding-top: 8vh;
+	justify-content: center;
 }
 
 .cubeContainer{
 	width: 70vw;
-	height: 70vw;
+	/* height: 70vw; */
 	perspective: 140vw;
 }
 
@@ -461,7 +462,7 @@ display:none;
 	position: relative;
 	transform-style: preserve-3d;
 	transform: translateZ(-35vw) rotateX(-14deg) rotateY(-14deg);
-	transition: transform 1s;
+	transition: transform 2s ease;
 }
 
 .cube__face {
@@ -525,7 +526,7 @@ display:none;
 }
 
 #albumTextContainer{
-	padding-top: 20vh;
+	padding-top: 16vh;
 	padding-left: 8vw;
 	padding-right: 8vw;
 	width: 84vw;
@@ -540,3 +541,71 @@ display:none;
 .cube__face--left   { transform: rotateY(-90deg) translateZ(35vw); }
 .cube__face--top    { transform: rotateX( 90deg) translateZ(35vw); }
 .cube__face--bottom { transform: rotateX(-90deg) translateZ(35vw); }
+
+#backText{
+	width: 100vw;
+	text-align: center;
+	padding-top: 3vh;
+}
+
+#backText a{
+	color: inherit;
+	text-decoration: none;
+}
+
+#backText a:hover{
+	text-decoration: underline;
+}
+
+@media (orientation: landscape){
+	#backText{
+		text-align: left;
+		padding-left: 1.8rem;
+		padding-top: 1.8rem;
+		position: absolute;
+	}
+	.cubeContainerContainer{
+		width: 45vw;
+		height: 100vh;
+		margin-left: 5vw;
+		padding-top: 0;
+		position: absolute;
+	}
+	.cubeContainer{
+		width: 30vw;
+	}
+	.cube{
+		width: 30vw;
+		height: 30vw;
+		transform-style: preserve-3d;
+		transform: translateZ(-30vw) rotateX(-14deg) rotateY(-14deg);
+		transition: transform 2s ease;
+	}
+	.cube__face{
+		width: 30vw;
+		height: 30vw;
+	}
+	.cube__face--front  { transform: rotateY(  0deg) translateZ(15vw); }
+	.cube__face--right  { transform: rotateY( 90deg) translateZ(15vw); }
+	.cube__face--back   { transform: rotateY(180deg) translateZ(15vw); }
+	.cube__face--left   { transform: rotateY(-90deg) translateZ(15vw); }
+	.cube__face--top    { transform: rotateX( 90deg) translateZ(15vw); }
+	.cube__face--bottom { transform: rotateX(-90deg) translateZ(15vw); }
+	
+	#albumTextContainer{
+		padding-top: 0;
+		padding-left: 0;
+		padding-right: 0;
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 50vw;
+		height: 100vh;
+		left: 50vw;
+		text-align: center;
+		font-size: 1.3rem;
+		/* line-height: 150%; */
+	}
+}
