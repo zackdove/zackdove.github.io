@@ -486,32 +486,32 @@ display:none;
 .cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
 .cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); } */
 
-.cube__face--front  { background: hsla(  0, 100%, 50%, 0.7);
+.cube__face--front  { background: hsla(  0, 100%, 50%, 0.0);
 	background-image: url("cover_art/visions.jpg");
 	background-position: center;
 	background-size: cover;
 }
-.cube__face--right  { background: hsla( 60, 100%, 50%, 0.7);
+.cube__face--right  { background: hsla( 60, 100%, 50%, 0.0);
 	background-image: url("cover_art/merriweather_post_pavillion.jpg");
 	background-position: center;
 	background-size: cover;
 }
-.cube__face--back   { background: hsla(120, 100%, 50%, 0.7);
+.cube__face--back   { background: hsla(120, 100%, 50%, 0.0);
 	background-image: url("cover_art/okcomputer.jpg");
 	background-position: center;
 	background-size: cover;
 }
-.cube__face--left   { background: hsla(180, 100%, 50%, 0.7);
+.cube__face--left   { background: hsla(180, 100%, 50%, 0.0);
 	background-image: url("cover_art/untrue.jpg");
 	background-position: center;
 	background-size: cover;
 }
-.cube__face--top    { background: hsla(240, 100%, 50%, 0.7);
+.cube__face--top    { background: hsla(240, 100%, 50%, 0.0);
 	background-image: url("cover_art/screamadelica.jpg");
 	background-position: center;
 	background-size: cover;
 }
-.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7);
+.cube__face--bottom { background: hsla(300, 100%, 50%, 0.0);
 	background-image: url("cover_art/kicki.jpg");
 	background-position: center;
 	background-size: cover;
