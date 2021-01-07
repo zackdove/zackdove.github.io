@@ -345,6 +345,13 @@ display:none;
 	z-index: 9!important;
 }
 
+#darkText9{
+	
+	
+	cursor: pointer;
+	z-index: 9!important;
+}
+
 
 @media (orientation: landscape){
 	
@@ -434,6 +441,12 @@ display:none;
 	#darkText8{
 		top: 48vh;
 		right: 4rem;
+		cursor: pointer;
+		z-index: 9!important;
+	}
+	#darkText9{
+		top: 48vh;
+		left: 4rem;
 		cursor: pointer;
 		z-index: 9!important;
 	}
