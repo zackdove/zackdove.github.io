@@ -306,7 +306,6 @@ display:none;
 
 #darkText3 p {
 	max-width: 20rem;
-	cursor: pointer;
 	z-index: 9!important;
 }
 
@@ -352,12 +351,20 @@ display:none;
 	z-index: 9!important;
 }
 
+.bottomLink{
+	text-align: center;
+	width: 16rem;
+	margin: 0.5rem;
+}
+
 
 @media (orientation: landscape){
 	
 	
-	#darkContainer > div{
+	#darkContainer > div,.bottomLink{
 		position: absolute;
+		text-align: center;
+		margin: 0;
 		
 	}
 	#lightsToggleLabel{
@@ -400,7 +407,6 @@ display:none;
 	
 	#darkText3 p {
 		max-width: 20rem;
-		cursor: pointer;
 		z-index: 9!important;
 	}
 	
@@ -449,6 +455,7 @@ display:none;
 		left: 4rem;
 		cursor: pointer;
 		z-index: 9!important;
+		text-align: center;
 	}
 }
 
@@ -623,3 +630,8 @@ display:none;
 		/* line-height: 150%; */
 	}
 }
+
+.noPointer{
+	cursor: default;
+}
+
