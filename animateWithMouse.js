@@ -45,7 +45,7 @@ preload(
 )
 // console.log(images);
 var xFraction = 0.5;
-var yFraction = 0.5;
+
 
 
 function incrementLoaded(){
@@ -62,17 +62,13 @@ function incrementLoaded(){
 		let mouseQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 		if (mouseQuery.matches){
 			// If mouse, not touchh
-			var oldIndex = 24;
-			// oldIndex=24;
+			oldIndex=24;
 			onmousemove = function(e){
 				// console.log("mouse location:", e.clientX, e.clientY);
 				let xFraction = e.clientX/window.innerWidth;
-				let yFraction = e.clientY/window.innerHeight;
-				let index = Math.round((xFraction * 48) + (yFraction * 48));
+
+				let index = Math.round((1-xFraction) * 48);
 				console.log(index);
-				if (index > 48){
-					index = 96 - index;
-				}
 				if (index != oldIndex){
 					// console.log("mouse index= ", index);
 					// $('.mainContainer').css('background-image', `url('${landscapePaths[index]}')`);
