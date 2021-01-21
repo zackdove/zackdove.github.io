@@ -152,14 +152,17 @@ a{
 
 @media (orientation: landscape) and (hover: hover) and (pointer: fine){
 	#spotlight{
-		width: 400px;
-		height: 400px;
 		position: relative;
 		box-shadow: 0 0 0 10000px rgba(0, 0, 0, 1.0);
 		border-radius: 50%;
 		pointer-events: none;
+		transform: translate(-50%, -50%);
 		z-index: 11;
+		width: 400px;
+		height: 400px;
+		animation: spotlight_anim 1s infinite alternate;
 	}
+
 	
 	#spotlight-child{
 		width: 100%;
@@ -168,7 +171,17 @@ a{
 		border-radius: 50%;
 		border: 0;
 		box-shadow: inset 0px 0px 200px 75px rgba(0,0,0,1.0);
-		pointer-events: none
+		pointer-events: none;
+	}
+
+	
+	@keyframes spotlight_anim {
+		0%	{width: 350px; height: 350px;}
+		100%{width: 450px; height: 450px;}
+	}
+	
+	@keyframes spotlight_child_anim {
+		
 	}
 	
 	.darkContainer{

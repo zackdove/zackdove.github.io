@@ -120,8 +120,8 @@ function incrementLoaded(){
 function moveSpotlight(e) {
 	let pos, x, y;
 	e.preventDefault();
-	x = e.clientX - 200;
-	y = e.clientY - 200;
+	x = e.clientX;
+	y = e.clientY;
 	spotlight.style.left = x + "px";
 	spotlight.style.top = y + "px";
 	spotlight_child.style.left = x + "px";
