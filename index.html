@@ -15,8 +15,10 @@
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💤</text></svg>">
 	
 	<link rel="stylesheet" href="style.css">
-
-	
+	<script crossorigin="anonymous" src="./three.min.js"></script>
+	<script crossorigin="anonymous" src="./OBJLoader.js"></script>
+	<script crossorigin="anonymous" src="./Tween.js"></script>
+	<script crossorigin="anonymous" src="./OrbitControls.js"></script>
 	
 </head>
 
@@ -25,8 +27,8 @@
 	</div> -->
 	
 	<div class="topContainer rainbowLoad" id="topContainer">
-		<div id="imagesContainer">
-		</div>
+		<canvas id="threeCanvas">
+		</canvas>
 		<div class="fullScreen">
 			<div id="loadingMessage">
 				loading
@@ -49,9 +51,6 @@
 		</div>
 	</div>
 	<div class="darkContainer" id="darkContainer">
-		<div id="spotlight" class="spotlight_normal">
-			<div id="spotlight-child"></div>
-		</div>
 		<div  id="darkText3Container">
 			<div id="darkText3" onclick="toggleLights()">
 				<p>zack dove</p>
@@ -70,15 +69,15 @@
 
 	</div>
 	
-	
 </div>
 
 
+<script src="Logo.js"></script>
 
+
+<script src="scrollTo.js"></script>
 
 <script src="animateWithMouse.js"></script>
-<script src="scrollTo.js"></script>
-<script src="lightsToggle.js"></script>
 
 
 

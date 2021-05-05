@@ -1,0 +1,12 @@
+# Blender MTL File: 'blenderting.blend'
+# Material Count: 1
+
+newmtl Material
+Ns 714.347131
+Ka 1.000000 1.000000 1.000000
+Kd 0.755613 0.181682 0.800000
+Ks 0.445455 0.445455 0.445455
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
