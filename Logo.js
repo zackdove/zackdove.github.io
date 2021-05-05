@@ -111,7 +111,7 @@ class Sketch {
 			alpha: true,
 			canvas: document.getElementById('threeCanvas')
 		});
-		this.renderer.setPixelRatio(window.devicePixelRatio * 2);
+		this.renderer.setPixelRatio(window.devicePixelRatio );
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		this.renderer.setClearColor(0xFFFFFF, 1);
 		this.renderer.shadowMap.enabled = true
@@ -125,7 +125,6 @@ class Sketch {
 			1000
 		);
 		this.cameraPivot.add(this.camera);
-		this.camera.position.z = 0;
 		// this.camera.position.y = 10;
 		this.camera.lookAt(0,0,0);
 		
@@ -160,6 +159,9 @@ class Sketch {
 			"./graphics/cubemap/pz.png",
 			"./graphics/cubemap/nz.png",
 		];
+		this.spiker1;
+		this.rotaters = [];
+		this.isMobile = window.matchMedia("(orientation: portrait)").matches;
 	}
 	
 	init() {
@@ -182,6 +184,7 @@ class Sketch {
 		
 		
 		
+		
 		this.animate();
 	}
 	
@@ -190,6 +193,12 @@ class Sketch {
 		requestAnimationFrame(this.animate.bind(this));
 		TWEEN.update();
 		this.render();
+		if (this.spiker1){
+			this.spiker1.rotation.z += 0.01;
+		}
+		for (let r of this.rotaters){
+			r.rotation.z += 0.01;
+		}
 	}
 	
 	render() {
@@ -223,7 +232,7 @@ class Sketch {
 		this.renderer.setSize(width, height);
 	}
 	
-	addObject(oPath, x=0, y=0, z=0, scale=1, isBlob=false, rotation=0){
+	addObject(oPath, x=0, y=0, z=0, scale=1, isBlob=false, rotationX=0, rotationY=0,  rotationZ=0, callback){
 		const scene = this.scene;
 		this.objLoader.load(
 			oPath,
@@ -236,9 +245,9 @@ class Sketch {
 						// const phongMaterial = new THREE.MeshPhongMaterial( { color: 0xec4d32, specular: 0x111111, shininess: 0 } );
 						child.castShadow = true;
 						child.geometry.scale(scale,scale,scale);
-						if (rotation !== 0){
-							child.geometry.rotateY(rotation);
-						}
+						child.geometry.rotateX(rotationX);
+						child.geometry.rotateY(rotationY);
+						child.geometry.rotateZ(rotationZ);
 						// child.geometry.computeVertexNormals();
 						
 						const phongMaterial = new THREE.MeshBasicMaterial( {
@@ -256,8 +265,14 @@ class Sketch {
 				sketch.scene.add( object );
 				object.position.x = x;
 				object.position.y =  y;
-				object.position.z =  z;
-				sketch.controls.target = object.position;
+				if (sketch.isMobile){
+					object.position.z =  z*2;
+				} else {
+					object.position.z =  z;
+				}
+				if (callback){
+					callback(object);
+				}
 				
 			},
 			// called when loading is in progresses
@@ -273,7 +288,6 @@ class Sketch {
 				
 			}
 		)
-		
 	}
 	
 	toggleView(){
@@ -324,7 +338,27 @@ THREE.DefaultLoadingManager.onError = function ( url ) {
 
 var sketch = new Sketch();
 // sketch.addObject('./blobs.obj', 0.1, -2.5, 0.5, 0.9, true);
-sketch.addObject('./graphics/blenderting2.obj', 0.0, 0, -7, 2, false);
+sketch.addObject('./graphics/blenderting2.obj', 0.0, 0, -7, 2, false, 0,0,0, function(r){
+	sketch.controls.target = r.position;
+});
+sketch.addObject('./graphics/spiker.obj', -13, 9, -20, 0.5, false, 1.2, 0.3, 0.3, function(r){
+	sketch.spiker1 = r;
+	sketch.rotaters.push(r);
+	console.log("callback");
+});
+sketch.addObject('./graphics/blobber.obj', 13, 5, -17, 0.7, false, 1.2, 0.3, 0.3, function(r){
+	sketch.rotaters.push(r);
+	console.log("callback");
+});
+sketch.addObject('./graphics/pickle.obj', 6, -8, -20, 0.7, false, 1.2, 0.3, 0.3, function(r){
+	sketch.rotaters.push(r);
+	console.log("callback");
+});
+sketch.addObject('./graphics/wings.obj', -13, -13, -24, 4, false, 1.2, 0.3, 0.3, function(r){
+	sketch.rotaters.push(r);
+	console.log("callback");
+});
+
 sketch.init();
 // const cuboid = new Cuboid();
 

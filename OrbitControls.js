@@ -150,7 +150,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 			if ( scope.autoRotate && state === STATE.NONE ) {
 
 				rotateCenter( getAutoRotationAngle() );
-
+				// console.log("1");
 			}
 
 			if ( scope.enableDamping ) {
@@ -357,6 +357,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 		sphericalDelta.theta -= Math.cos(scope.clock.getElapsedTime()) * scope.autoRotateSpeed/60/60 ;
 		sphericalDelta.phi -= Math.cos(scope.clock.getElapsedTime()/2) * scope.autoRotateSpeed/60/60 ;
 		// sphericalDelta.phi -= angle;
+		// console.log(sphericalDelta.theta);
 	}
 	
 	
