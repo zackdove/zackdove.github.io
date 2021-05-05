@@ -247,12 +247,19 @@ top: 0;
 
 .arrowContainer {
 	position: absolute;
-	bottom: 5vh;
+	bottom: 15vh;
 	width:100vw;
 	height: 5vh;
 	text-align:center;
 	z-index: 99999999;
 }
+
+@media (orientation: landscape){
+	.arrowContainer {
+		bottom: 5vh;
+	}
+}
+
 
 /* #hiddenImages img{
 visibility:hidden;
