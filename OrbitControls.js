@@ -53,6 +53,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 	// Set to false to disable rotating
 	this.enableRotate = true;
 	this.rotateSpeed = 1.0;
+	
+	this.enableLookAt = true;
 
 	// Set to false to disable panning
 	this.enablePan = true;
@@ -220,7 +222,9 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 			position.copy( scope.target ).add( offset );
 
-			scope.object.lookAt( scope.target );
+			if (scope.enableLookAt){
+				scope.object.lookAt( scope.target );
+			}
 
 			if ( scope.enableDamping === true ) {
 
