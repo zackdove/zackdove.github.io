@@ -241,31 +241,31 @@ class Sketch {
 		this.hoverBtns.push(this.soundcloudBtn);
 		
 		this.fontLoader.load('./fonts/Montserrat_Bold.json',
-			function(font){
-				sketch.font = font;
-				sketch.addText(sketch.githubBtn.position, 1.3, 1.5, 0, 0.5, "github", function(mesh){
-					sketch.githubText = mesh;
-				}); 
-				sketch.addText(sketch.contactBtn.position, 4, 0, 0, 0.5, "contact", function(mesh){
-					sketch.contactText = mesh;
-				}); 
-				sketch.addText(sketch.aboutBtn.position, -1, 0, 0, 0.5, "about", function(mesh){
-					sketch.aboutText = mesh;
-				}); 
-				sketch.addText(sketch.workBtn.position, 3, 0, 0, 0.5, "work", function(mesh){
-					sketch.workText = mesh;
-				}); 
-				sketch.addText(sketch.soundcloudBtn.position, 2, -1.5, 0, 0.5, "soundcloud", function(mesh){
-					sketch.soundcloudText = mesh;
-				}); 
-			},
-			function (xhr){
-				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-			},
-			function (err){
-				console.log(err);
-			}
-		);
+		function(font){
+			sketch.font = font;
+			sketch.addText(sketch.githubBtn.position, 1.3, 1.5, 0, 0.5, "github", function(mesh){
+				sketch.githubText = mesh;
+			}); 
+			sketch.addText(sketch.contactBtn.position, 4, 0, 0, 0.5, "contact", function(mesh){
+				sketch.contactText = mesh;
+			}); 
+			sketch.addText(sketch.aboutBtn.position, -1, 0, 0, 0.5, "about", function(mesh){
+				sketch.aboutText = mesh;
+			}); 
+			sketch.addText(sketch.workBtn.position, 3, 0, 0, 0.5, "work", function(mesh){
+				sketch.workText = mesh;
+			}); 
+			sketch.addText(sketch.soundcloudBtn.position, 2, -1.5, 0, 0.5, "soundcloud", function(mesh){
+				sketch.soundcloudText = mesh;
+			}); 
+		},
+		function (xhr){
+			console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+		},
+		function (err){
+			console.log(err);
+		}
+	);
 	
 	this.addEvents();
 	this.animate();
@@ -358,13 +358,53 @@ onMouseMove( event ) {
 	// console.log(sketch.mouse);
 }
 
-handleClick(){
+handleClick(e){
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
 	const toggleViewIntersects = sketch.raycaster.intersectObjects( sketch.toggleViewBtns, true );
-	// console.log(sketch.mouse);
+	console.log(sketch.mouse);
 	if (toggleViewIntersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.toggleView();
+	}
+	const aboutIntersects = sketch.raycaster.intersectObject( sketch.aboutBtn, true  );
+	if (aboutIntersects.length> 0){
+		let aboutModal = document.getElementById('aboutModal');
+		aboutModal.classList.add('show');
+	} else {
+		let aboutModal = document.getElementById('aboutModal');
+		aboutModal.classList.remove('show');
+	}
+	const workIntersects = sketch.raycaster.intersectObject( sketch.workBtn, true  );
+	if (workIntersects.length> 0){
+		let workModal = document.getElementById('workModal');
+		workModal.classList.add('show');
+	} else {
+		let workModal = document.getElementById('workModal');
+		workModal.classList.remove('show');
+	}
+	const githubIntersects = sketch.raycaster.intersectObject( sketch.githubBtn, true  );
+	if (githubIntersects.length> 0){
+		let githubModal = document.getElementById('githubModal');
+		githubModal.classList.add('show');
+	} else {
+		let githubModal = document.getElementById('githubModal');
+		githubModal.classList.remove('show');
+	}
+	const contactIntersects = sketch.raycaster.intersectObject( sketch.contactBtn, true  );
+	if (contactIntersects.length> 0){
+		let contactModal = document.getElementById('contactModal');
+		contactModal.classList.add('show');
+	} else {
+		let contactModal = document.getElementById('contactModal');
+		contactModal.classList.remove('show');
+	} 
+	const soundcloudIntersects = sketch.raycaster.intersectObject( sketch.soundcloudBtn, true  );
+	if (soundcloudIntersects.length> 0){
+		let soundcloudModal = document.getElementById('soundcloudModal');
+		soundcloudModal.classList.add('show');
+	} else {
+		let soundcloudModal = document.getElementById('soundcloudModal');
+		soundcloudModal.classList.remove('show');
 	}
 }
 
@@ -377,9 +417,26 @@ handleTouchStart(e){
 
 addEvents() {
 	window.addEventListener("resize", this.resize.bind(this));
-	window.addEventListener( 'mousemove', this.onMouseMove, false );
-	window.addEventListener( 'click', this.handleClick, false );
-	window.addEventListener( 'touchstart', this.handleTouchStart, false );
+	// this.renderer.domElement.addEventListener('pointerdown', sketch.handleClick, false );
+	// window.addEventListener( 'mousemove', sketch.onMouseMove, false );
+	// window.addEventListener( 'touchstart', sketch.handleTouchStart, false );
+	if (window.PointerEvent) {
+		this.renderer.domElement.addEventListener('pointerdown', sketch.handleClick, false );
+		this.renderer.domElement.addEventListener("pointermove", sketch.onMouseMove, false);
+		// domElement.addEventListener("pointermove", onPointerMove, false);
+		// domElement.addEventListener("pointerup", onPointerUp, false);
+	} else if (window.TouchEvent) {
+		this.renderer.domElement.addEventListener("touchstart", sketch.handleTouchStart, false);
+		this.renderer.domElement.addEventListener("touchmove", sketch.onMouseMove, false);
+		// domElement.addEventListener("touchmove", onPointerMove, false);
+		// domElement.addEventListener("touchend", onPointerUp, false);
+	} else {
+		this.renderer.domElement.addEventListener("mousedown", sketch.handleClick, false);
+		this.renderer.domElement.addEventListener("mousemove", sketch.onMouseMove, false);
+		// domElement.addEventListener("mousemove", onPointerMove, false);
+		// domElement.addEventListener("mouseup", onPointerUp, false);
+	}
+	
 }
 
 resize() {
