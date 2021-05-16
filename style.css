@@ -19,7 +19,6 @@ body{
 		/* box-shadow: inset 40px -120px 15px 0 yellow; */
 		position: relative;
 		z-index: 99;
-		background-color: rgb(41, 127, 150);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -33,7 +32,6 @@ body{
 	/* box-shadow: inset 0 -120px 120px 0 rgba(209,211,255,1); */
 	position: relative;
 	z-index: 99;
-	background-color: rgb(41, 127, 150);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -57,6 +55,23 @@ body{
 	color: #EEEEEE;
 	font-size: 2rem;
 	z-index: 100;
+}
+
+#loadingScreen{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: #ffffff;
+	font-size: 2rem;
+	background-color: rgb(41, 127, 150);
+	animation: rainbowLoad 5s infinite alternate;
 }
 
 .rainbowLoad{
@@ -198,6 +213,24 @@ a{
 }
 
 
+#loadMessage span {
+	position: relative;
+	display: inline-block;
+	top: 0px;
+	animation: bounce 1.2s ease infinite alternate;
+}
+
+#loadMessage span:nth-child(2) { animation-delay: .2s; }
+#loadMessage span:nth-child(3) { animation-delay: .4s; }
+#loadMessage span:nth-child(4) { animation-delay: .6s; }
+#loadMessage span:nth-child(5) { animation-delay: .8s; }
+#loadMessage span:nth-child(6) { animation-delay: 1.2s; }
+#loadMessage span:nth-child(7) { animation-delay: 1.4s; }
+
+
+@keyframes bounce {
+  100% { top: -20px; }
+}
 
 
 /* .topContainer::after
@@ -635,6 +668,7 @@ display:none;
 	z-index: 99;
 	width: 100vw;
 	height: 100vh;
+	transition: opacity 1.5s;
 }
 
 #infoButton{
@@ -748,10 +782,10 @@ display:none;
 #contactModal{
 	left: 35vw;
 	right: 35vw;
-	top: 35vh;
-	bottom: 35vh;
+	top: 40vh;
+	bottom: 40vh;
 	width: 30vw;
-	height: 30vh;
+	height: 20vh;
 }
 
 #soundcloudModal{
@@ -781,7 +815,18 @@ display:none;
 	height: 20vh;
 }
 
+.modalBtn{
+	border-radius: 0.5rem;
+	background-color: #0390fc;
+	color: #ffffff;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
+	text-decoration: none;
+}
 
-.modalBody div{
-	padding: 1rem;
+
+.modalBody > *{
+	margin: 1rem;
 }

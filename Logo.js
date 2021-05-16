@@ -184,6 +184,14 @@ class Sketch {
 		this.contactText;
 		this.soundcloudText;
 		
+		this.buttonSelected;
+		
+		this.aboutSelected = false;
+		this.workSelected = false;
+		this.githubSelected = false;
+		this.contactSelected = false;
+		this.soundcloudSelected = false;
+		
 		this.font;
 	}
 	
@@ -317,35 +325,40 @@ render() {
 			this.renderer.domElement.style.cursor = 'default';
 		}
 	}
-	const aboutIntersects = this.raycaster.intersectObject( this.aboutBtn, true  );
-	if (aboutIntersects.length> 0){
-		this.aboutText.material.opacity = 1;
-	} else {
-		this.aboutText.material.opacity = 0;
-	}
-	const workIntersects = this.raycaster.intersectObject( this.workBtn, true  );
-	if (workIntersects.length> 0){
-		this.workText.material.opacity = 1;
-	} else {
-		this.workText.material.opacity = 0;
-	}
-	const githubIntersects = this.raycaster.intersectObject( this.githubBtn, true  );
-	if (githubIntersects.length> 0){
-		this.githubText.material.opacity = 1;
-	} else {
-		this.githubText.material.opacity = 0;
-	}
-	const contactIntersects = this.raycaster.intersectObject( this.contactBtn, true  );
-	if (contactIntersects.length> 0){
-		this.contactText.material.opacity = 1;
-	} else {
-		this.contactText.material.opacity = 0;
-	}
-	const soundcloudIntersects = this.raycaster.intersectObject( this.soundcloudBtn, true  );
-	if (soundcloudIntersects.length> 0){
-		this.soundcloudText.material.opacity = 1;
-	} else {
-		this.soundcloudText.material.opacity = 0;
+	
+	
+	let hasHover = window.matchMedia("(hover: hover)").matches;
+	if (hasHover){
+		const aboutIntersects = this.raycaster.intersectObject( this.aboutBtn, true  );
+		if (aboutIntersects.length> 0){
+			this.aboutText.material.opacity = 1;
+		} else {
+			this.aboutText.material.opacity = 0;
+		}
+		const workIntersects = this.raycaster.intersectObject( this.workBtn, true  );
+		if (workIntersects.length> 0){
+			this.workText.material.opacity = 1;
+		} else {
+			this.workText.material.opacity = 0;
+		}
+		const githubIntersects = this.raycaster.intersectObject( this.githubBtn, true  );
+		if (githubIntersects.length> 0){
+			this.githubText.material.opacity = 1;
+		} else {
+			this.githubText.material.opacity = 0;
+		}
+		const contactIntersects = this.raycaster.intersectObject( this.contactBtn, true  );
+		if (contactIntersects.length> 0){
+			this.contactText.material.opacity = 1;
+		} else {
+			this.contactText.material.opacity = 0;
+		}
+		const soundcloudIntersects = this.raycaster.intersectObject( this.soundcloudBtn, true  );
+		if (soundcloudIntersects.length> 0){
+			this.soundcloudText.material.opacity = 1;
+		} else {
+			this.soundcloudText.material.opacity = 0;
+		}
 	}
 	
 	
@@ -358,10 +371,12 @@ onMouseMove( event ) {
 	// console.log(sketch.mouse);
 }
 
-handleClick(e){
+handleClick(event){
+	sketch.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+	sketch.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
 	const toggleViewIntersects = sketch.raycaster.intersectObjects( sketch.toggleViewBtns, true );
-	console.log(sketch.mouse);
+	console.log("mouse click");
 	if (toggleViewIntersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.toggleView();
@@ -408,34 +423,137 @@ handleClick(e){
 	}
 }
 
-handleTouchStart(e){
-	// console.log(e.touches[0]);
-	sketch.onMouseMove( e.touches[0] );
-	sketch.handleClick();
+
+handleTouchStart(event){
+	console.log(event);
+	
+	sketch.mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
+	sketch.mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
+	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
+	const toggleViewIntersects = sketch.raycaster.intersectObjects( sketch.toggleViewBtns, true );
+	if (toggleViewIntersects.length > 0){
+		// console.log("they be intersecting");
+		sketch.toggleView();
+	}
+	const aboutIntersects = sketch.raycaster.intersectObject( sketch.aboutBtn, true  );
+	const workIntersects = sketch.raycaster.intersectObject( sketch.workBtn, true  );
+	const githubIntersects = sketch.raycaster.intersectObject( sketch.githubBtn, true  );
+	const contactIntersects = sketch.raycaster.intersectObject( sketch.contactBtn, true  );
+	const soundcloudIntersects = sketch.raycaster.intersectObject( sketch.soundcloudBtn, true  );
+	if (aboutIntersects.length> 0){
+		if (sketch.aboutSelected){
+			let aboutModal = document.getElementById('aboutModal');
+			aboutModal.classList.add('show');
+		} else {
+			sketch.aboutSelected = true;
+			sketch.aboutText.material.opacity = 1;
+		}
+	} else {
+		let aboutModal = document.getElementById('aboutModal');
+		aboutModal.classList.remove('show');
+		sketch.aboutText.material.opacity = 0;
+		if (sketch.aboutSelected){
+			sketch.aboutSelected = false;
+		}
+	}
+	if (workIntersects.length> 0){
+		if (sketch.workSelected){
+			let workModal = document.getElementById("workModal");
+			workModal.classList.add('show');
+		} else {
+			sketch.workSelected = true;
+			sketch.workText.material.opacity = 1;
+		}
+	} else {
+		let workModal = document.getElementById('workModal');
+		workModal.classList.remove('show');
+		sketch.workText.material.opacity = 0;
+		if (sketch.workSelected){
+			sketch.workSelected = false;
+		}
+	}
+	
+	if (githubIntersects.length> 0){
+		if (sketch.githubSelected){
+			let githubModal = document.getElementById("githubModal");
+			workModal.classList.add('show');
+		} else {
+			sketch.githubSelected = true;
+			sketch.githubText.material.opacity = 1;
+		}
+	} else {
+		let githubModal = document.getElementById('githubModal');
+		githubModal.classList.remove('show');
+		sketch.githubText.material.opacity = 0;
+		if (sketch.githubSelected){
+			sketch.githubSelected = false;
+		}
+	}
+	
+	if (contactIntersects.length> 0){
+		if (sketch.contactSelected){
+			let contactModal = document.getElementById("contactModal");
+			contactModal.classList.add('show');
+		} else {
+			sketch.contactSelected = true;
+			sketch.contactText.material.opacity = 1;
+		}
+	} else {
+		let contactModal = document.getElementById('contactModal');
+		contactModal.classList.remove('show');
+		sketch.contactText.material.opacity = 0;
+		if (sketch.contactSelected){
+			sketch.contactSelected = false;
+		}
+	} 
+	
+	if (soundcloudIntersects.length> 0){
+		if (sketch.soundcloudSelected){
+			let soundcloudModal = document.getElementById("soundcloudModal");
+			soundcloudModal.classList.add('show');
+		} else {
+			sketch.soundcloudSelected = true;
+			sketch.soundcloudText.material.opacity = 1;
+		}
+	} else {
+		let soundcloudModal = document.getElementById('soundcloudModal');
+		soundcloudModal.classList.remove('show');
+		sketch.soundcloudText.material.opacity = 0;
+		if (sketch.soundcloudSelected){
+			sketch.soundcloudSelected = true;
+		}
+	}
 }
 
+
+handleTouchMove(){
+	
+}
 
 addEvents() {
 	window.addEventListener("resize", this.resize.bind(this));
 	// this.renderer.domElement.addEventListener('pointerdown', sketch.handleClick, false );
 	// window.addEventListener( 'mousemove', sketch.onMouseMove, false );
 	// window.addEventListener( 'touchstart', sketch.handleTouchStart, false );
-	if (window.PointerEvent) {
-		this.renderer.domElement.addEventListener('pointerdown', sketch.handleClick, false );
-		this.renderer.domElement.addEventListener("pointermove", sketch.onMouseMove, false);
-		// domElement.addEventListener("pointermove", onPointerMove, false);
-		// domElement.addEventListener("pointerup", onPointerUp, false);
-	} else if (window.TouchEvent) {
+	let hasHover = window.matchMedia("(hover: hover)").matches;
+	if (hasHover){
+		if (window.PointerEvent) {
+			this.renderer.domElement.addEventListener('pointerdown', sketch.handleClick, false );
+			this.renderer.domElement.addEventListener("pointermove", sketch.onMouseMove, false);
+			// domElement.addEventListener("pointermove", onPointerMove, false);
+			// domElement.addEventListener("pointerup", onPointerUp, false);
+		} else {
+			this.renderer.domElement.addEventListener("mousedown", sketch.handleClick, false);
+			this.renderer.domElement.addEventListener("mousemove", sketch.onMouseMove, false);
+			// domElement.addEventListener("mousemove", onPointerMove, false);
+			// domElement.addEventListener("mouseup", onPointerUp, false);
+		}
+	} else {
 		this.renderer.domElement.addEventListener("touchstart", sketch.handleTouchStart, false);
 		this.renderer.domElement.addEventListener("touchmove", sketch.onMouseMove, false);
 		// domElement.addEventListener("touchmove", onPointerMove, false);
 		// domElement.addEventListener("touchend", onPointerUp, false);
-	} else {
-		this.renderer.domElement.addEventListener("mousedown", sketch.handleClick, false);
-		this.renderer.domElement.addEventListener("mousemove", sketch.onMouseMove, false);
-		// domElement.addEventListener("mousemove", onPointerMove, false);
-		// domElement.addEventListener("mouseup", onPointerUp, false);
-	}
+	} 
 	
 }
 
@@ -590,11 +708,10 @@ THREE.DefaultLoadingManager.onLoad = function ( ) {
 	// setTimeout(function(){
 	// 	l.remove();
 	// }, 2000)
-	let topContainer = document.getElementById("topContainer");
-	topContainer.classList.remove("rainbowLoad");
-	let loadingMessage = document.getElementById("loadingMessage");
-	loadingMessage.remove();
-	loadingMessage.innerHTML = "loaded";
+	setTimeout(function(){
+		let loadingMessage = document.getElementById("loadingScreen");
+		loadingMessage.remove(); 
+	}, 3000);
 };
 
 
