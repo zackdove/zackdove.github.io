@@ -1,0 +1,47 @@
+body{
+	background-color: #7777ff;
+}
+
+* {
+	font-family: "Courier New";
+}
+
+#staticPage{
+	width: 100vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	
+}
+
+.staticContainer{
+	width: 30rem;
+	background-color: rgba(255,255,255,0.9);
+	margin-top: 3rem;
+	padding: 3rem;
+	border-radius: 1rem;
+	line-height: 1.5rem;
+}
+
+.staticContainerBody > div{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+.staticContainerBody > a{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+
+.staticContainerBtn{
+	border-radius: 0.5rem;
+	background-color: #0390fc;
+	color: #ffffff;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
+	text-decoration: none;
+}
