@@ -756,14 +756,7 @@ display:none;
 	align-items: center;
 }
 
-#aboutModal {
-	left: 32vw;
-	right: 32vw;
-	top: 32vh;
-	bottom: 32vh;
-	width: 34vw;
-	height: 34vh;
-}
+
 
 .modal.block {
 	display: block;
@@ -779,40 +772,87 @@ display:none;
 	pointer-events: auto;
 }
 
-#contactModal{
-	left: 35vw;
-	right: 35vw;
-	top: 40vh;
-	bottom: 40vh;
-	width: 30vw;
-	height: 20vh;
+#aboutModal {
+	left: 20vw;
+	right: 20vw;
+	top: 32vh;
+	bottom: 32vh;
+	width: 60vw;
+	height: 34vh;
 }
 
-#soundcloudModal{
-	left: 35vw;
-	right: 35vw;
-	top: 40vh;
-	bottom: 40vh;
-	width: 30vw;
-	height: 20vh;
+#contactModal{
+	left: 20vw;
+	right: 20vw;
+	top: 35vh;
+	bottom: 35vh;
+	width: 60vw;
+	height: 30vh;
+}
+
+#codeblogModal{
+	left: 20vw;
+	right: 20vw;
+	top: 35vh;
+	bottom: 35vh;
+	width: 60vw;
+	height: 30vh;
 }
 
 #githubModal{
-	left: 35vw;
-	right: 35vw;
-	top: 40vh;
-	bottom: 40vh;
-	width: 30vw;
-	height: 20vh;
+	left: 20vw;
+	right: 20vw;
+	top: 35vh;
+	bottom: 35vh;
+	width: 60vw;
+	height: 30vh;
 }
 
 #workModal{
-	left: 35vw;
-	right: 35vw;
-	top: 40vh;
-	bottom: 40vh;
-	width: 30vw;
-	height: 20vh;
+	left: 20vw;
+	right: 20vw;
+	top: 35vh;
+	bottom: 35vh;
+	width: 60vw;
+	height: 30vh;
+}
+
+@media only screen and (min-width: 600px) {
+	#contactModal{
+		left: 35vw;
+		right: 35vw;
+		top: 40vh;
+		bottom: 40vh;
+		width: 30vw;
+		height: 20vh;
+	}
+
+	#codeblogModal{
+		left: 35vw;
+		right: 35vw;
+		top: 40vh;
+		bottom: 40vh;
+		width: 30vw;
+		height: 20vh;
+	}
+
+	#githubModal{
+		left: 35vw;
+		right: 35vw;
+		top: 40vh;
+		bottom: 40vh;
+		width: 30vw;
+		height: 20vh;
+	}
+
+	#workModal{
+		left: 35vw;
+		right: 35vw;
+		top: 40vh;
+		bottom: 40vh;
+		width: 30vw;
+		height: 20vh;
+	}
 }
 
 .modalBtn{

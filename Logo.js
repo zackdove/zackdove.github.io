@@ -116,17 +116,15 @@ class Sketch {
 		this.renderer.setClearColor(0xFFFFFF, 1);
 		this.renderer.shadowMap.enabled = true
 		this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-		this.cameraPivot = new THREE.Object3D();
-		this.cameraPivot.position.set(0,0,0);
+		
 		this.camera = new THREE.PerspectiveCamera(
 			45,
 			window.innerWidth / window.innerHeight,
 			1,
 			1000
 		);
-		this.cameraPivot.add(this.camera);
-		// this.camera.position.y = 10;
-		this.camera.lookAt(0,0,0);
+		// this.camera.position.z = 1;
+		this.camera.lookAt(0,0, -1);
 		
 		this.scene = new THREE.Scene();
 		// this.controls = new ZackControls(this.cameraPivot, this.camera, this.renderer.domElement);
@@ -134,8 +132,9 @@ class Sketch {
 		this.controls.autoRotate = true;
 		this.controls.autoRotateSpeed = 0.5;
 		this.controls.enableDamping = true;
-		this.controls.minAzimuthAngle = -1.8;
-		this.controls.maxAzimuthAngle = 1.8;
+		this.controls.target = new THREE.Vector3(0,0,-1);
+		// this.controls.minAzimuthAngle = -1.8;
+		// this.controls.maxAzimuthAngle = 1.8;
 		this.clock = new THREE.Clock();
 		this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
 		this.objLoader = new THREE.OBJLoader();
@@ -167,6 +166,8 @@ class Sketch {
 		this.rotaters = [];
 		this.isMobile = window.matchMedia("(orientation: portrait)").matches;
 		this.toggleViewBtns = [];
+		this.toggleViewBtn1;
+		this.toggleViewBtn2;
 		this.hoverBtns = [];
 		this.mouse = new THREE.Vector2();
 		this.raycaster = new THREE.Raycaster();
@@ -176,13 +177,13 @@ class Sketch {
 		this.workBtn;
 		this.githubBtn;
 		this.contactBtn;
-		this.soundcloudBtn;
+		this.codeblogBtn;
 		
 		this.aboutText;
 		this.workText;
 		this.githubText;
 		this.contactText;
-		this.soundcloudText;
+		this.codeblogText;
 		
 		this.buttonSelected;
 		
@@ -190,7 +191,7 @@ class Sketch {
 		this.workSelected = false;
 		this.githubSelected = false;
 		this.contactSelected = false;
-		this.soundcloudSelected = false;
+		this.codeblogSelected = false;
 		
 		this.font;
 	}
@@ -199,6 +200,7 @@ class Sketch {
 		
 		this.directionalLight.position.set(1.5, 5, 3)
 		this.directionalLight.castShadow = true
+	
 		
 		// this.controls.lookAt(0,0,0);
 		this.scene.add(this.directionalLight)
@@ -211,60 +213,141 @@ class Sketch {
 		// console.log(sphereMesh);
 		// this.scene.add(sphereMesh);
 		
+		var zMult = 1;
+		if (this.isMobile){
+			zMult = 1.5;
+		}
+		
+		if (this.isMobile){
+			this.aboutBtn = new THREE.Mesh(new THREE.CubeGeometry(), new THREE.MeshNormalMaterial());
+			sketch.scene.add(this.aboutBtn);
+			this.aboutBtn.scale.set(zMult, zMult, zMult);
+			this.aboutBtn.position.z = 20 * zMult;
+			this.aboutBtn.position.x = -3;
+			this.aboutBtn.position.y = 5;
+			this.hoverBtns.push(this.aboutBtn);
+			
+			let sphereGeometry = new THREE.SphereGeometry(0.7, 32, 32);
+			this.workBtn = new THREE.Mesh(sphereGeometry, new THREE.MeshNormalMaterial());
+			sketch.scene.add(this.workBtn);
+			this.workBtn.scale.set(0.8 * zMult,1 * zMult,0.8 * zMult);
+			this.workBtn.position.z = 20 * zMult;
+			this.workBtn.position.x = 3;
+			this.workBtn.position.y = 2;
+			this.hoverBtns.push(this.workBtn);
+			
+			this.githubBtn = new THREE.Mesh(new THREE.TorusGeometry(0.4,0.3, 16,32), new THREE.MeshNormalMaterial());
+			sketch.scene.add(this.githubBtn);
+			this.githubBtn.scale.set(zMult,zMult,zMult);
+			this.githubBtn.position.z = 20* zMult;
+			this.githubBtn.position.x = 3;
+			this.githubBtn.position.y = 8;
+			this.hoverBtns.push(this.githubBtn);
+			
+			
+			this.contactBtn = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8), new THREE.MeshNormalMaterial());
+			sketch.scene.add(this.contactBtn);
+			this.contactBtn.scale.set(zMult,zMult,zMult);
+			this.contactBtn.position.z = 20* zMult;
+			this.contactBtn.position.x = -3;
+			this.contactBtn.position.y = 0;
+			this.hoverBtns.push(this.contactBtn);
+			
+			this.codeblogBtn = new THREE.Mesh(new THREE.TetrahedronGeometry(), new THREE.MeshNormalMaterial());
+			sketch.scene.add(this.codeblogBtn);
+			this.codeblogBtn.scale.set(zMult,zMult,zMult);
+			this.codeblogBtn.position.z = 20* zMult;
+			this.codeblogBtn.position.x = 3;
+			this.codeblogBtn.position.y = -3;
+			this.hoverBtns.push(this.codeblogBtn);
+			
+			this.fontLoader.load('./fonts/Montserrat_Bold.json',
+			function(font){
+				sketch.font = font;
+				sketch.addText(sketch.githubBtn.position, 1.3 * zMult, -1.3 * zMult, 0* zMult, 0.5* zMult, "github", function(mesh){
+					sketch.githubText = mesh;
+				}); 
+				sketch.addText(sketch.contactBtn.position, 1.5* zMult, 1.3* zMult, 0* zMult, 0.5* zMult, "contact", function(mesh){
+					sketch.contactText = mesh;
+				}); 
+				sketch.addText(sketch.aboutBtn.position, 3.2* zMult, 0* zMult, 0* zMult, 0.5* zMult, "about", function(mesh){
+					sketch.aboutText = mesh;
+				}); 
+				sketch.addText(sketch.workBtn.position, 1.0* zMult, 1.1* zMult, 0* zMult, 0.5* zMult, "work", function(mesh){
+					sketch.workText = mesh;
+				}); 
+				sketch.addText(sketch.codeblogBtn.position, -1.2* zMult, 0* zMult, 0* zMult, 0.5* zMult, "code blog", function(mesh){
+					sketch.codeblogText = mesh;
+				}); 
+			},
+			function (xhr){
+				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+			},
+			function (err){
+				console.log(err);
+			}
+		);
+	} else {
+		
 		this.aboutBtn = new THREE.Mesh(new THREE.CubeGeometry(), new THREE.MeshNormalMaterial());
 		sketch.scene.add(this.aboutBtn);
-		this.aboutBtn.position.z = 20;
-		this.aboutBtn.position.x = -2;
+		this.aboutBtn.scale.set(zMult, zMult, zMult);
+		this.aboutBtn.position.z = 20 * zMult;
+		this.aboutBtn.position.x = 0;
+		this.aboutBtn.position.y = 4;
 		this.hoverBtns.push(this.aboutBtn);
 		
 		let sphereGeometry = new THREE.SphereGeometry(0.7, 32, 32);
-		sphereGeometry.scale(1,1.3,1);
 		this.workBtn = new THREE.Mesh(sphereGeometry, new THREE.MeshNormalMaterial());
 		sketch.scene.add(this.workBtn);
-		this.workBtn.position.z = 19;
-		this.workBtn.position.x = 3;
+		this.workBtn.scale.set(0.8 * zMult,1 * zMult,0.8 * zMult);
+		this.workBtn.position.z = 20 * zMult;
+		this.workBtn.position.x = 2.5;
 		this.workBtn.position.y = 1;
 		this.hoverBtns.push(this.workBtn);
 		
 		this.githubBtn = new THREE.Mesh(new THREE.TorusGeometry(0.4,0.3, 16,32), new THREE.MeshNormalMaterial());
 		sketch.scene.add(this.githubBtn);
-		this.githubBtn.position.z = 21;
-		this.githubBtn.position.x = -3;
-		this.githubBtn.position.y = 3;
+		this.githubBtn.scale.set(zMult,zMult,zMult);
+		this.githubBtn.position.z = 20* zMult;
+		this.githubBtn.position.x = -5;
+		this.githubBtn.position.y = 4;
 		this.hoverBtns.push(this.githubBtn);
 		
 		
 		this.contactBtn = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8), new THREE.MeshNormalMaterial());
 		sketch.scene.add(this.contactBtn);
-		this.contactBtn.position.z = 21;
+		this.contactBtn.scale.set(zMult,zMult,zMult);
+		this.contactBtn.position.z = 20* zMult;
 		this.contactBtn.position.x = 5;
 		this.contactBtn.position.y = 4;
 		this.hoverBtns.push(this.contactBtn);
 		
-		this.soundcloudBtn = new THREE.Mesh(new THREE.TetrahedronGeometry(), new THREE.MeshNormalMaterial());
-		sketch.scene.add(this.soundcloudBtn);
-		this.soundcloudBtn.position.z = 21;
-		this.soundcloudBtn.position.x = 6;
-		this.soundcloudBtn.position.y = -4;
-		this.hoverBtns.push(this.soundcloudBtn);
+		this.codeblogBtn = new THREE.Mesh(new THREE.TetrahedronGeometry(), new THREE.MeshNormalMaterial());
+		sketch.scene.add(this.codeblogBtn);
+		this.codeblogBtn.scale.set(zMult,zMult,zMult);
+		this.codeblogBtn.position.z = 20* zMult;
+		this.codeblogBtn.position.x = -2.5;
+		this.codeblogBtn.position.y = 1;
+		this.hoverBtns.push(this.codeblogBtn);
 		
 		this.fontLoader.load('./fonts/Montserrat_Bold.json',
 		function(font){
 			sketch.font = font;
-			sketch.addText(sketch.githubBtn.position, 1.3, 1.5, 0, 0.5, "github", function(mesh){
+			sketch.addText(sketch.githubBtn.position, 1.3 * zMult, 1.5 * zMult, 0* zMult, 0.5* zMult, "github", function(mesh){
 				sketch.githubText = mesh;
 			}); 
-			sketch.addText(sketch.contactBtn.position, 4, 0, 0, 0.5, "contact", function(mesh){
+			sketch.addText(sketch.contactBtn.position, 4* zMult, 0* zMult, 0* zMult, 0.5* zMult, "contact", function(mesh){
 				sketch.contactText = mesh;
 			}); 
-			sketch.addText(sketch.aboutBtn.position, -1, 0, 0, 0.5, "about", function(mesh){
+			sketch.addText(sketch.aboutBtn.position, 1.0* zMult, -1.5* zMult, 0* zMult, 0.5* zMult, "about", function(mesh){
 				sketch.aboutText = mesh;
 			}); 
-			sketch.addText(sketch.workBtn.position, 3, 0, 0, 0.5, "work", function(mesh){
+			sketch.addText(sketch.workBtn.position, 1.0* zMult, 1.1* zMult, 0* zMult, 0.5* zMult, "work", function(mesh){
 				sketch.workText = mesh;
 			}); 
-			sketch.addText(sketch.soundcloudBtn.position, 2, -1.5, 0, 0.5, "soundcloud", function(mesh){
-				sketch.soundcloudText = mesh;
+			sketch.addText(sketch.codeblogBtn.position, -1.5* zMult, 0* zMult, 0* zMult, 0.5* zMult, "code blog", function(mesh){
+				sketch.codeblogText = mesh;
 			}); 
 		},
 		function (xhr){
@@ -274,6 +357,7 @@ class Sketch {
 			console.log(err);
 		}
 	);
+}
 	
 	this.addEvents();
 	this.animate();
@@ -302,8 +386,8 @@ animate() {
 	this.workBtn.rotation.z -= 0.01;
 	this.contactBtn.rotation.x += 0.006;
 	this.contactBtn.rotation.z -= 0.004;
-	this.soundcloudBtn.rotation.x -= 0.005;
-	this.soundcloudBtn.rotation.z += 0.003;
+	this.codeblogBtn.rotation.x -= 0.005;
+	this.codeblogBtn.rotation.z += 0.003;
 }
 
 render() {
@@ -353,11 +437,11 @@ render() {
 		} else {
 			this.contactText.material.opacity = 0;
 		}
-		const soundcloudIntersects = this.raycaster.intersectObject( this.soundcloudBtn, true  );
-		if (soundcloudIntersects.length> 0){
-			this.soundcloudText.material.opacity = 1;
+		const codeblogIntersects = this.raycaster.intersectObject( this.codeblogBtn, true  );
+		if (codeblogIntersects.length> 0){
+			this.codeblogText.material.opacity = 1;
 		} else {
-			this.soundcloudText.material.opacity = 0;
+			this.codeblogText.material.opacity = 0;
 		}
 	}
 	
@@ -375,11 +459,17 @@ handleClick(event){
 	sketch.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	sketch.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
-	const toggleViewIntersects = sketch.raycaster.intersectObjects( sketch.toggleViewBtns, true );
+	const toggleView1Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn1, true );
 	console.log("mouse click");
-	if (toggleViewIntersects.length > 0){
+	if (toggleView1Intersects.length > 0){
 		// console.log("they be intersecting");
-		sketch.toggleView();
+		sketch.setView(1);
+	}
+	const toggleView2Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn2, true );
+	console.log("mouse click");
+	if (toggleView2Intersects.length > 0){
+		// console.log("they be intersecting");
+		sketch.setView(-1);
 	}
 	const aboutIntersects = sketch.raycaster.intersectObject( sketch.aboutBtn, true  );
 	if (aboutIntersects.length> 0){
@@ -413,13 +503,13 @@ handleClick(event){
 		let contactModal = document.getElementById('contactModal');
 		contactModal.classList.remove('show');
 	} 
-	const soundcloudIntersects = sketch.raycaster.intersectObject( sketch.soundcloudBtn, true  );
-	if (soundcloudIntersects.length> 0){
-		let soundcloudModal = document.getElementById('soundcloudModal');
-		soundcloudModal.classList.add('show');
+	const codeblogIntersects = sketch.raycaster.intersectObject( sketch.codeblogBtn, true  );
+	if (codeblogIntersects.length> 0){
+		let codeblogModal = document.getElementById('codeblogModal');
+		codeblogModal.classList.add('show');
 	} else {
-		let soundcloudModal = document.getElementById('soundcloudModal');
-		soundcloudModal.classList.remove('show');
+		let codeblogModal = document.getElementById('codeblogModal');
+		codeblogModal.classList.remove('show');
 	}
 }
 
@@ -430,16 +520,23 @@ handleTouchStart(event){
 	sketch.mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 	sketch.mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
-	const toggleViewIntersects = sketch.raycaster.intersectObjects( sketch.toggleViewBtns, true );
-	if (toggleViewIntersects.length > 0){
+	const toggleView1Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn1, true );
+	console.log("mouse click");
+	if (toggleView1Intersects.length > 0){
 		// console.log("they be intersecting");
-		sketch.toggleView();
+		sketch.setView(1);
+	}
+	const toggleView2Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn2, true );
+	console.log("mouse click");
+	if (toggleView2Intersects.length > 0){
+		// console.log("they be intersecting");
+		sketch.setView(-1);
 	}
 	const aboutIntersects = sketch.raycaster.intersectObject( sketch.aboutBtn, true  );
 	const workIntersects = sketch.raycaster.intersectObject( sketch.workBtn, true  );
 	const githubIntersects = sketch.raycaster.intersectObject( sketch.githubBtn, true  );
 	const contactIntersects = sketch.raycaster.intersectObject( sketch.contactBtn, true  );
-	const soundcloudIntersects = sketch.raycaster.intersectObject( sketch.soundcloudBtn, true  );
+	const codeblogIntersects = sketch.raycaster.intersectObject( sketch.codeblogBtn, true  );
 	if (aboutIntersects.length> 0){
 		if (sketch.aboutSelected){
 			let aboutModal = document.getElementById('aboutModal');
@@ -476,7 +573,7 @@ handleTouchStart(event){
 	if (githubIntersects.length> 0){
 		if (sketch.githubSelected){
 			let githubModal = document.getElementById("githubModal");
-			workModal.classList.add('show');
+			githubModal.classList.add('show');
 		} else {
 			sketch.githubSelected = true;
 			sketch.githubText.material.opacity = 1;
@@ -507,20 +604,20 @@ handleTouchStart(event){
 		}
 	} 
 	
-	if (soundcloudIntersects.length> 0){
-		if (sketch.soundcloudSelected){
-			let soundcloudModal = document.getElementById("soundcloudModal");
-			soundcloudModal.classList.add('show');
+	if (codeblogIntersects.length> 0){
+		if (sketch.codeblogSelected){
+			let codeblogModal = document.getElementById("codeblogModal");
+			codeblogModal.classList.add('show');
 		} else {
-			sketch.soundcloudSelected = true;
-			sketch.soundcloudText.material.opacity = 1;
+			sketch.codeblogSelected = true;
+			sketch.codeblogText.material.opacity = 1;
 		}
 	} else {
-		let soundcloudModal = document.getElementById('soundcloudModal');
-		soundcloudModal.classList.remove('show');
-		sketch.soundcloudText.material.opacity = 0;
-		if (sketch.soundcloudSelected){
-			sketch.soundcloudSelected = true;
+		let codeblogModal = document.getElementById('codeblogModal');
+		codeblogModal.classList.remove('show');
+		sketch.codeblogText.material.opacity = 0;
+		if (sketch.codeblogSelected){
+			sketch.codeblogSelected = false;
 		}
 	}
 }
@@ -611,12 +708,16 @@ addObject(oPath, x=0, y=0, z=0, scale=1, isBlob=false, rotationX=0, rotationY=0,
 						child.material = new THREE.MeshBasicMaterial();
 					}
 					sketch.scene.add( child );
-					child.position.x = x;
-					child.position.y =  y;
+					
+					
 					if (sketch.isMobile){
 						child.position.z =  z*2;
+						child.position.y =  y*1.5;
+						child.position.x = x* 0.7;
 					} else {
 						child.position.z =  z;
+						child.position.y =  y;
+						child.position.x = x;
 					}
 					if (callback){
 						callback(child);
@@ -647,8 +748,8 @@ toggleView(){
 	
 	sketch.controls.autoRotate = false;
 	sketch.controls.enabled = false;
-	sketch.controls.minAzimuthAngle = -128;
-	sketch.controls.maxAzimuthAngle = 128;
+	// sketch.controls.minAzimuthAngle = -128;
+	// sketch.controls.maxAzimuthAngle = 128;
 	var mult1, mult2;
 	if (sketch.view == 0){
 		mult1 = 1;
@@ -658,7 +759,7 @@ toggleView(){
 		mult2 = 0;
 	}
 	sketch.view = -1;
-	const cameraRotTweenX1 = new TWEEN.Tween(sketch.controls.target).to({x: 19*mult1}, 500)
+	const cameraRotTweenX1 = new TWEEN.Tween(sketch.controls.target).to({x: 1*mult1}, 500)
 	.easing(TWEEN.Easing.Quadratic.In)
 	.onComplete(() => {
 		cameraRotTweenX2.start();
@@ -668,11 +769,11 @@ toggleView(){
 	.onComplete(() => {
 		
 	}); 
-	const cameraRotTweenZ = new TWEEN.Tween(sketch.controls.target).to({z: 19*mult1}, 1100)
+	const cameraRotTweenZ = new TWEEN.Tween(sketch.controls.target).to({z: 1*mult1}, 1100)
 	.easing(TWEEN.Easing.Quadratic.InOut)
 	.onComplete(() => {
-		sketch.controls.minAzimuthAngle =  mult1 * + 1.8;
-		sketch.controls.maxAzimuthAngle =  mult1 * - 1.8;
+		// sketch.controls.minAzimuthAngle =  mult1 * + 1.8;
+		// sketch.controls.maxAzimuthAngle =  mult1 * - 1.8;
 		sketch.controls.autoRotate = true;
 		sketch.controls.enabled = true;
 		sketch.view = mult2;
@@ -687,6 +788,34 @@ toggleView(){
 	cameraPosTween.start();
 }
 
+setView(val){
+	const cameraRotTweenX1 = new TWEEN.Tween(sketch.controls.target).to({x: 1*val}, 500)
+	.easing(TWEEN.Easing.Quadratic.In)
+	.onComplete(() => {
+		cameraRotTweenX2.start();
+	}); 
+	const cameraRotTweenX2 = new TWEEN.Tween(sketch.controls.target).to({x: 0}, 500)
+	.easing(TWEEN.Easing.Quadratic.Out)
+	.onComplete(() => {
+		
+	}); 
+	const cameraRotTweenZ = new TWEEN.Tween(sketch.controls.target).to({z: 1*val}, 1100)
+	.easing(TWEEN.Easing.Quadratic.InOut)
+	.onComplete(() => {
+		// sketch.controls.minAzimuthAngle =  mult1 * + 1.8;
+		// sketch.controls.maxAzimuthAngle =  mult1 * - 1.8;
+		sketch.controls.autoRotate = true;
+		sketch.controls.enabled = true;
+	}); 
+	const cameraPosTween = new TWEEN.Tween(sketch.camera.position).to({x: 0, y: 0, z: 0}, 1000)
+	.easing(TWEEN.Easing.Quadratic.InOut)
+	.onComplete(() => {
+		
+	}); 
+	cameraRotTweenX1.start();
+	cameraRotTweenZ.start();
+	cameraPosTween.start();
+}
 
 
 
@@ -737,32 +866,52 @@ const reflectMaterial = new THREE.MeshBasicMaterial( {
 } );
 // sketch.addObject('./blobs.obj', 0.1, -2.5, 0.5, 0.9, true);
 sketch.addObject('./graphics/blenderting2.obj', 0.0, 0, -20, 2, false, 0,0,0, reflectMaterial,function(r){
-	sketch.controls.target = r.position.clone();
+
 });
-sketch.addObject('./graphics/spiker.obj', -6, 6, -22, 0.3, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
+sketch.addObject('./graphics/spiker.obj', -6, 6, -20, 0.3, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
 	sketch.spiker1 = r;
 	sketch.rotaters.push(r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
-sketch.addObject('./graphics/blobber.obj', 8, 5, -20, 0.7, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
+sketch.addObject('./graphics/blobber.obj', 6, 6, -20, 0.7, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
 	sketch.rotaters.push(r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
-sketch.addObject('./graphics/pickle.obj', 6, -8, -22, 0.5, false, 1.2, 0.3, 0.3, reflectMaterial,function(r){
+sketch.addObject('./graphics/pickle.obj', 6, -6, -20, 0.5, false, 1.2, 0.3, 0.3, reflectMaterial,function(r){
 	sketch.rotaters.push(r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
-sketch.addObject('./graphics/wings.obj', -13, -12, -26, 4, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
+sketch.addObject('./graphics/wings.obj', -6, -6, -20, 4, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
 	sketch.rotaters.push(r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
 const pinkMaterial = reflectMaterial.clone();
 pinkMaterial.color = new THREE.Color(0xffc3e8);
-sketch.addObject('./graphics/morecoin.obj', -0, -3, -20, 0.15, false, 0, 0, 0,pinkMaterial, function(r){
+sketch.addObject('./graphics/morecoin.obj', -0, -6, -20, 0.15, false, 0, 0, 0,pinkMaterial, function(r){
 	r.rotation.x = Math.PI/2;
-	sketch.toggleViewBtns.push( r);
+	sketch.toggleViewBtn1 = r;
+	sketch.toggleViewBtns.push(r);
 	sketch.hoverBtns.push( r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
-sketch.addObject('./graphics/backcoin.obj', -0, -3, 20, 0.15, false, 0, 0, 0,pinkMaterial, function(r){
+sketch.addObject('./graphics/backcoin.obj', -0, -6, 20, 0.15, false, 0, 0, 0,pinkMaterial, function(r){
 	r.rotation.x = Math.PI/2;
-	sketch.toggleViewBtns.push( r);
+	sketch.toggleViewBtns.push(r);
+	sketch.toggleViewBtn2 = r;
 	sketch.hoverBtns.push( r);
+	if (sketch.isMobile){
+		r.scale.set(1.5,1.5,1.5);
+	}
 });
 
 
