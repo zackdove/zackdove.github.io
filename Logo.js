@@ -86,7 +86,6 @@ ZackControls = function(pivot, camera, domElement) {
 		tween.start();
 	}
 	this.setCameraPos = function(x,y,z, time){
-		console.log(time);
 		scope.tweening = true;
 		const tween = new TWEEN.Tween(scope.camera.position).to({x: x, y: y, z: z}, time).easing(TWEEN.Easing.Quadratic.InOut)
 		.onComplete(() => {
@@ -94,7 +93,6 @@ ZackControls = function(pivot, camera, domElement) {
 		});
 		scope.xBase = scope.xBase % (2*Math.PI);
 		const pivotTween = new TWEEN.Tween(scope).to({xBase: 0}, time).easing(TWEEN.Easing.Quadratic.InOut);
-		console.log(tween);
 		tween.start();
 		pivotTween.start();
 	}
@@ -133,7 +131,8 @@ class Sketch {
 		this.controls.autoRotateSpeed = 0.5;
 		this.controls.enableDamping = true;
 		this.controls.target = new THREE.Vector3(0,0,-1);
-		// this.controls.minAzimuthAngle = -1.8;
+		this.controls.minDistance = 0.1;
+		this.controls.maxDistance = 6;
 		// this.controls.maxAzimuthAngle = 1.8;
 		this.clock = new THREE.Clock();
 		this.directionalLight = new THREE.DirectionalLight(0xffffff, 1)
@@ -281,7 +280,7 @@ class Sketch {
 				}); 
 			},
 			function (xhr){
-				console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+				// console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
 			},
 			function (err){
 				console.log(err);
@@ -460,13 +459,13 @@ handleClick(event){
 	sketch.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
 	const toggleView1Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn1, true );
-	console.log("mouse click");
+
 	if (toggleView1Intersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.setView(1);
 	}
 	const toggleView2Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn2, true );
-	console.log("mouse click");
+
 	if (toggleView2Intersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.setView(-1);
@@ -515,19 +514,19 @@ handleClick(event){
 
 
 handleTouchStart(event){
-	console.log(event);
+
 	
 	sketch.mouse.x = ( event.touches[0].clientX / window.innerWidth ) * 2 - 1;
 	sketch.mouse.y = - ( event.touches[0].clientY / window.innerHeight ) * 2 + 1;
 	sketch.raycaster.setFromCamera(sketch.mouse, sketch.camera);
 	const toggleView1Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn1, true );
-	console.log("mouse click");
+
 	if (toggleView1Intersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.setView(1);
 	}
 	const toggleView2Intersects = sketch.raycaster.intersectObject( sketch.toggleViewBtn2, true );
-	console.log("mouse click");
+
 	if (toggleView2Intersects.length > 0){
 		// console.log("they be intersecting");
 		sketch.setView(-1);
@@ -689,7 +688,7 @@ addObject(oPath, x=0, y=0, z=0, scale=1, isBlob=false, rotationX=0, rotationY=0,
 		function ( object ) {
 			object.traverse( function ( child ) {
 				if ( child instanceof THREE.Mesh ) {
-					console.log(oPath);
+
 					// child.geometry.center();
 					// child.geometry.computeBoundingSphere();
 					// const phongMaterial = new THREE.MeshPhongMaterial( { color: 0xec4d32, specular: 0x111111, shininess: 0 } );
@@ -744,7 +743,7 @@ addObject(oPath, x=0, y=0, z=0, scale=1, isBlob=false, rotationX=0, rotationY=0,
 }
 
 toggleView(){
-	console.log("toggling view");
+
 	
 	sketch.controls.autoRotate = false;
 	sketch.controls.enabled = false;
@@ -823,7 +822,7 @@ setView(val){
 
 THREE.DefaultLoadingManager.onStart = function ( url, itemsLoaded, itemsTotal ) {
 	
-	console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+	// console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 	
 };
 
@@ -846,7 +845,7 @@ THREE.DefaultLoadingManager.onLoad = function ( ) {
 
 THREE.DefaultLoadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
 	
-	console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+	// console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 	
 };
 
@@ -918,14 +917,15 @@ sketch.addObject('./graphics/backcoin.obj', -0, -6, 20, 0.15, false, 0, 0, 0,pin
 sketch.init();
 
 let asciiArt = ":::::::::  .,-:::::  :::  .  :::::::-.  \r\n\'`````;;;,;;;\'````\'  ;;; .;;,.;;,   `\';,\r\n    .n[[\'[[[         [[[[[\/\'  `[[     [[\r\n  ,$$P\"  $$$        _$$$$,     $$,    $$\r\n,888bo,_ `88bo,__,o,\"888\"88o,  888_,o8P\'\r\n `\"\"*UMM   \"YUMMMMMP\"MMM \"MMP\" MMMMP\"` "
-console.log("%c" + asciiArt + "\n hire me if you're bad", 'font-weight: bold; color: pink'); 
+console.log("%c" + asciiArt + "\n hire me! zack@zckd.me", 'font-weight: bold; color: pink'); 
 // const cuboid = new Cuboid();
 
 
 function openInfoBtn(){
 	let btn = document.getElementById("infoButton");
 	btn.classList.add("open");
-	window.addEventListener('touchstart', function(){
+	let topContainer = document.getElementById("topContainer");
+	topContainer.addEventListener('touchstart', function(){
 		btn.classList.remove("open");
 	}, false);
 }

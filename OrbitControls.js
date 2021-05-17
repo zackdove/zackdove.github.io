@@ -14,7 +14,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 	this.domElement = domElement;
 	
 	this.clock = new THREE.Clock();
-	console.log(this.clock);
+	// console.log(this.clock);
 
 	// Set to false to disable this control
 	this.enabled = true;

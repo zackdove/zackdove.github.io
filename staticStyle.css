@@ -1,5 +1,6 @@
 body{
 	background-color: #7777ff;
+	margin: 0;
 }
 
 * {
@@ -17,6 +18,7 @@ body{
 
 .staticContainer{
 	width: 30rem;
+	max-width: 60vw;
 	background-color: rgba(255,255,255,0.9);
 	margin-top: 3rem;
 	padding: 3rem;
