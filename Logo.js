@@ -359,7 +359,7 @@ class Sketch {
 }
 	
 	this.addEvents();
-	this.animate();
+	
 }
 
 
@@ -836,6 +836,7 @@ THREE.DefaultLoadingManager.onLoad = function ( ) {
 	// setTimeout(function(){
 	// 	l.remove();
 	// }, 2000)
+	sketch.animate();
 	setTimeout(function(){
 		let loadingMessage = document.getElementById("loadingScreen");
 		loadingMessage.remove(); 
