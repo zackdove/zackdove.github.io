@@ -370,9 +370,9 @@ animate() {
 	this.render();
 	for (let i =0; i<this.rotaters.length; i++){
 		if (i % 2 == 0){
-			this.rotaters[i].rotation.z -= 0.01;
+			this.rotaters[i].object.rotation.z -= 0.01 * this.rotaters[i].speed;
 		} else {
-			this.rotaters[i].rotation.z += 0.01;
+			this.rotaters[i].object.rotation.z += 0.01 * this.rotaters[i].speed;
 		}
 	}
 	for (let toggleViewBtn of this.toggleViewBtns){
@@ -510,6 +510,20 @@ handleClick(event){
 	} else {
 		let codeblogModal = document.getElementById('codeblogModal');
 		codeblogModal.classList.remove('show');
+	}
+	
+	
+	for (let r of sketch.rotaters){
+		const intersects = sketch.raycaster.intersectObject(r.object, true);
+		if (intersects.length > 0){
+			// r.object.scale.set(2,2,2);
+			const rotateTweenDown = new TWEEN.Tween(r).to({speed: 1}, 2000)
+			.easing(TWEEN.Easing.Quadratic.Out);
+			const rotateTweenUp = new TWEEN.Tween(r).to({speed: 15}, 100)
+			.easing(TWEEN.Easing.Quadratic.In)
+			.chain(rotateTweenDown)
+			rotateTweenUp.start();
+		}
 	}
 }
 
@@ -871,25 +885,25 @@ sketch.addObject('./graphics/blenderting2.obj', 0.0, 0, -20, 2, false, 0,0,0, re
 });
 sketch.addObject('./graphics/spiker.obj', -6, 6, -20, 0.3, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
 	sketch.spiker1 = r;
-	sketch.rotaters.push(r);
+	sketch.rotaters.push({object: r, speed: 1});
 	if (sketch.isMobile){
 		r.scale.set(1.5,1.5,1.5);
 	}
 });
 sketch.addObject('./graphics/blobber.obj', 6, 6, -20, 0.7, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
-	sketch.rotaters.push(r);
+	sketch.rotaters.push({object: r, speed: 1});
 	if (sketch.isMobile){
 		r.scale.set(1.5,1.5,1.5);
 	}
 });
 sketch.addObject('./graphics/pickle.obj', 6, -6, -20, 0.5, false, 1.2, 0.3, 0.3, reflectMaterial,function(r){
-	sketch.rotaters.push(r);
+	sketch.rotaters.push({object: r, speed: 1});
 	if (sketch.isMobile){
 		r.scale.set(1.5,1.5,1.5);
 	}
 });
 sketch.addObject('./graphics/wings.obj', -6, -6, -20, 4, false, 1.2, 0.3, 0.3,reflectMaterial, function(r){
-	sketch.rotaters.push(r);
+	sketch.rotaters.push({object: r, speed: 1});
 	if (sketch.isMobile){
 		r.scale.set(1.5,1.5,1.5);
 	}
