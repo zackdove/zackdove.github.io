@@ -129,6 +129,7 @@ class Sketch {
 		this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
 		this.controls.autoRotate = true;
 		this.controls.autoRotateSpeed = 0.5;
+		this.controls.rotateSpeed = -0.3;
 		this.controls.enableDamping = true;
 		this.controls.target = new THREE.Vector3(0,0,-1);
 		this.controls.minDistance = 0.1;
