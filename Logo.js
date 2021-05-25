@@ -634,6 +634,18 @@ handleTouchStart(event){
 			sketch.codeblogSelected = false;
 		}
 	}
+	for (let r of sketch.rotaters){
+		const intersects = sketch.raycaster.intersectObject(r.object, true);
+		if (intersects.length > 0){
+			// r.object.scale.set(2,2,2);
+			const rotateTweenDown = new TWEEN.Tween(r).to({speed: 1}, 2000)
+			.easing(TWEEN.Easing.Quadratic.Out);
+			const rotateTweenUp = new TWEEN.Tween(r).to({speed: 15}, 100)
+			.easing(TWEEN.Easing.Quadratic.In)
+			.chain(rotateTweenDown)
+			rotateTweenUp.start();
+		}
+	}
 }
 
 
