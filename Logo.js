@@ -941,6 +941,10 @@ sketch.addObject('./graphics/backcoin.obj', -0, -6, 20, 0.15, false, 0, 0, 0,pin
 	}
 });
 
+if (navigator.userAgent.includes("Instagram")){
+	window.location.href = "/static";
+}
+
 
 sketch.init();
 
