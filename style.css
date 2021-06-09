@@ -811,10 +811,16 @@ display:none;
 #workModal{
 	left: 20vw;
 	right: 20vw;
-	top: 35vh;
-	bottom: 35vh;
+	top: 15vh;
+	bottom: 15vh;
 	width: 60vw;
-	height: 30vh;
+	height: 70vh;
+	overflow: scroll;
+}
+
+#workModal .modalBody div{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 @media only screen and (min-width: 600px) {
@@ -846,12 +852,13 @@ display:none;
 	}
 
 	#workModal{
-		left: 35vw;
-		right: 35vw;
-		top: 40vh;
+		left: 20vw;
+		right: 20vw;
+		top: 25vh;
 		bottom: 40vh;
-		width: 30vw;
-		height: 20vh;
+		width: 60vw;
+		height: 50vh;
+		overflow: scroll;
 	}
 }
 
@@ -869,5 +876,19 @@ display:none;
 
 .modalBody > *{
 	margin: 1rem;
+}
+
+.staticContainerBtn{
+	border-radius: 0.5rem;
+	background-color: #0390fc;
+	color: #ffffff;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
+	text-decoration: none;
+	/* margin-top: 1rem; */
+	/* margin-bottom: 1rem; */
+	display: inline-block;
 }
 
