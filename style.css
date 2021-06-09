@@ -816,6 +816,14 @@ display:none;
 	width: 60vw;
 	height: 70vh;
 	overflow: scroll;
+	
+}
+
+#workModal .modalBody{
+	overflow: scroll;
+	justify-content: flex-start;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 #workModal .modalBody div{
@@ -858,7 +866,7 @@ display:none;
 		bottom: 40vh;
 		width: 60vw;
 		height: 50vh;
-		overflow: scroll;
+		
 	}
 }
 
