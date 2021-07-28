@@ -54,6 +54,12 @@ body{
 	display: inline-block;
 }
 
+.staticContainerBtn.disabled{
+	pointer-events: none;
+	cursor: pointer;
+	background-color: #7fa9c9;
+}
+
 
 #squiggly-line-svg{
 	width: 30rem;
@@ -97,4 +103,10 @@ body{
 
 @keyframes zRotateAnim {
 	100% {transform: rotate(360deg);}
+}
+
+.workLink{
+	text-decoration: none;
+	color: inherit;
+	font-style: italic;
 }

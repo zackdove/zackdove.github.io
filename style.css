@@ -745,6 +745,7 @@ display:none;
 	transition: opacity 0.5s;
 	visibility: none;
 	pointer-events: none;
+	padding: 1rem;
 }
 
 .modalBody{
@@ -822,8 +823,6 @@ display:none;
 #workModal .modalBody{
 	overflow: scroll;
 	justify-content: flex-start;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
 }
 
 #workModal .modalBody div{
@@ -898,5 +897,11 @@ display:none;
 	/* margin-top: 1rem; */
 	/* margin-bottom: 1rem; */
 	display: inline-block;
+}
+
+.workLink{
+	text-decoration: none;
+	color: inherit;
+	font-style: italic;
 }
 
