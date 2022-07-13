@@ -7,7 +7,7 @@ export default function loadGLTF(url, options = {}) {
 
     // if (options.draco) {
       const dracoLoader = new DRACOLoader()
-      dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+      dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.4.3/')
       loader.setDRACOLoader(dracoLoader)
     // }
 
