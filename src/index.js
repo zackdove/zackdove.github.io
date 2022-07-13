@@ -20,7 +20,7 @@ const webgl = new WebGLApp({
     // background: '#111',
     backgroundAlpha: 0,
     // enable postprocessing
-    postprocessing: true,
+    postprocessing: false,
     // show the fps counter from stats.js
     showFps: window.DEBUG,
     // enable OrbitControls
