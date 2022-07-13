@@ -15,7 +15,7 @@ import { CSS3DRenderer, CSS3DObject } from '../utils/CSS3DRenderer';
 
 // preload the bridge model
 const bridgeKey = assets.queue({
-    url: 'assets/bridge3.glb',
+    url: 'assets/merged.glb',
     type: 'gltf',
     // draco: true,
 })
