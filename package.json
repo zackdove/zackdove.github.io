@@ -24,6 +24,7 @@
     "controls-gui": "^2.0.0",
     "controls-state": "^2.0.0",
     "detect-gpu": "^4.0.17",
+    "gsap": "^3.10.4",
     "image-promise": "^7.0.1",
     "lodash-es": "^4.17.21",
     "mp4-wasm": "marcofugaro/mp4-wasm#build-embedded",
@@ -31,7 +32,8 @@
     "postprocessing": "^6.26.3",
     "pretty-ms": "^7.0.1",
     "stats.js": "marcofugaro/stats.js",
-    "three": "0.139.2"
+    "three": "0.139.2",
+    "troika-three-text": "^0.46.4"
   },
   "devDependencies": {
     "browser-sync": "^2.27.9",
