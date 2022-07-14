@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #111;
+  font-family: wavesCPC;
+}
+
+
+@font-face {
+    font-family: wavesCPC;
+    src: url('fonts/wavesCPC/WavesBlackletterCPC-Base.otf');
+  }
+  
+  @font-face {
+    font-family: wavesCPCTinySlab;
+    src: url('fonts/wavesCPC/WavesTinySlabCPC-Regular.otf');
+  }
+  
+
+  a{
+    text-decoration: none;
+    color: #fff;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+#menuPopup{
+    background: rgba(0, 200, 0, 0.4);
+    width: 400px;
+    height: 200px;
+    /* left: calc(50vw - 200px);
+    top: calc(50vh - 100px);
+    position: absolute; */
+    display: flex;
+    pointer-events: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 2s;
+}
+
+#menuPopup.visible{
+    opacity: 1;
+}
+
+#menuPopup > div{
+    opacity: 1;
+    font-family: wavesCPCTinySlab;
+}
+
