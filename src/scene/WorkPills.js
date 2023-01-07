@@ -22,10 +22,10 @@ export default class WorkPills extends THREE.Group {
   initialise() {
   
     for (let i = 0; i < workSpec.projects.length; i++) {
-      const workSingle = new WorkSingle(webgl, i, webgl.cssHandler.css3DRenderer);
+      const workSingle = new WorkSingle(this.webgl, i, this.webgl.cssHandler.css3DRenderer);
       this.workSingles.push(workSingle);
       this.add(workSingle)
-      const pill = new Pill(webgl, this.world, i)
+      const pill = new Pill(this.webgl, this.world, i)
       this.add(pill)
       this.pills.push(pill);
       pill.initialise()

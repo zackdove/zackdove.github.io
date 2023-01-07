@@ -51,8 +51,8 @@ export default class Pill extends THREE.Group {
     this.world.addBody(this.body);
     // 0 = center, 1 = down, 2 = right;
     this.mode = 0;
-    webgl.hoverables.push(this.pill);
-    webgl.clickables.push(this.pill);
+    this.webgl.hoverables.push(this.pill);
+    this.webgl.clickables.push(this.pill);
     this.pill.traverse((child) => {
       if (child.material){
         child.castShadow = true;
@@ -66,7 +66,7 @@ export default class Pill extends THREE.Group {
       child.handleNoHover = this.handleNoHover.bind(this);
       child.handleClick = this.handleClick.bind(this);
     })
-    this.topLeftCalculator = new TopLeftCalculator(webgl);
+    this.topLeftCalculator = new TopLeftCalculator(this.webgl);
     this.midRightPosition = this.topLeftCalculator.getMidRightPosition().clone();
     this.active = true;
   }
