@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Maison Neue';
+    src: url('MaisonNeue-DemiBoldItalic.eot');
+    src: url('MaisonNeue-DemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('MaisonNeue-DemiBoldItalic.woff2') format('woff2'),
+        url('MaisonNeue-DemiBoldItalic.woff') format('woff'),
+        url('MaisonNeue-DemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+

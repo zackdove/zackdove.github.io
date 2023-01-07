@@ -1,0 +1,81 @@
+@font-face {
+  font-family: 'Maison Neue';
+  src: url('/assets/fonts/MaisonNeueDemiItalic/MaisonNeue-DemiBoldItalic.eot');
+  src: url('/assets/fonts/MaisonNeueDemiItalic/MaisonNeue-DemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/MaisonNeueDemiItalic/MaisonNeue-DemiBoldItalic.woff2') format('woff2'),
+    url('/assets/fonts/MaisonNeueDemiItalic/MaisonNeue-DemiBoldItalic.woff') format('woff'),
+    url('/assets/fonts/MaisonNeueDemiItalic/MaisonNeue-DemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Maison Neue';
+  font-style: italic;
+  /* background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
+  background-size: 22px 22px;
+  background-position: 12px 12px; */
+}
+
+
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+
+#css3DContainer {
+  background-color: transparent;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.css3DDOMElement{
+  pointer-events: none;
+}
+
+.css3DScene{
+  pointer-events: none;
+}
+
+.css3DScene video{
+  pointer-events: auto!important;
+}
+
+.css3DScene :not(video){
+  pointer-events: none!important;
+}
+
+#groundContainer{
+  background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
+  background-size: 22px 22px;
+  background-position: 12px 12px;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+
+.cssGround{
+  width: 150vw;
+  height: 1000px;
+  /* background-color: greenyellow; */
+  background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
+  background-size: 22px 22px;
+  background-position: 12px 12px;
+}
+
