@@ -15,52 +15,62 @@ canvas {
   outline: none;
 }
 
-body{
-    background-color: black;
-    color: white;
-    font-family: wavesCPC;
+body {
+  background-color: black;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
 }
 
-a{
-    text-decoration: none;
-    color: #fff;
+a {
+  text-decoration: none;
+  color: #fff;
 }
 
-a:hover{
-    text-decoration: underline;
+a:hover {
+  text-decoration: underline;
 }
 
-#menuPopup{
-    background: rgba(0, 200, 0, 0.4);
-    width: 400px;
-    height: 200px;
-    /* left: calc(50vw - 200px);
+#menuPopup {
+  background: rgba(0, 200, 0, 0.4);
+  width: 400px;
+  height: 200px;
+  /* left: calc(50vw - 200px);
     top: calc(50vh - 100px);
     position: absolute; */
-    display: flex;
-    pointer-events: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transition: opacity 2s;
+  display: flex;
+  pointer-events: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 2s;
 }
 
-#menuPopup.transparent{
-    opacity: 0;
+#menuPopup.transparent {
+  opacity: 0;
 }
 
-#menuPopup > div{
-    opacity: 1;
-    font-family: wavesCPCTinySlab;
+#menuPopup>div {
+  opacity: 1;
+  font-family: wavesCPCTinySlab;
 }
 
-#css3DContainer{
-    /* pointer-events: none; */
+#css3DContainer {
+  pointer-events: none;
 }
 
 
-#css3DContainer *{
-    /* pointer-events: none!important; */
-    user-select: auto!important;
+#css3DContainer * {
+  /* pointer-events: all; */
+  user-select: auto !important;
+}
+
+#title {
+  left: 50vw;
+  top: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference !important;
+  font-size: 64px;
 }

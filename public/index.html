@@ -1,23 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <title></title>
-    <link rel="stylesheet" href="https://unpkg.com/modern-normalize@0.5.0/modern-normalize.css" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <canvas id="app"></canvas>
-    <!-- <div id="menuPopup">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <title></title>
+  <link rel="stylesheet" href="https://unpkg.com/modern-normalize@0.5.0/modern-normalize.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    var vertexShader = `
+        uniform float time;
+        uniform vec3 mousePos;
+        varying float y;
+        varying float dist;
+        void main(){
+          // vec3 newPosition = position;
+          // dist = length(position.xz);
+          // newPosition.y = sin(dist * 0.1 - time * 2.) * .05;
+          // y = newPosition.y;
+          // gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+
+
+          // vec3 seg = position - mousePos;
+          // vec3 dir = normalize(seg);
+          // float dist = length(seg);
+          // if (dist < 2.){
+          //   float force = clamp(1. / (dist * dist), 0., 1.);
+          //   gl_Position += dir * force;
+          // }
+          gl_Position = gl_Position;
+        }
+      `;
+
+    var fragmentShader = `
+        uniform vec3 color;
+        uniform float time;
+        varying float y;
+        varying float dist;
+        void main() {
+          vec3 c = color;
+          c.g = abs(y);
+          gl_FragColor = vec4( mix(c, vec3(abs(sin(dist)), abs(sin(dist + time)), abs(cos(dist - time))), abs(cos(dist - time))), 1.0);
+        }
+      `;
+
+  </script>
+</head>
+
+<body>
+  <canvas id="app"></canvas>
+  <!-- <div id="menuPopup">
         <div>Z C K D</div>
         <div>Creative Technologist / 3D Designer</div>
         <div>Website in (Re)Development</div>
         <div><a href="mailto:zack@zckd.me">zack@zckd.me</a></div>
     </div> -->
-    <div id="css3DContainer"></div>
-    <script src="app.js"></script>
-  </body>
+
+  <div id="css3DContainer"></div>
+  <div id="title">
+    zckd creative technologist
+  </div>
+  <script>
+    const glitches = '`¡™£¢∞§¶•ªº–≠åß∂ƒ©˙∆˚¬…æ≈ç√∫˜µ≤≥÷/?░▒▓<>/'.split('')
+
+  </script>
+  <script src="app.js"></script>
+</body>
+
 </html>
