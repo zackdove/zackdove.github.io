@@ -14,8 +14,8 @@ export default class MenuDots extends THREE.Group {
     this.groups = []
     this.webgl = webgl
     this.points = [];
-    for (let i = 0; i < menuOptions.length; i++) {
-      this.add(new MenuDot(webgl, menuOptions[i]));
+    for (let i = 0; i < webgl.scene.sections.length; i++) {
+      this.add(new MenuDot(webgl, webgl.scene.sections[i]));
     }
   }
   update(dt, time) {

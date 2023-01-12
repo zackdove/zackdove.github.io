@@ -29,15 +29,15 @@ export default class LittleDots extends THREE.Group {
   update(dt, time) {
     if (this.isSlerping) {
       for (let i = 0; i < this.groups.length; i++) {
-        if (!this.slerped[i] && this.groups[i].quaternion.angleTo(this.target) > 0.225) {
+        if (!this.slerped[i] && this.groups[i].quaternion.angleTo(this.target) > 0.125) {
           this.groups[i].quaternion.slerp(this.target, 0.04)
 
         } else {
           this.slerped[i] = true
 
         }
-        this.groups[i].rotation.z += Math.sin(time) * this.velocities[2 * i] * 0.01;
-        this.groups[i].rotation.y += Math.cos(time) * this.velocities[2 * i + 1] * 0.01;
+        this.groups[i].rotation.z += Math.sin(time * this.velocities[2 * i] * 10 ) * 0.005;
+        this.groups[i].rotation.y += Math.cos(time * this.velocities[2 * i + 1] * 10)  * 0.005;
       }
     }
     else {

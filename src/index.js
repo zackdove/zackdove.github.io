@@ -12,6 +12,7 @@ import Work from './scene/Work'
 import WorkPills from './scene/WorkPills'
 import RaycastHandler from './scene/RaycastHandler'
 import CSSHandler from './scene/CSSHandler'
+import { About } from './scene/About'
 
 // true if the url has the `?debug` parameter, otherwise false
 window.DEBUG = window.location.search.includes('debug')
@@ -79,9 +80,7 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.cssHandler = new CSSHandler(webgl)
 webgl.scene.add(webgl.cssHandler)
 
-  webgl.scene.rock = new Rock(webgl)
-  webgl.scene.rotationGroup.add(webgl.scene.rock)
-  webgl.camera.position.set(0, 0, 6);
+
 
   webgl.scene.ribbons = new Ribbons(webgl)
   webgl.scene.rotationGroup.add(webgl.scene.ribbons)
@@ -91,8 +90,20 @@ webgl.scene.add(webgl.cssHandler)
   webgl.scene.menuGroup.rotation.x = Math.PI;
   webgl.scene.rotationGroup.add(webgl.scene.menuGroup)
 
+
+
   webgl.scene.work = new WorkPills(webgl);
   webgl.scene.add(webgl.scene.work);
+
+  webgl.scene.about = new About(webgl);
+  webgl.scene.add(webgl.scene.about);
+
+  webgl.scene.sections = [webgl.scene.work, webgl.scene.about]
+
+  webgl.scene.rock = new Rock(webgl)
+  webgl.scene.rotationGroup.add(webgl.scene.rock)
+  webgl.camera.position.set(0, 0, 6);
+ 
 
   // landing, menu, work, about, play
   webgl.scene.currentScene = 'landing'
@@ -108,6 +119,23 @@ webgl.scene.add(webgl.cssHandler)
 
   webgl.onPointerDown(raycastHandler.handlePointerDown);
   webgl.onPointerMove(raycastHandler.handlePointerMove)
+
+  console.log(window.location.search)
+
+  setTimeout( () => {
+    switch (window.location.search) {
+      case '?about':
+        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.about.switchTo()
+        break;
+      case '?work':
+        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.work.switchTo()
+      default:
+        break;
+    }
+  }, 1000) 
+  
 
   // lights and other scene related stuff
   addNaturalLight(webgl)

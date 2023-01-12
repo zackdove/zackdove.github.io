@@ -8,10 +8,11 @@ const length = 2;
 
 
 export default class MenuDot extends THREE.Group {
-  constructor(webgl, title) {
+  constructor(webgl, section) {
     super()
     this.webgl = webgl
     this.isHit = false;
+    this.section = section;
 
     const outerPoint = new THREE.Mesh(sphereGeo, whiteMat);
     this.outerPoint = outerPoint;
@@ -35,6 +36,8 @@ export default class MenuDot extends THREE.Group {
     this.raycastSphere.handleHover = this.handleHover.bind(this);
     this.raycastSphere.handleNoHover = this.handleNoHover.bind(this);
     this.raycastSphere.handleClick = this.handleClick.bind(this)
+
+
   }
   update(dt, time) {
     if (!this.isHit) {
@@ -59,9 +62,10 @@ export default class MenuDot extends THREE.Group {
   }
 
   handleClick(){
-    this.webgl.scene.work.switchTo();
+    this.section.switchTo();
     this.webgl.scene.rock.moveToTopLeft();
   }
+
  
 
 }

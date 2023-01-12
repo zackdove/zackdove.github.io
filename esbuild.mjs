@@ -33,6 +33,17 @@ if (isDevelopment) {
   external = urlOptions.get('external')
 }
 
+let redirectPathsPlugin = {
+  name: 'redirectPathsPlugin',
+  setup(build) {
+    // Redirect all paths starting with "images/" to "./public/images/"
+    build.onResolve({ filter: /^about\// }, args => {
+      return { path: '/', }
+    })
+  },
+}
+
+
 const result = await esbuild
   .build({
     entryPoints: ['src/index.js'],
@@ -56,6 +67,7 @@ const result = await esbuild
           outfile: 'public/app.js',
           watch: true,
           plugins: [
+            redirectPathsPlugin,
             glslify(),
             glslifyInline(),
             devLogger({
@@ -81,6 +93,7 @@ const result = await esbuild
           outfile: 'build/app.js',
           minify: true,
           plugins: [
+            redirectPathsPlugin,
             glslify({ compress: true }),
             glslifyInline({ compress: true }),
             prodLogger({ outDir: 'build/' }),

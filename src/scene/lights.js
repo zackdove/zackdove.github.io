@@ -16,6 +16,7 @@ export function addNaturalLight(webgl) {
   dirLight.castShadow = true;
   webgl.scene.add(dirLight)
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.4)
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.0)
   webgl.scene.add(ambientLight)
 }

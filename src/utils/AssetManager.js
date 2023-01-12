@@ -3,6 +3,7 @@ import prettyMs from 'pretty-ms'
 import loadImage from 'image-promise'
 import omit from 'lodash/omit'
 import loadTexture from './loadTexture'
+import loadExr from './loadExr'
 import loadEnvMap from './loadEnvMap'
 import loadGLTF from './loadGLTF'
 
@@ -56,7 +57,7 @@ class AssetManager {
         return 'json'
       case /\.svg$/i.test(ext):
         return 'svg'
-      case /\.(jpe?g|png|gif|bmp|tga|tif)$/i.test(ext):
+      case /\.(jpe?g|png|gif|bmp|tga|tif|exr)$/i.test(ext):
         return 'image'
       case /\.(wav|mp3)$/i.test(ext):
         return 'audio'
@@ -184,6 +185,8 @@ class AssetManager {
         return loadImage(url, { crossorigin: 'anonymous' })
       case 'texture':
         return loadTexture(url, { renderer, ...options })
+      case 'exr':
+        return loadExr(url, {renderer, ...options})
       case 'audio':
         // You might not want to load big audio files and
         // store them in memory, that might be inefficient.
