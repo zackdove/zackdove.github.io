@@ -10,9 +10,22 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'KareliaBold';
+  src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot');
+  src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot?#iefix') format('embedded-opentype'),
+      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff2') format('woff2'),
+      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff') format('woff'),
+      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 body {
-  font-family: 'Maison Neue';
-  font-style: italic;
+  font-family: 'KareliaBold';
   /* background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
   background-size: 22px 22px;
   background-position: 12px 12px; */
