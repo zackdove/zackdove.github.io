@@ -120,9 +120,7 @@ export default class Rock extends THREE.Group {
         ease: "elastic.out(0.5, 0.2)",
       })
       console.log(this.webgl.scene.currentScene)
-    if (this.webgl.scene.currentScene == 'work') {
-      
-    } 
+    this.webgl.currentScene = 'landing'
     switch (this.webgl.scene.currentScene) {
       case 'work':
         this.webgl.scene.work.dispose();

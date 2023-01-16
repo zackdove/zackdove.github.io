@@ -150,3 +150,59 @@ export const generate4StripeTexture = (
 }
 
 
+export const generateFaceTexture = (
+  text,
+  colors = {
+    bg: '#FF00FF',
+    text: '#ffffff',
+    bg2: '#FFFFFF',
+    text2: '#FFFFFF',
+    bg3: '#ff0000',
+    text3: '#FFFFFF',
+    bg4: '#ff0000',
+    text4: '#ff0000',
+  }
+) => {
+  const copyAmount = text.length
+  const canvasSize = 2048
+  const fontSize = 2048 / (copyAmount)
+  const fontStyle = `${fontSize}px KareliaBold`
+
+  const bitmap = document.createElement('canvas')
+  const g = bitmap.getContext('2d')
+  g.font = fontStyle
+  bitmap.width = 2048
+  bitmap.height = canvasSize
+
+  const generateTextRow = (shift, i) => {
+    // background
+    g.fillStyle = Object.values(colors)[i]
+    // g.globalAlpha = 1;
+    g.fillRect(
+      0,
+      bitmap.height - (shift * (i+0) / 2),
+      bitmap.width,
+      -shift
+    )
+    // console.log(bitmap.height);
+    // console.log( bitmap.height - (shift * (i+0) / 2))
+
+    // text
+    // g.globalAlpha = 0;
+    g.font = fontStyle
+    g.textAlign = 'center';
+    g.fillStyle = Object.values(colors)[i + 1];
+    g.fillText(
+      text[i/2],
+      bitmap.width/2,
+      bitmap.height - (shift * (i+0) / 2) - (fontSize / 8) - (text[i/2].includes('↑') ? 30 : 0)
+    )
+  }
+  for (let i = 0; i < text.length * 2; i += 2) {
+    generateTextRow(fontSize, i)
+  }
+
+  // text
+  // document.body.appendChild(bitmap);
+  return bitmap
+}

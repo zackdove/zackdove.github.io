@@ -13,7 +13,7 @@ export default function loadExr(url, { renderer, ...options }) {
       (texture) => {
         // apply eventual gamma encoding
         if (renderer.outputEncoding === THREE.sRGBEncoding && !options.linear) {
-          texture.encoding = THREE.sRGBEncoding
+          // texture.encoding = THREE.sRGBEncoding
         }
 
         // apply eventual texture options, such as wrap, repeat...

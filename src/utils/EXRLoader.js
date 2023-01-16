@@ -10,6 +10,7 @@ import {
 } from 'three';
 import * as fflate from './fflate.module.js';
 
+
 /**
  * OpenEXR loader currently supports uncompressed, ZIP(S), RLE, PIZ and DWA/B compression.
  * Supports reading as UnsignedByte, HalfFloat and Float type data texture.
@@ -1756,12 +1757,12 @@ class EXRLoader extends DataTextureLoader {
 
 		}
 
-		const parseInt64 = ( dataView, offset ) => {
+		const parseInt64 = function( dataView, offset ) {
 
 			let int;
 
-			if ( DataView.prototype.getBigInt64 ) {
-			
+			if ( 'getBigInt64' in DataView.prototype ) {
+				
 				int = Number( dataView.getBigInt64( offset.value, true ) );
 
 			} else {

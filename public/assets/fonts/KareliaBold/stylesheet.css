@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'KareliaWeb';
+    src: url('KareliaWeb-Bold.eot');
+    src: url('KareliaWeb-Bold.eot?#iefix') format('embedded-opentype'),
+        url('KareliaWeb-Bold.woff2') format('woff2'),
+        url('KareliaWeb-Bold.woff') format('woff'),
+        url('KareliaWeb-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
