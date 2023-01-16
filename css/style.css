@@ -21,6 +21,7 @@ body {
 
 
 canvas {
+  font-family: 'Maison Neue';
   position: fixed;
   top: 0;
   left: 0;
