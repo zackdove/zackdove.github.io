@@ -119,7 +119,7 @@ export const generate4StripeTexture = (
   const copyAmount = 4
   const canvasSize = 1024
   const fontSize = canvasSize / copyAmount
-  const fontStyle = `${fontSize}px KareliaMedium`
+  const fontStyle = `italic ${fontSize}px Maison Neue`
 
   const bitmap = document.createElement('canvas')
   const g = bitmap.getContext('2d')
@@ -131,10 +131,10 @@ export const generate4StripeTexture = (
     // background
     g.fillStyle = Object.values(colors)[i]
     console.log(g.fillStyle)
-    g.fillRect(0, shift * i / 2, bitmap.width, shift * i / 2)
+    g.fillRect(0, shift * i / 2, bitmap.width, shift)
 
     // text
-    g.font = `${fontSize}px KareliaMedium`
+    g.font = `italic ${fontSize}px Maison Neue`
     g.fillStyle = Object.values(colors)[i + 1]
     console.log(g.fillStyle)
     console.log(shift * i / 2)
@@ -148,3 +148,5 @@ export const generate4StripeTexture = (
   // document.body.appendChild(bitmap);
   return resizeImage(bitmap)
 }
+
+

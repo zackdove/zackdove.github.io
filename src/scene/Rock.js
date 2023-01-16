@@ -121,8 +121,19 @@ export default class Rock extends THREE.Group {
       })
       console.log(this.webgl.scene.currentScene)
     if (this.webgl.scene.currentScene == 'work') {
-      this.webgl.scene.work.dispose();
-      this.moveToCenter();
+      
+    } 
+    switch (this.webgl.scene.currentScene) {
+      case 'work':
+        this.webgl.scene.work.dispose();
+        this.moveToCenter();
+        break;
+      case 'about':
+        this.webgl.scene.about.dispose();
+        this.moveToCenter();
+        break;
+      default:
+        break;
     }
   }
   

@@ -21,21 +21,22 @@ const grey = '#f2f2f2'
 const blue = '#0000ff'
 const yellow = '#ffff00'
 const pink = '#ec28ff'
-const green = '#00ff4e'
+const green = '#00ff00'
 const red = '#ff3810'
 const black = '#000000'
 const transparent = 'rgba(225,225,225,0.0)';
 
 const colours = {
-  bg: yellow,
-  text: green,
+  bg: pink,
+  text: yellow,
   bg2: pink,
   text2: blue,
-  bg3: transparent,
-  text3: black,
-  bg4: yellow,
-  text4: blue,
+  bg3: blue,
+  text3: green,
+  bg4: transparent,
+  text4: pink,
 };
+
 
 export class About extends THREE.Group {
   constructor(webgl) {
@@ -55,13 +56,17 @@ export class About extends THREE.Group {
   }
 
   initialise() {
-
+    this.light = new THREE.DirectionalLight(0xffffff, 0.95);
+    this.light.position.set(0,1,1);
+    this.add(this.light);
     this.texture = new THREE.Texture(generate4StripeTexture('ZCKD ', colours, 8))
+    this.texture.encoding = THREE.sRGBEncoding;
     this.texture.needsUpdate = true
     this.texture.wrapS = THREE.RepeatWrapping
-    this.texture.wrapT = THREE.RepeatWrapping
+    // WrapT is vertical
+    // this.texture.wrapT = THREE.RepeatWrapping
     this.texture.repeat.set(6, 1)
-    // this.texture.anisotropy = 2
+    this.texture.anisotropy = 2
     this.material = new THREE.MeshBasicMaterial({ map: this.texture })
     this.material.transparent = true;
     
@@ -76,7 +81,8 @@ export class About extends THREE.Group {
       },
       side: THREE.DoubleSide,
       uniforms: {
-        time: 0,
+        uTime: {value: 0},
+        uSpeed: {value: 0.2},
         resolution: { value: new THREE.Vector4() },
         colorA: { value: new THREE.Vector3(1, 1, 0.1) },
         colorB: { value: new THREE.Vector3(1, 0.1, 1) },
@@ -87,7 +93,7 @@ export class About extends THREE.Group {
       fragmentShader,
     })
 
-    this.texture.minFilter = THREE.LinearFilter;
+    // this.texture.minFilter = THREE.LinearFilter;
 
 
     this.phongMaterial = new THREE.MeshPhongMaterial({
@@ -100,11 +106,19 @@ export class About extends THREE.Group {
 
     this.phongMaterial.onBeforeCompile = (shader) => {
       shader.uniforms.progress = {value: 0}
+      shader.uniforms.uTime = {value: 0}
+      shader.uniforms.uSpeed = {value: 0.3}
+      shader.uniforms.uFrequency = {value: 3.}
+      shader.uniforms.uAmplitude = {value: 1.}
       this.phongMaterial.userData.shader = shader;
       shader.vertexShader = shader.vertexShader.replace(
         `#include <clipping_planes_pars_vertex>`,
         `#include <clipping_planes_pars_vertex>
         varying vec2 vDisplacementUV;
+        uniform float uTime;
+        uniform float uSpeed;
+        uniform float uFrequency;
+        uniform float uAmplitude;
         vec2 rotate(vec2 v, float a){
           float s = sin(a);
           float c = cos(a);
@@ -120,6 +134,7 @@ export class About extends THREE.Group {
       shader.vertexShader = shader.vertexShader.replace(
         `#include <project_vertex>`,
         `
+        float t = uTime * uSpeed;
         vec2 pos = position.xy * 0.5 * vec2(1.,4.)+vec2(0.,0.);
         float u = fract(pos.x + 0.5);
         float v = map(pos.y/2., - 1.5,1.5,0.,1.);
@@ -127,7 +142,8 @@ export class About extends THREE.Group {
         vDisplacementUV = displacementUV;
         float displacement = (texture2D(displacementMap, displacementUV).r - 0.5)*2.;
         float radius = 1.4+ 1.25 * displacement;
-        vec2 rotatedDisplacement = rotate(vec2(0., radius), 2.0 * 3.14159265 * (pos.x));
+        float angle = sin(displacementUV.y * uFrequency + t)* (uAmplitude * sin(t * 0.4));
+        vec2 rotatedDisplacement = rotate(vec2(0., radius), 2.0 * 3.14159265 * (pos.x) + angle);
 
         vec4 mvPosition = vec4( vec3(rotatedDisplacement.x, position.y, rotatedDisplacement.y), 1.0 );
         mvPosition = modelViewMatrix * mvPosition;
@@ -161,16 +177,17 @@ export class About extends THREE.Group {
 
     this.handleWheel = this.handleWheel.bind(this);
     this.webgl.canvas.addEventListener('wheel', this.handleWheel)
-    this.gridGeometry = new THREE.PlaneGeometry(2, 3, 100, 100);
-    this.grid = new THREE.Mesh(this.gridGeometry, this.phongMaterial)
-    this.add(this.grid)
-    this.grid.scale.setScalar(2);
+    this.gridGeometry = new THREE.PlaneGeometry(2, 3, 200, 200);
+    this.mesh = new THREE.Mesh(this.gridGeometry, this.phongMaterial)
+    this.add(this.mesh)
+    this.mesh.scale.setScalar(2);
     this.active = true;
 
   }
 
   dispose() {
     this.active = false;
+    this.light.removeFromParent()
     this.mesh.removeFromParent()
     this.geometry = null;
     this.material = null;
@@ -182,17 +199,23 @@ export class About extends THREE.Group {
 
 
   switchTo() {
+    this.webgl.scene.currentScene = 'about'
     this.initialise();
   }
 
   handleWheel(event){
     this.velocity += event.deltaY * 0.00004
+    if (this.active) {
+      }
   }
 
 
   update(dt, time) {
     if (this.active) {
-      this.gridMaterial.uniforms.time = time;
+      if (this.phongMaterial.userData.shader){
+        // this.phongMaterial.userData.shader.uniforms.uTime.value = time;
+      }
+      
       this.scrollAmount += this.velocity;
       this.velocity *= 0.95;
       // const {shader} = this.gridMaterial.userData;
@@ -203,7 +226,7 @@ export class About extends THREE.Group {
       // }
       // this.grid.rotation.y =  Math.sin(time) * 0.5
       // this.grid.rotation.x = Math.sin(time * 3) * 0.5
-      this.texture.offset.y = time * 0.04 + this.scrollAmount;
+      this.texture.offset.y = (time) * 0.04 + this.scrollAmount;
       this.rotationCoords.x += (this.targetCoords.x - this.rotationCoords.x) * 0.05;
       this.rotationCoords.y += (this.targetCoords.y - this.rotationCoords.y) * 0.05;
       this.setRotationFromEuler(new THREE.Euler(

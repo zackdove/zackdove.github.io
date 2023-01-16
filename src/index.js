@@ -69,6 +69,7 @@ webgl.canvas.style.visibility = 'hidden'
 
 // load any queued assets
 assets.load({ renderer: webgl.renderer }).then(() => {
+
   // add any "WebGL components" here...
   // append them to the scene so you can
   // use them from other components easily
