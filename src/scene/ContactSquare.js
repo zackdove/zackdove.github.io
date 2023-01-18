@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import assets from '../utils/AssetManager'
 import { MeshSurfaceSampler } from '../utils/MeshSurfaceSampler';
+import {gsap} from 'gsap';
 
 const cubeKey = assets.queue({
   url: 'assets/models/cube.glb',
@@ -21,13 +22,18 @@ export class ContactSquare extends THREE.Group {
     this._normal = new THREE.Vector3();
     this._scale = new THREE.Vector3();
     this.dummy = new THREE.Object3D();
-
+    
+    this.variables = {
+      scaleFactor : 1,
+      timeFactor : 1,
+    }
     this.initialise();
   }
 
   initialise() {
     const cubeGltf = assets.get(cubeKey)
     this.cube = cubeGltf.scene.children[0].clone()
+    console.log(this.cube)
     this.material = new THREE.MeshPhongMaterial({ color: new THREE.Color('0xffffff') })
     this.cube.material = this.material;
     this.add(this.cube)
@@ -40,6 +46,11 @@ export class ContactSquare extends THREE.Group {
     this.add(this.cubeMesh)
     this.resample()
     this.active = true;
+    this.webgl.hoverables.push(this.cube);
+    this.cube.traverse((child) => {
+      child.handleHover = this.handleHover.bind(this);
+      child.handleNoHover = this.handleNoHover.bind(this);
+    });
 
   }
 
@@ -49,7 +60,7 @@ export class ContactSquare extends THREE.Group {
 
 
   scaleCurve(t) {
-    return Math.abs(this.easeOutCubic((t > 0.5 ? 1 - t : t) * 2)) * 2;
+    return Math.abs(this.easeOutCubic((t > 0.5 ? 1 - t : t) * 2)) * this.variables.scaleFactor;
   }
 
   resampleParticle(i, j) {
@@ -67,7 +78,7 @@ export class ContactSquare extends THREE.Group {
   }
 
   updateParticle(i, j) {
-    this.ages[i + j * this.count] += 0.005;
+    this.ages[i + j * this.count] += 0.005 * this.variables.timeFactor;
     if (this.ages[i + j * this.count] >= 1) {
       this.ages[i + j * this.count] = 0.001;
       this.scales[i+ j * this.count] = this.scaleCurve(this.ages[i+ j * this.count]);
@@ -84,7 +95,7 @@ export class ContactSquare extends THREE.Group {
 
   resample() {
     this.sampler = new MeshSurfaceSampler(this.cube)
-      // .setWeightAttribute( 'uv' )
+      .setWeightAttribute( 'color' )
       .build();
 
     for (let j = 0; j < this.meshes.length; j++) {
@@ -107,6 +118,8 @@ export class ContactSquare extends THREE.Group {
 
 
   update(dt, time) {
+    // this.rotation.z += dt;
+    // this.rotation.y += dt/3;
     if (this.sphereMesh && this.active) {
       const time = Date.now() * 0.001;
       for (let j = 0; j < this.meshes.length; j++) {
@@ -122,5 +135,19 @@ export class ContactSquare extends THREE.Group {
 
   onPointerMove(event, { x, y }) {
 
+  }
+
+  handleHover(){
+    gsap.to(this.variables, {
+      scaleFactor: 2,
+      timeFactor: 2
+    })
+  }
+
+  handleNoHover(){
+    gsap.to(this.variables, {
+      scaleFactor: 1,
+      timeFactor: 1,
+    })
   }
 }

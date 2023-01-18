@@ -103,7 +103,7 @@ webgl.scene.add(webgl.cssHandler)
   webgl.scene.contact = new Contact(webgl);
   webgl.scene.add(webgl.scene.contact);
 
-  webgl.scene.sections = [webgl.scene.work, webgl.scene.about]
+  webgl.scene.sections = [webgl.scene.work, webgl.scene.about, webgl.scene.contact]
 
   webgl.scene.rock = new Rock(webgl)
   webgl.scene.rotationGroup.add(webgl.scene.rock)

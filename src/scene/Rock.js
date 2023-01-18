@@ -130,6 +130,10 @@ export default class Rock extends THREE.Group {
         this.webgl.scene.about.dispose();
         this.moveToCenter();
         break;
+      case 'contact':
+        this.webgl.scene.contact.dispose();
+        this.moveToCenter();
+        break;
       default:
         break;
     }

@@ -23,6 +23,7 @@ export class Contact extends THREE.Group {
 
 
   switchTo() {
+    this.webgl.scene.currentScene = 'contact'
   this.initialise()
   }
 
