@@ -13,6 +13,7 @@ import WorkPills from './scene/WorkPills'
 import RaycastHandler from './scene/RaycastHandler'
 import CSSHandler from './scene/CSSHandler'
 import { About } from './scene/About'
+import { Contact } from './scene/Contact'
 
 // true if the url has the `?debug` parameter, otherwise false
 window.DEBUG = window.location.search.includes('debug')
@@ -99,6 +100,9 @@ webgl.scene.add(webgl.cssHandler)
   webgl.scene.about = new About(webgl);
   webgl.scene.add(webgl.scene.about);
 
+  webgl.scene.contact = new Contact(webgl);
+  webgl.scene.add(webgl.scene.contact);
+
   webgl.scene.sections = [webgl.scene.work, webgl.scene.about]
 
   webgl.scene.rock = new Rock(webgl)
@@ -132,6 +136,9 @@ webgl.scene.add(webgl.cssHandler)
       case '?work':
         webgl.scene.rock.moveToTopLeft();
         webgl.scene.work.switchTo()
+      case '?contact':
+          webgl.scene.rock.moveToTopLeft();
+          webgl.scene.contact.switchTo();
       default:
         break;
     }
