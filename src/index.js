@@ -121,7 +121,7 @@ webgl.scene.add(webgl.cssHandler)
   webgl.renderer.shadowMap.enabled = true
 
   const raycastHandler = new RaycastHandler(webgl, webgl.hoverables, webgl.clickables)
-
+  webgl.raycastHandler = raycastHandler;
   webgl.onPointerDown(raycastHandler.handlePointerDown);
   webgl.onPointerMove(raycastHandler.handlePointerMove)
 

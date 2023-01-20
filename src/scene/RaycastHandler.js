@@ -9,6 +9,20 @@ export default class RaycastHandler {
     this.clickables = clickables;
   }
 
+  removeHoverable(hoverable) {
+    const index = this.hoverables.indexOf(hoverable);
+    if (index > -1) {
+      this.hoverables.splice(index, 1);
+    }
+  }
+
+  removeClickable(clickable){
+    const index = this.clickables.indexOf(clickable);
+    if (index > -1) {
+      this.clickables.splice(index, 1);
+    }
+  }
+
 
   handlePointerMove(event, { x, y }) {
     const coords = new THREE.Vector2().set(
@@ -23,7 +37,7 @@ export default class RaycastHandler {
       document.body.style = "cursor: pointer"
     } else {
       document.body.style = "cursor: auto"
-      for (let i = 0; i < this.hoverables.length; i++){
+      for (let i = 0; i < this.hoverables.length; i++) {
         if (this.hoverables[i].handleNoHover) this.hoverables[i].handleNoHover();
       }
     }

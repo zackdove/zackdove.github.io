@@ -200,6 +200,8 @@ export default class Pill extends THREE.Group {
 
   dispose(){
     this.active = false;
+    this.webgl.raycastHandler.removeHoverable(this.pill);
+    this.webgl.raycastHandler.removeClickable(this.pills);
     this.pill.removeFromParent();
     this.pill = null;
     this.body.removeShape(this.sphereShape);
