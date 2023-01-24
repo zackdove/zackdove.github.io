@@ -93,3 +93,65 @@ canvas {
   background-position: 12px 12px;
 }
 
+#overlay{
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#overlay svg{
+  overflow: visible;
+}
+
+#svgBottomContainer{
+  position: fixed;
+  width: 100%;
+  /* height: 100px; */
+ 
+  bottom: 0;
+}
+
+#svgTopContainer{
+  position: fixed;
+  width: 100%;
+  height: 100px;
+
+  top: 0;
+}
+
+#overlayBottom{
+  
+}
+
+@keyframes innerCircleAnim {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: 100%;
+  }
+
+}
+
+#innerCircle{
+  animation: innerCircleAnim 5s linear infinite;
+}
+
+@keyframes outerCircleAnim {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: 100%;
+  }
+
+}
+
+#outerCircle{
+  animation: outerCircleAnim 10s linear infinite;
+}
