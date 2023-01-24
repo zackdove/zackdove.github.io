@@ -87,6 +87,7 @@ export default class Rock extends THREE.Group {
     })
     this.topLeftCalculator = new TopLeftCalculator(webgl);
     this.cornerPosition = this.topLeftCalculator.getTopLeftPosition().clone();
+    this.isTopLeft = false;
   }
 
   handleHover() {
@@ -110,17 +111,17 @@ export default class Rock extends THREE.Group {
     })
   }
 
-  handleClick(){
+  handleClick() {
     let newX = this.rotation.x + Math.PI / 2;
-      gsap.to(this.rotation, {
-        x: newX,
-        y:  Math.random() * Math.PI ,
-        // z: Math.random() * Math.PI ,
-        duration: 2.5,
-        ease: "elastic.out(0.5, 0.2)",
-      })
-      console.log(this.webgl.scene.currentScene)
-   
+    gsap.to(this.rotation, {
+      x: newX,
+      y: Math.random() * Math.PI,
+      // z: Math.random() * Math.PI ,
+      duration: 2.5,
+      ease: "elastic.out(0.5, 0.2)",
+    })
+    console.log(this.webgl.scene.currentScene)
+
     switch (this.webgl.scene.currentScene) {
       case 'work':
         this.webgl.scene.work.dispose();
@@ -139,9 +140,10 @@ export default class Rock extends THREE.Group {
     }
     this.webgl.scene.currentScene = 'landing'
   }
-  
+
 
   moveToCenter() {
+    this.isTopLeft = false;
     gsap.to(this.position, {
       x: 0,
       y: 0,
@@ -161,6 +163,7 @@ export default class Rock extends THREE.Group {
   }
 
   moveToTopLeft() {
+    this.isTopLeft = true;
     this.cornerPosition.copy(this.topLeftCalculator.getTopLeftPosition());
     // this.position.copy(this.cornerPosition);
     gsap.to(this.position, {
@@ -169,14 +172,23 @@ export default class Rock extends THREE.Group {
       z: this.cornerPosition.z,
     })
     gsap.to(this.scale, {
-      x: 0.2,
-      y: 0.2,
-      z: 0.2,
+      x: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
+      y: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
+      z: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
+      onComplete: () => {
+        this.webgl.scene.rock.rock.children[0].geometry.computeBoundingBox();
+        const box = new THREE.Box3();
+        box.copy(this.webgl.scene.rock.rock.children[0].geometry.boundingBox).applyMatrix4(this.webgl.scene.rock.rock.children[0].matrixWorld);
+        console.log(box)
+      }
     })
   }
 
   resize({ width, height, pixelRatio }) {
-    this.cornerPosition.copy(this.topLeftCalculator.getTopLeftPosition());
+    // this.cornerPosition.copy(this.topLeftCalculator.getTopLeftPosition());
+    if (this.isTopLeft) {
+      this.moveToTopLeft();
+    }
   }
 
 

@@ -60,7 +60,7 @@ export class ContactSquare extends THREE.Group {
     normal.needsUpdate = true;
     this.normal = normal;
     this.material = new THREE.MeshPhongMaterial({
-      color: new THREE.Color('0xffffff'),
+      color: new THREE.Color(0xffffff),
       // map: assets.get(kyubeyKey),
       // bumpMap: bumpMap,
       shininess: 100,

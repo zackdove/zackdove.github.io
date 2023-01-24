@@ -80,7 +80,7 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.scene.rotationGroup = new THREE.Group();
 
   webgl.cssHandler = new CSSHandler(webgl)
-webgl.scene.add(webgl.cssHandler)
+  webgl.scene.add(webgl.cssHandler)
 
 
 
