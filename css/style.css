@@ -14,13 +14,27 @@
   font-family: 'KareliaBold';
   src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot');
   src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot?#iefix') format('embedded-opentype'),
-      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff2') format('woff2'),
-      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff') format('woff'),
-      url('/assets/fonts/KareliaBold/KareliaWeb-Bold.ttf') format('truetype');
+    url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff2') format('woff2'),
+    url('/assets/fonts/KareliaBold/KareliaWeb-Bold.woff') format('woff'),
+    url('/assets/fonts/KareliaBold/KareliaWeb-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Maison Neue Mono';
+  src: url('/assets/fonts/MaisonNeueMono-Bold/MaisonNeueMono-Bold.eot');
+  src: url('/assets/fonts/MaisonNeueMono-Bold/MaisonNeueMono-Bold.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/MaisonNeueMono-Bold/MaisonNeueMono-Bold.woff2') format('woff2'),
+    url('/assets/fonts/MaisonNeueMono-Bold/MaisonNeueMono-Bold.woff') format('woff'),
+    url('/assets/fonts/MaisonNeueMono-Bold/MaisonNeueMono-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 
 
 
@@ -52,23 +66,23 @@ canvas {
   height: 100%;
 }
 
-.css3DDOMElement{
+.css3DDOMElement {
   pointer-events: none;
 }
 
-.css3DScene{
+.css3DScene {
   pointer-events: none;
 }
 
-.css3DScene video{
-  pointer-events: auto!important;
+.css3DScene video {
+  pointer-events: auto !important;
 }
 
-.css3DScene :not(video){
-  pointer-events: none!important;
+.css3DScene :not(video) {
+  pointer-events: none !important;
 }
 
-#groundContainer{
+#groundContainer {
   background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
   background-size: 22px 22px;
   background-position: 12px 12px;
@@ -84,7 +98,7 @@ canvas {
 
 
 
-.cssGround{
+.cssGround {
   width: 150vw;
   height: 1000px;
   /* background-color: greenyellow; */
@@ -93,37 +107,35 @@ canvas {
   background-position: 12px 12px;
 }
 
-#overlay{
+#overlay {
   pointer-events: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  font-family: Courier, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: bold;
 }
 
-#overlay svg{
+#overlay svg {
   overflow: visible;
 }
 
-#svgBottomContainer{
+#svgBottomContainer {
   position: fixed;
   width: 100%;
   /* height: 100px; */
- 
+
   bottom: 0;
 }
 
-#svgTopContainer{
+#svgTopContainer {
   position: fixed;
   width: 100%;
   height: 100px;
 
   top: 0;
-}
-
-#overlayBottom{
-  
 }
 
 @keyframes innerCircleAnim {
@@ -137,7 +149,7 @@ canvas {
 
 }
 
-#innerCircle{
+#innerCircle {
   animation: innerCircleAnim 5s linear infinite;
 }
 
@@ -152,6 +164,6 @@ canvas {
 
 }
 
-#outerCircle{
+#outerCircle {
   animation: outerCircleAnim 10s linear infinite;
 }

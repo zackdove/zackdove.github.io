@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Maison Neue Mono';
+    src: url('MaisonNeueMono-Bold.eot');
+    src: url('MaisonNeueMono-Bold.eot?#iefix') format('embedded-opentype'),
+        url('MaisonNeueMono-Bold.woff2') format('woff2'),
+        url('MaisonNeueMono-Bold.woff') format('woff'),
+        url('MaisonNeueMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
