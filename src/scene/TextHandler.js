@@ -34,11 +34,12 @@ export default class TextHandler {
     this.inActiveTimeout = null;
     this.activeTimeout = null;
     this.activeIndex = 0;
+    this.current = '';
   }
 
   startInactiveAnim() {
     function doInactive() {
-      if (!this.isHover) {
+      if (!this.current) {
         if (this.text.length > 1) {
           Math.random() > 0.5 ? this.text[this.text.length - 1] = this.chars[Math.floor(Math.random() * this.chars.length)] : this.text.pop()
         } else {
@@ -56,14 +57,14 @@ export default class TextHandler {
   startActiveAnim(t) {
     function doActive() {
 
-      if (this.isHover) {
+      if (this.current && this.current == t) {
 
         if (this.text[this.activeIndex] == t[this.activeIndex]) {
           this.activeIndex++;
         }
         if (this.activeIndex >= t.length) {
-          console.log('reached end')
-          console.log(this.text)
+          // console.log('reached end')
+          // console.log(this.text)
           this.text.splice(this.activeIndex, this.text.length - t.length);
           this.glitchedEl.innerHTML = this.text.join('');
         } else {
@@ -96,8 +97,9 @@ export default class TextHandler {
   }
 
   changeTo(text) {
-    if (!this.isHover) {
-      this.isHover = true;
+    // console.log(text)
+    if (!this.current || this.current !== text) {
+      this.current = text;
       this.activeIndex = 0;
       this.startActiveAnim(text)
     }
@@ -114,8 +116,8 @@ export default class TextHandler {
 
 
   clearActive() {
-    if (this.isHover) {
-      this.isHover = false;
+    if (this.current) {
+      this.current = '';
       this.startInactiveAnim()
     }
   }

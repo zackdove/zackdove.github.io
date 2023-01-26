@@ -3,6 +3,7 @@ import * as CANNON from 'cannon-es';
 import { gsap } from "gsap";
 import TopLeftCalculator from '../utils/TopLeftCalculator';
 import assets from '../utils/AssetManager'
+import workSpec from './WorkSpec';
 
 const radius = 0.6;
 
@@ -18,6 +19,7 @@ export default class Pill extends THREE.Group {
     this.index = index;
     this.webgl = webgl;
     this.world = world;
+    this.title = workSpec.projects[this.index].title;
   }
 
   initialise(){
@@ -90,6 +92,7 @@ export default class Pill extends THREE.Group {
   }
 
   handleHover() {
+    this.webgl.textHandler.changeTo(this.title)
     if (this.active){
     this.body.linearDamping = 0.99;
     }

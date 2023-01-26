@@ -139,9 +139,11 @@ assets.load({ renderer: webgl.renderer }).then(() => {
       case '?work':
         webgl.scene.rock.moveToTopLeft();
         webgl.scene.work.switchTo()
+        break;
       case '?contact':
           webgl.scene.rock.moveToTopLeft();
           webgl.scene.contact.switchTo();
+          break;
       default:
         break;
     }
