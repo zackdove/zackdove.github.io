@@ -40,6 +40,7 @@ export default class RaycastHandler {
       for (let i = 0; i < this.hoverables.length; i++) {
         if (this.hoverables[i].handleNoHover) this.hoverables[i].handleNoHover();
       }
+      this.webgl.textHandler.clearActive()
     }
   }
 

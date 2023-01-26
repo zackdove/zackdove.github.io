@@ -91,6 +91,7 @@ export default class Rock extends THREE.Group {
   }
 
   handleHover() {
+    this.webgl.textHandler.changeTo('HOME')
     this.rock.traverse((child) => {
       if (child.isMesh) {
         // child.materia.envMap = envMap

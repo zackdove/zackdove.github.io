@@ -48,7 +48,7 @@ export default class MenuDot extends THREE.Group {
 
   handleHover(){
 
-
+    this.webgl.textHandler.changeTo(this.section.title)
     this.isHit = true;
     this.webgl.scene.rock.littleDots.setSlerpTo(this.quaternion)
   }

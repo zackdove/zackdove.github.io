@@ -14,6 +14,7 @@ import RaycastHandler from './scene/RaycastHandler'
 import CSSHandler from './scene/CSSHandler'
 import { About } from './scene/About'
 import { Contact } from './scene/Contact'
+import TextHandler from './scene/TextHandler'
 
 // true if the url has the `?debug` parameter, otherwise false
 window.DEBUG = window.location.search.includes('debug')
@@ -124,6 +125,8 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.raycastHandler = raycastHandler;
   webgl.onPointerDown(raycastHandler.handlePointerDown);
   webgl.onPointerMove(raycastHandler.handlePointerMove)
+
+  webgl.textHandler = new TextHandler(webgl)
 
   console.log(window.location.search)
 

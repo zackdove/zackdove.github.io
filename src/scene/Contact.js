@@ -51,6 +51,7 @@ export class Contact extends THREE.Group {
   constructor(webgl) {
     super();
     this.webgl = webgl;
+    this.title = 'CONTACT'
     this.cubes = []
     this.config = [
       {

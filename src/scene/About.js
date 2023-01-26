@@ -80,6 +80,7 @@ export class About extends THREE.Group {
   constructor(webgl) {
     super();
     this.webgl = webgl;
+    this.title = 'ABOUT';
     this.active = false;
     this.rotationCoords = {
       x: 0,

@@ -8,6 +8,7 @@ export default class WorkPills extends THREE.Group {
   constructor(webgl) {
     super()
     this.webgl = webgl
+    this.title = 'WORK'
     this.world = new CANNON.World();
     this.world.gravity.set(0, 0, 0);
     this.world.defaultContactMaterial.friction = 1;
