@@ -65,16 +65,22 @@ export default class TextHandler {
         if (this.activeIndex >= t.length) {
           // console.log('reached end')
           // console.log(this.text)
-          this.text.splice(this.activeIndex, this.text.length - t.length);
-          this.glitchedEl.innerHTML = this.text.join('');
+          console.log(this.text.join(''))
+          console.log(t)
+          console.log(this.text.join('') !== t)
+          if (this.text.join('') !== t) {
+            Math.random() > 0.5 ? this.text[this.text.length - 1] = this.chars[Math.floor(Math.random() * this.chars.length)] : this.text.pop()
+            this.glitchedEl.innerHTML = this.text.join('');
+            this.activeTimeout = setTimeout(doActive, 50);
+          }
         } else {
-          // Try random chars
-          // this.text[this.activeIndex] = Math.random() > 0.5 ? this.chars[Math.floor(Math.random()*this.chars.length)] : t[Math.floor(Math.random() * t.length)]
-          this.text[this.activeIndex] = Math.random() > 0.5 ?
-            this.chars[Math.floor(Math.random() * this.chars.length)] :
-            t[this.activeIndex]
-          this.glitchedEl.innerHTML = this.text.join('');
-          this.activeTimeout = setTimeout(doActive, 50);
+            // Try random chars
+            // this.text[this.activeIndex] = Math.random() > 0.5 ? this.chars[Math.floor(Math.random()*this.chars.length)] : t[Math.floor(Math.random() * t.length)]
+            this.text[this.activeIndex] = Math.random() > 0.5 ?
+              this.chars[Math.floor(Math.random() * this.chars.length)] :
+              t[this.activeIndex]
+            this.glitchedEl.innerHTML = this.text.join('');
+            this.activeTimeout = setTimeout(doActive, 50);
         }
 
       }
