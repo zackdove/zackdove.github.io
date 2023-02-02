@@ -225,15 +225,15 @@ export class ContactSquare extends THREE.Group {
 
   handleHover() {
     gsap.to(this.variables, {
-      scaleFactor: 4,
-      timeFactor: 0.5
+      scaleFactor: 2,
+      timeFactor: 1
     })
   }
 
   handleNoHover() {
     gsap.to(this.variables, {
-      scaleFactor: 2,
-      timeFactor: 1,
+      scaleFactor: 4,
+      timeFactor: 0.5,
     })
   }
 

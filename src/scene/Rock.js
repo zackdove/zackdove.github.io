@@ -155,6 +155,25 @@ export default class Rock extends THREE.Group {
       y: 1,
       z: 1,
     })
+    gsap.to(document.getElementById('rockCircle'), {
+      r: 4
+    }
+    )
+    gsap.to(document.getElementById('innerCircle'), {
+      r: 10.5,
+      strokeWidth: 10,
+    })
+    gsap.to(document.getElementById('outerCircle'), {
+      r: 18,
+    })
+    gsap.to(document.getElementById('cusp'), {
+      r: 18,
+      strokeDasharray: "30 80",
+      strokeDashoffset: 20,
+    })
+    gsap.to(document.getElementById('topLine'), {
+      attr: { d: "M 60 35 H 705 l 45 45" }
+    })
   }
 
 
@@ -183,6 +202,26 @@ export default class Rock extends THREE.Group {
         console.log(box)
       }
     })
+    gsap.to(document.getElementById('rockCircle'), {
+      r: 40
+    }
+    )
+    gsap.to(document.getElementById('innerCircle'), {
+      r: 43,
+      strokeWidth: 1,
+    })
+    gsap.to(document.getElementById('outerCircle'), {
+      r: 46,
+    })
+    gsap.to(document.getElementById('cusp'), {
+      r: 46,
+      strokeDasharray: "48.171087355 240.855436775",
+      strokeDashoffset: 40,
+    })
+    gsap.to(document.getElementById('topLine'), {
+      attr: { d: "M 93 35 H 705 l 45 45" }
+    })
+
   }
 
   resize({ width, height, pixelRatio }) {
