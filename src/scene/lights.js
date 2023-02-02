@@ -14,6 +14,8 @@ export function addNaturalLight(webgl) {
   dirLight.position.set(-4, 5, 1)
   dirLight.position.multiplyScalar(50)
   dirLight.castShadow = true;
+  dirLight.shadow.camera.left = -7
+  window.dirLight = dirLight;
   webgl.scene.add(dirLight)
 
 

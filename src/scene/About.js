@@ -256,6 +256,7 @@ export class About extends THREE.Group {
 
   switchTo() {
     this.webgl.scene.currentScene = 'about'
+   
     this.initialise();
   }
 

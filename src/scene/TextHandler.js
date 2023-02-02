@@ -66,9 +66,6 @@ export default class TextHandler {
         if (this.activeIndex >= t.length) {
           // console.log('reached end')
           // console.log(this.text)
-          console.log(this.text.join(''))
-          console.log(t)
-          console.log(this.text.join('') !== t)
           if (this.text.join('') !== t) {
             Math.random() > 0.5 ? this.text[this.text.length - 1] = this.chars[Math.floor(Math.random() * this.chars.length)] : this.text.pop()
             this.glitchedEl.innerHTML = this.text.join('');

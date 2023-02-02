@@ -15,6 +15,7 @@ import CSSHandler from './scene/CSSHandler'
 import { About } from './scene/About'
 import { Contact } from './scene/Contact'
 import TextHandler from './scene/TextHandler'
+import CSSGroundHandler from './scene/CSSGround'
 
 // true if the url has the `?debug` parameter, otherwise false
 window.DEBUG = window.location.search.includes('debug')
@@ -83,6 +84,8 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.cssHandler = new CSSHandler(webgl)
   webgl.scene.add(webgl.cssHandler)
 
+  webgl.cssGroundHandler = new CSSGroundHandler(webgl)
+  webgl.scene.add(webgl.cssGroundHandler)
 
 
   webgl.scene.ribbons = new Ribbons(webgl)

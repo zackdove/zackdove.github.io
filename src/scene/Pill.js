@@ -85,7 +85,7 @@ export default class Pill extends THREE.Group {
       if (this.mode === 0) {
         this.body.force.set(-this.body.position.x, -this.body.position.y, -this.body.position.z)
       } else {
-        this.body.force.set(-this.body.position.x / 5, -9, -this.body.position.z / 5)
+        this.body.force.set(-this.body.position.x / 20, -9, -this.body.position.z / 20)
       }
     }
   }
@@ -114,6 +114,7 @@ export default class Pill extends THREE.Group {
     this.body.addShape(this.cylinderShape)
     this.body.removeShape(this.sphereShape);
     this.body.linearDamping = 0.8;
+    this.body.angularDamping = 0.8;
   }
 
   resize({ width, height, pixelRatio }) {

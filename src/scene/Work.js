@@ -59,6 +59,7 @@ export default class Work extends THREE.Group {
     // this.webgl.orbitControls.enabled = false;
     this.initialise();
     this.webgl.scene.currentScene = 'work'
+    this.webgl.cssGroundHandler.render()
     this.webgl.scene.ribbons.moveToFloor()
   }
 

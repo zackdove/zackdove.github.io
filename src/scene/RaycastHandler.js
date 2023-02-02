@@ -42,6 +42,7 @@ export default class RaycastHandler {
       }
       this.webgl.textHandler.clearActive()
     }
+    
   }
 
 

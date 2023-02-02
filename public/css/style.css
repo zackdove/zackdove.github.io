@@ -110,7 +110,10 @@ canvas {
 
 
 
-
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
 
 .cssGround {
   width: 150vw;
@@ -119,6 +122,7 @@ canvas {
   background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
   background-size: 22px 22px;
   background-position: 12px 12px;
+  animation: fadeIn 2s;
 }
 
 #overlay {
