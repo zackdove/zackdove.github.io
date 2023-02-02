@@ -38,10 +38,13 @@ export default class WorkPills extends THREE.Group {
     this.initialise();
     this.webgl.scene.ribbons.moveToFloor()
     this.webgl.cssGroundHandler.render()
+    document.getElementById('cssGround').classList.add('show')
     this.webgl.scene.currentScene = 'work'
   }
 
   dispose() {
+    this.active = false;
+    document.getElementById('cssGround').classList.remove('show')
     console.log(this.pills)
     for (let i = 0; i < this.pills.length; i++){
       this.pills[i].dispose()

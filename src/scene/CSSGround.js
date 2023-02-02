@@ -25,7 +25,7 @@ export default class CSSGroundHandler extends THREE.Group{
 
   addGround(){
     const groundDiv = document.createElement('div');
-    groundDiv.classList.add('cssGround')
+    groundDiv.id = 'cssGround';
     this.cssGround = new CSS3DObject(groundDiv);
     this.scene.add(this.cssGround)
     this.cssGround.rotation.x = Math.PI/2;

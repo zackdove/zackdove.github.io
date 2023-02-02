@@ -110,20 +110,23 @@ canvas {
 
 
 
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
 
-.cssGround {
+#cssGround {
   width: 150vw;
   height: 1000px;
   /* background-color: greenyellow; */
   background: linear-gradient(90deg, #ffffff 21px, transparent 1%) center, linear-gradient(#ffffff 21px, transparent 1%) center, #444444;
   background-size: 22px 22px;
   background-position: 12px 12px;
-  animation: fadeIn 2s;
+ opacity: 0;
+ transition: opacity 2s;
 }
+
+#cssGround.show{
+  opacity: 1;
+}
+
+
 
 #overlay {
   pointer-events: none;
