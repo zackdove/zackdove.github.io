@@ -161,7 +161,7 @@ export default class Rock extends THREE.Group {
     )
     gsap.to(document.getElementById('innerCircle'), {
       r: 10.5,
-      strokeWidth: 10,
+      strokeWidth: 1,
     })
     gsap.to(document.getElementById('outerCircle'), {
       r: 18,
