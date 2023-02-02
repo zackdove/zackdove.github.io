@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Karelia';
+    src: url('Karelia-Outtakes.eot');
+    src: url('Karelia-Outtakes.eot?#iefix') format('embedded-opentype'),
+        url('Karelia-Outtakes.woff2') format('woff2'),
+        url('Karelia-Outtakes.woff') format('woff'),
+        url('Karelia-Outtakes.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

@@ -11,6 +11,20 @@
 }
 
 @font-face {
+  font-family: 'KareliaOuttakes';
+  src: url('/assets/fonts/KareliaOuttakes/Karelia-Outtakes.eot');
+  src: url('/assets/fonts/KareliaOuttakes/Karelia-Outtakes.eot?#iefix') format('embedded-opentype'),
+      url('/assets/fonts/KareliaOuttakes/Karelia-Outtakes.woff2') format('woff2'),
+      url('/assets/fonts/KareliaOuttakes/Karelia-Outtakes.woff') format('woff'),
+      url('/assets/fonts/KareliaOuttakes/Karelia-Outtakes.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+@font-face {
   font-family: 'KareliaBold';
   src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot');
   src: url('/assets/fonts/KareliaBold/KareliaWeb-Bold.eot?#iefix') format('embedded-opentype'),
@@ -114,8 +128,9 @@ canvas {
   left: 0;
   right: 0;
   bottom: 0;
-  font-family: Courier, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'KareliaOuttakes', Courier, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* font-weight: light; */
 }
 
 #overlay svg {
