@@ -25,9 +25,10 @@ export class ContactSquare extends THREE.Group {
     this.index = i;
     this.cubeGltf = cubeGltf;
     this.variables = {
-      scaleFactor: 1,
-      timeFactor: 1,
+      scaleFactor: 4,
+      timeFactor: 0.5,
     }
+    this.hover = false;
     this.url = url;
     this.plants = [];
     this.normalKey = normalKey;
@@ -93,7 +94,20 @@ export class ContactSquare extends THREE.Group {
       child.handleNoHover = this.handleNoHover.bind(this);
       child.handleClick = this.handleClick.bind(this);
     });
-
+    this.position.set(0,3,0)
+    this.scale.set(0,0,0)
+    gsap.to(this.position, {
+      y: 0,
+      ease: "elastic.out(0.5, 0.2)",
+      duration: 2,
+      delay: this.index/3,
+    })
+    gsap.to(this.scale, {
+      x: 0.5,
+      y: 0.5,
+      z: 0.5,
+      delay: this.index/3,
+    })
   }
 
   easeOutCubic(t) {
@@ -224,17 +238,24 @@ export class ContactSquare extends THREE.Group {
   }
 
   handleHover() {
-    gsap.to(this.variables, {
-      scaleFactor: 2,
-      timeFactor: 1
-    })
+    if (!this.hover){
+      this.hover = true;
+      gsap.to(this.variables, {
+        scaleFactor: 2,
+        timeFactor: 1
+      })
+    }
   }
 
   handleNoHover() {
-    gsap.to(this.variables, {
-      scaleFactor: 4,
-      timeFactor: 0.5,
-    })
+    if (this.hover){
+      this.hover = false
+      gsap.to(this.variables, {
+        scaleFactor: 4,
+        timeFactor: 0.5,
+      })
+    }
+   
   }
 
   handleClick() {

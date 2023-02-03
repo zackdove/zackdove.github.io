@@ -1,10 +1,8 @@
 import * as THREE from 'three'
+import { gsap } from "gsap";
 
 const sphereGeo = new THREE.SphereGeometry(0.03, 20, 20);
-const cylinderGeo = new THREE.CylinderGeometry(0.01, 0.01);
 const whiteMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0x00ff00) })
-const raycaster = new THREE.Raycaster();
-
 export default class LittleDots extends THREE.Group {
   constructor(webgl) {
     super()
@@ -25,6 +23,7 @@ export default class LittleDots extends THREE.Group {
       this.velocities.push((Math.random() * 0.4 + 0.1) * (Math.random() < 0.5 ? -1 : 1));
       this.slerped = new Array(50).fill(false);
     }
+    this.scale.set(0,0,0)
   }
   update(dt, time) {
     if (this.isSlerping) {
@@ -46,6 +45,15 @@ export default class LittleDots extends THREE.Group {
         this.groups[i].rotation.y += dt * this.velocities[2 * i + 1];
       }
     }
+  }
+
+  show(){
+    gsap.to(this.scale, {
+      x: 1,
+      y: 1,
+      z: 1,
+      duration: 2.5,
+    })
   }
 
 

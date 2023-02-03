@@ -49,12 +49,15 @@ export default class Rock extends THREE.Group {
 
     this.material;
 
+    this.scale.set(0,0,0)
+    this.position.set(2,0,0)
 
     // apply the material to the model
     rock.traverse((child) => {
       if (child.isMesh) {
         child.geometry.computeBoundsTree();
         child.material.envMap = envMap
+        child.material.color = new THREE.Color(0x0000ff);
         this.material = child.material;
       }
     })
@@ -66,7 +69,6 @@ export default class Rock extends THREE.Group {
     this.blueMaterial.roughness = 0;
     this.blueMaterial.color = new THREE.Color(0x0000ff);
 
-    rock.scale.setScalar(2);
     this.add(rock)
     this.rotation.x = 0.5;
     this.rotation.y = 0.5;
@@ -222,6 +224,31 @@ export default class Rock extends THREE.Group {
       attr: { d: "M 93 35 H 705 l 45 45" }
     })
 
+  }
+
+  animateIn(){
+    gsap.to(this.scale, {
+      x: 1,
+      y: 1,
+      z: 1,
+      duration: 1.5,
+      onComplete: () => {
+        this.littleDots.show();
+        this.menuDots.show();
+      },
+    })
+    gsap.to(this.rotation, {
+      x:  Math.random() * Math.PI,
+      y: Math.random() * Math.PI,
+      // z: Math.random() * Math.PI ,
+      duration: 3.5,
+      ease: "elastic.out(0.5, 0.2)",
+    })
+    gsap.to(this.position, {
+      x: 0,
+      duration: 3.5,
+      ease: "elastic.out(0.5, 0.2)",
+    })
   }
 
   resize({ width, height, pixelRatio }) {

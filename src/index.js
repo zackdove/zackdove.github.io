@@ -38,19 +38,6 @@ const webgl = new WebGLApp({
   // enable OrbitControls
   orbitControls: false,
   // Add the controls pane inputs
-  controls: {
-    roughness: 0.5,
-    movement: {
-      speed: {
-        value: 1.5,
-        max: 100,
-        scale: 'exp',
-      },
-      frequency: { value: 0.5, max: 5 },
-      amplitude: { value: 0.7, max: 2 },
-    },
-  },
-  hideControls: !window.DEBUG,
   // enable cannon-es
   // world: new CANNON.World(),
 })
@@ -67,11 +54,13 @@ if (window.DEBUG) {
 webgl.canvas.style.visibility = 'hidden'
 
 
-
+console.log('loading')
 
 
 // load any queued assets
 assets.load({ renderer: webgl.renderer }).then(() => {
+  console.log('loaded')
+
 
   // add any "WebGL components" here...
   // append them to the scene so you can
@@ -87,16 +76,7 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.cssGroundHandler = new CSSGroundHandler(webgl)
   webgl.scene.add(webgl.cssGroundHandler)
 
-
-  webgl.scene.ribbons = new Ribbons(webgl)
-  webgl.scene.rotationGroup.add(webgl.scene.ribbons)
   webgl.scene.add(webgl.scene.rotationGroup)
-
-  webgl.scene.menuGroup = new THREE.Group();
-  webgl.scene.menuGroup.rotation.x = Math.PI;
-  webgl.scene.rotationGroup.add(webgl.scene.menuGroup)
-
-
 
   webgl.scene.work = new WorkPills(webgl);
   webgl.scene.add(webgl.scene.work);
@@ -112,7 +92,7 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.scene.rock = new Rock(webgl)
   webgl.scene.rotationGroup.add(webgl.scene.rock)
   webgl.camera.position.set(0, 0, 6);
- 
+
 
   // landing, menu, work, about, play
   webgl.scene.currentScene = 'landing'
@@ -132,8 +112,9 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.textHandler = new TextHandler(webgl)
 
   console.log(window.location.search)
+  webgl.canvas.style.visibility = ''
 
-  setTimeout( () => {
+  setTimeout(() => {
     switch (window.location.search) {
       case '?about':
         webgl.scene.rock.moveToTopLeft();
@@ -144,14 +125,24 @@ assets.load({ renderer: webgl.renderer }).then(() => {
         webgl.scene.work.switchTo()
         break;
       case '?contact':
-          webgl.scene.rock.moveToTopLeft();
-          webgl.scene.contact.switchTo();
-          break;
+        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.contact.switchTo();
+        break;
       default:
         break;
     }
-  }, 1000) 
-  
+  }, 5000)
+
+  setTimeout(() => {
+    document.getElementById('svgTopContainer').classList.add('loaded');
+    document.getElementById('svgBottomContainer').classList.add('loaded');
+  }, 2000)
+
+  setTimeout( ( ) => {
+    // Animate in rock
+    webgl.scene.rock.animateIn();
+  }, 3000)
+
 
   // lights and other scene related stuff
   addNaturalLight(webgl)
@@ -167,7 +158,7 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   }
 
   // show canvas
-  webgl.canvas.style.visibility = ''
+
 
   // start animation loop
   webgl.start()

@@ -36,7 +36,6 @@ export default class WorkPills extends THREE.Group {
   switchTo() {
     // this.webgl.orbitControls.enabled = false;
     this.initialise();
-    this.webgl.scene.ribbons.moveToFloor()
     this.webgl.cssGroundHandler.render()
     document.getElementById('cssGround').classList.add('show')
     this.webgl.scene.currentScene = 'work'

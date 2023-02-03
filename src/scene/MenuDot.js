@@ -62,8 +62,8 @@ export default class MenuDot extends THREE.Group {
   }
 
   handleClick(){
-    this.section.switchTo();
     this.webgl.scene.rock.moveToTopLeft();
+    setTimeout( () => this.section.switchTo(), 1000)
   }
 
  

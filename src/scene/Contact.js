@@ -105,12 +105,6 @@ export class Contact extends THREE.Group {
   }
 
 
-  update(dt, time) {
-   
-    
-
-  }
-
   onPointerMove(event, { x, y }) {
     
   }
