@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import assets from '../utils/AssetManager'
 import { generate4StripeTexture, generateFaceTexture } from '../utils/stripeTexture';
 
+import { gsap } from "gsap";
+
 import vertexShader from '../shaders/face/vertex.vert'
 import fragmentShader from '../shaders/face/fragment.frag'
 
@@ -96,17 +98,17 @@ export class About extends THREE.Group {
 
   initialise() {
     // this.texture = new THREE.Texture(generate4StripeTexture('ZCKD ', colours))
-    this.texture = new THREE.Texture(generateFaceTexture(text, colours ) )
+    this.texture = new THREE.Texture(generateFaceTexture(text, colours))
     this.texture.encoding = THREE.sRGBEncoding;
     this.texture.needsUpdate = true
     this.texture.wrapS = THREE.MirroredRepeatWrapping
     // WrapT is vertical
     // this.texture.wrapT = THREE.RepeatWrapping
     // this.texture.offset.y = 10;
-    this.texture.repeat.set(3, 6/7)
+    this.texture.repeat.set(3, 6 / 7)
     this.texture.offset.x = -1;
     this.texture.anisotropy = 2
-    
+
 
     this.displacementMap = assets.get(displacementKey);
     this.normalsMap = assets.get(normalsKey);
@@ -118,8 +120,8 @@ export class About extends THREE.Group {
       },
       side: THREE.DoubleSide,
       uniforms: {
-        uTime: {value: 0},
-        uSpeed: {value: 0.2},
+        uTime: { value: 0 },
+        uSpeed: { value: 0.2 },
         resolution: { value: new THREE.Vector4() },
         colorA: { value: new THREE.Vector3(1, 1, 0.1) },
         colorB: { value: new THREE.Vector3(1, 0.1, 1) },
@@ -139,18 +141,18 @@ export class About extends THREE.Group {
       normalMap: this.normalsMap,
       displacementMap: this.displacementMap,
       map: this.texture,
-      normalScale: new THREE.Vector2(1,1),
+      normalScale: new THREE.Vector2(1, 1),
       // TODO SET WIREFRAME ON CLICK
       // wireframe: true,
       side: THREE.FrontSide,
     })
 
     this.material.onBeforeCompile = (shader) => {
-      shader.uniforms.progress = {value: 0}
-      shader.uniforms.uTime = {value: 0}
-      shader.uniforms.uSpeed = {value: 0.3}
-      shader.uniforms.uFrequency = {value: 3.}
-      shader.uniforms.uAmplitude = {value: 1.}
+      shader.uniforms.progress = { value: 0 }
+      shader.uniforms.uTime = { value: 0 }
+      shader.uniforms.uSpeed = { value: 0.3 }
+      shader.uniforms.uFrequency = { value: 3. }
+      shader.uniforms.uAmplitude = { value: 1. }
       this.material.userData.shader = shader;
       shader.vertexShader = shader.vertexShader.replace(
         `#include <clipping_planes_pars_vertex>`,
@@ -191,7 +193,7 @@ export class About extends THREE.Group {
         gl_Position = projectionMatrix * mvPosition;
         `
       )
-      
+
       shader.fragmentShader = shader.fragmentShader.replace(
         `#include <common>`,
         `#include <common>
@@ -230,10 +232,11 @@ export class About extends THREE.Group {
     this.add(this.mesh)
     this.mesh.scale.setScalar(2);
     this.active = true;
-    this.position.set(0,-0.25,0)
+    this.position.set(0, -0.25, 0)
     this.texture.offset.y = -1
     this.velocity = 0.03
-
+    this.animateTexture = true;
+    window.tempFace = this;
   }
 
   dispose() {
@@ -256,50 +259,66 @@ export class About extends THREE.Group {
 
   switchTo() {
     this.webgl.scene.currentScene = 'about'
-   
+
     this.initialise();
   }
 
-  handleWheel(event){
+  switchFrom() {
+    this.animateTexture = false;
+    console.log(this.texture.offset.y)
+    // this.texture.wrapT = THREE.ClampToEdgeWrapping;
+    // this.texture.needsUpdate = true;
+    this.texture.offset.y = (this.texture.offset.y % 1);
+    console.log(this.texture.offset.y)
+    gsap.to(this.texture.offset, {
+      y: -1,
+      duration: 2,
+      onUpdate: () => {
+        // this.texture.needsUpdate = true;
+        if (this.texture.wrapT == THREE.RepeatWrapping && this.texture.offset.y <= 0) {
+          this.texture.wrapT = THREE.ClampToEdgeWrapping;
+          this.texture.needsUpdate = true;
+
+        }
+      },
+      onComplete: () => {
+        this.dispose();
+      }
+    })
+  }
+
+  handleWheel(event) {
     event.preventDefault();
     this.velocity += event.deltaY * 0.00004
     if (this.active) {
 
-      }
+    }
   }
 
 
   update(dt, time) {
     if (this.active) {
-      if (this.material.userData.shader){
-        // this.material.userData.shader.uniforms.uTime.value = time;
-      }
-      
-      this.scrollAmount += this.velocity;
-      this.velocity *= 0.95;
-      // const {shader} = this.gridMaterial.userData;
-      // console.log(this.gridMaterial)
-      // if (shader){
-      //   console.log(time)
-      //   shader.uniforms.time = time;
-      // }
-      // this.grid.rotation.y =  Math.sin(time) * 0.5
-      // this.grid.rotation.x = Math.sin(time * 3) * 0.5
-      this.texture.offset.y += (dt) * 0.04 + this.velocity;
+
       this.rotationCoords.x += (this.targetCoords.x - this.rotationCoords.x) * 0.05;
       this.rotationCoords.y += (this.targetCoords.y - this.rotationCoords.y) * 0.05;
       this.setRotationFromEuler(new THREE.Euler(
-        this.rotationCoords.y/this.webgl.height-0.5,
-        this.rotationCoords.x/this.webgl.width-0.5,
+        this.rotationCoords.y / this.webgl.height - 0.5,
+        this.rotationCoords.x / this.webgl.width - 0.5,
         0
-        ));
-        if (this.texture.wrapT == THREE.ClampToEdgeWrapping && this.texture.offset.y >= 0){
+      ));
+
+      if (this.animateTexture) {
+        this.scrollAmount += this.velocity;
+        this.velocity *= 0.95;
+        this.texture.offset.y += (dt) * 0.04 + this.velocity;
+        if (this.texture.wrapT == THREE.ClampToEdgeWrapping && this.texture.offset.y >= 0) {
           this.texture.wrapT = THREE.RepeatWrapping;
           this.texture.needsUpdate = true;
-          
+
         }
+      }
+
     }
-    
 
   }
 
