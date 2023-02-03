@@ -147,17 +147,27 @@ canvas {
 #svgBottomContainer {
   position: fixed;
   width: 100%;
-  /* height: 100px; */
-
-  bottom: 0;
+  bottom: 50%;
+  transform: translateY(100%);
+  transition: bottom 1s, transform 1s;
 }
 
 #svgTopContainer {
   position: fixed;
   width: 100%;
-  height: 100px;
+  top: 50%;
+  transform: translateY(-100%);
+  transition: top 1s, transform 1s;
+}
 
+#svgBottomContainer.loaded{
+  bottom: 0;
+  transform: translateY(000%);
+}
+
+#svgTopContainer.loaded{
   top: 0;
+  transform: translateY(000%);
 }
 
 @keyframes innerCircleAnim {
