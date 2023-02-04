@@ -49,8 +49,8 @@ export default class Rock extends THREE.Group {
 
     this.material;
 
-    this.scale.set(0,0,0)
-    this.position.set(2,0,0)
+    this.scale.set(0, 0, 0)
+    this.position.set(2, 0, 0)
 
     // apply the material to the model
     rock.traverse((child) => {
@@ -127,16 +127,19 @@ export default class Rock extends THREE.Group {
 
     switch (this.webgl.scene.currentScene) {
       case 'work':
-        this.webgl.scene.work.dispose();
+        this.webgl.scene.work.switchFrom();
         this.moveToCenter();
+        history.replaceState(null, '', '/');
         break;
       case 'about':
         this.webgl.scene.about.switchFrom();
-        setTimeout(() => this.moveToCenter(), 1000)
+        setTimeout(() => this.moveToCenter(), 1000);
+        history.replaceState(null, '', '/');
         break;
       case 'contact':
         this.webgl.scene.contact.dispose();
-        this.moveToCenter();
+        setTimeout(() => this.moveToCenter(), 1000);
+        history.replaceState(null, '', '/');
         break;
       default:
         break;
@@ -174,7 +177,11 @@ export default class Rock extends THREE.Group {
       strokeDashoffset: 20,
     })
     gsap.to(document.getElementById('topLine'), {
-      attr: { d: "M 60 35 H 705 l 45 45" }
+      attr: { d: "M 60 35 H 705 l 45 45" },
+      onComplete: () => {
+        this.littleDots.show();
+        this.menuDots.show();
+      }
     })
   }
 
@@ -184,10 +191,16 @@ export default class Rock extends THREE.Group {
     this.rock.rotation.y += 0.1 * dt;
   }
 
-  moveToTopLeft() {
+  moveToTopLeft(isIntro) {
     this.isTopLeft = true;
     this.cornerPosition.copy(this.topLeftCalculator.getTopLeftPosition());
     // this.position.copy(this.cornerPosition);
+    if (isIntro) {
+      this.position.copy(this.cornerPosition)
+    } else {
+      this.littleDots.hide();
+      this.menuDots.hide();
+    }
     gsap.to(this.position, {
       x: this.cornerPosition.x,
       y: this.cornerPosition.y,
@@ -223,10 +236,11 @@ export default class Rock extends THREE.Group {
     gsap.to(document.getElementById('topLine'), {
       attr: { d: "M 93 35 H 705 l 45 45" }
     })
-
   }
 
-  animateIn(){
+
+
+  animateIn() {
     gsap.to(this.scale, {
       x: 1,
       y: 1,
@@ -238,7 +252,7 @@ export default class Rock extends THREE.Group {
       },
     })
     gsap.to(this.rotation, {
-      x:  Math.random() * Math.PI,
+      x: Math.random() * Math.PI,
       y: Math.random() * Math.PI,
       // z: Math.random() * Math.PI ,
       duration: 3.5,

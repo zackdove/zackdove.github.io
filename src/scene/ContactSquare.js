@@ -106,6 +106,7 @@ export class ContactSquare extends THREE.Group {
       x: 0.5,
       y: 0.5,
       z: 0.5,
+      duration: 1,
       delay: this.index/3,
     })
   }
@@ -113,6 +114,8 @@ export class ContactSquare extends THREE.Group {
   easeOutCubic(t) {
     return (--t) * t * t + 1;
   };
+
+
 
 
   scaleCurve(t) {
@@ -170,7 +173,6 @@ export class ContactSquare extends THREE.Group {
     this.active = false;
     console.log('diposing contactsquare')
     for (let i = 0; i < this.plants.length; i++){
-      console.log(this.plants[i])
       this.plants[i].removeFromParent();
       this.plants[i].geometry.dispose()
       this.plants[i].material.dispose()
@@ -193,6 +195,25 @@ export class ContactSquare extends THREE.Group {
     }
 
     this.meshes = [];
+  }
+
+  animOut(){
+    gsap.to(this.position, {
+      y: 3,
+      ease: "elastic.out(0.5, 0.2)",
+      duration: 2,
+      onComplete: ()=>{
+        this.dispose();
+      },
+      delay: this.index/3,
+    })
+    gsap.to(this.scale, {
+      x: 0,
+      y: 0,
+      z: 0,
+      duration: 1,
+      delay: this.index/3,
+    })
   }
 
   update(dt, time) {

@@ -24,6 +24,15 @@ export default class MenuDots extends THREE.Group {
     })
   }
 
+  hide(){
+    gsap.to(this.scale, {
+      x: 0,
+      y: 0,
+      z: 0,
+      duration: 2.5,
+    })
+  }
+
   // onPointerMove(event, { x, y }) {
   //   // for example, check of we clicked on an
   //   // object with raycasting

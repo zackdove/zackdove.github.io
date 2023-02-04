@@ -75,27 +75,26 @@ export class Contact extends THREE.Group {
     for (let i = 0; i < this.config.length; i++){
       const cube = new ContactSquare(this.webgl, i, this.config[i].normalKey, this.config[i].url,cubeGltf, plantKeys);
       cube.position.setX((i + 0.5 - this.config.length/2) * 2)
-      cube.scale.setScalar(0.5)
       this.cubes.push(cube)
       this.add(cube);
     }
     // this.instagramCube = new ContactSquare(this.webgl);
     // this.add(this.instagramCube);
     this.active = true;
-    this.light = new THREE.PointLight();
-    this.light.intensity = 2;
-    this.light.position.set(-1,3,3)
-    this.add(this.light);
+    // this.light = new THREE.PointLight();
+    // this.light.intensity = 2;
+    // this.light.position.set(-1,3,3)
+    // this.add(this.light);
   }
 
   dispose() {
     this.active = false;
     for (let i = 0; i < this.cubes.length; i++){
-      this.cubes[i].dispose()
+      this.cubes[i].animOut()
     }
     this.cubes = [];
-    this.light.removeFromParent()
-    this.light = null;
+    // this.light.removeFromParent()
+    // this.light = null;
   }
 
 

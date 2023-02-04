@@ -117,31 +117,32 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   setTimeout(() => {
     switch (window.location.search) {
       case '?about':
-        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.rock.moveToTopLeft(true);
         webgl.scene.about.switchTo()
         break;
       case '?work':
-        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.rock.moveToTopLeft(true);
         webgl.scene.work.switchTo()
         break;
       case '?contact':
-        webgl.scene.rock.moveToTopLeft();
+        webgl.scene.rock.moveToTopLeft(true);
         webgl.scene.contact.switchTo();
         break;
       default:
+        webgl.scene.rock.animateIn();
         break;
     }
-  }, 5000)
+  }, 3000)
 
   setTimeout(() => {
     document.getElementById('svgTopContainer').classList.add('loaded');
     document.getElementById('svgBottomContainer').classList.add('loaded');
   }, 2000)
 
-  setTimeout( ( ) => {
-    // Animate in rock
-    webgl.scene.rock.animateIn();
-  }, 3000)
+  // setTimeout( ( ) => {
+  //   // Animate in rock
+  //   webgl.scene.rock.animateIn();
+  // }, 3000)
 
 
   // lights and other scene related stuff

@@ -56,6 +56,15 @@ export default class LittleDots extends THREE.Group {
     })
   }
 
+  hide(){
+    gsap.to(this.scale, {
+      x: 0,
+      y: 0,
+      z: 0,
+      duration: 2.5,
+    })
+  }
+
 
   setSlerpTo(quaternion) {
     this.target.copy(quaternion);

@@ -22,7 +22,7 @@ export default class Pill extends THREE.Group {
     this.title = workSpec.projects[this.index].title;
   }
 
-  initialise(){
+  initialise() {
     const pillGltf = assets.get(pillKey)
     this.pill = pillGltf.scene.clone()
     this.add(this.pill)
@@ -31,7 +31,7 @@ export default class Pill extends THREE.Group {
     const positionAngle = - Math.PI / 2 + Math.random() * 1 * Math.PI;
     this.cylinderShape = new CANNON.Cylinder(radius, radius, 0.5, 8)
     this.sphereShape = new CANNON.Sphere(radius)
-    
+
     this.body = new CANNON.Body({
       mass: 1,
       position: new CANNON.Vec3(
@@ -51,14 +51,14 @@ export default class Pill extends THREE.Group {
     this.body.angularDamping = 0.1;
     this.body.linearDamping = 0.1;
     this.world.addBody(this.body);
-    // 0 = center, 1 = down, 2 = right;
+    // 0 = center, 1 = down, 2 = right, 3 = dispell;
     this.mode = 0;
     this.webgl.hoverables.push(this.pill);
     this.webgl.clickables.push(this.pill);
     this.pill.traverse((child) => {
-      if (child.material){
+      if (child.material) {
         child.castShadow = true;
-        if (workSpec.projects[this.index].colour){
+        if (workSpec.projects[this.index].colour) {
           // child.material.color = workSpec.projects[this.index].colour
           child.material = child.material.clone()
           child.material.color = new THREE.Color(workSpec.projects[this.index].colour)
@@ -74,41 +74,43 @@ export default class Pill extends THREE.Group {
   }
 
   update(dt, time) {
-    if (this.active){
-    if (this.mode === 2) {
-      this.body.position.copy(this.position);
-      this.body.quaternion.copy(this.quaternion);
-      this.rotation.y = Math.sin(time)/4
-    } else {
-      this.position.copy(this.body.position);
-      this.quaternion.copy(this.body.quaternion);
-      if (this.mode === 0) {
-        this.body.force.set(-this.body.position.x, -this.body.position.y, -this.body.position.z)
+    if (this.active) {
+      if (this.mode === 2) {
+        this.body.position.copy(this.position);
+        this.body.quaternion.copy(this.quaternion);
+        this.rotation.y = Math.sin(time) / 4
       } else {
-        this.body.force.set(-this.body.position.x / 20, -9, -this.body.position.z / 20)
+        this.position.copy(this.body.position);
+        this.quaternion.copy(this.body.quaternion);
+        if (this.mode === 0) {
+          this.body.force.set(-this.body.position.x, -this.body.position.y, -this.body.position.z)
+        } else if (this.mode === 3){
+          this.body.force.set(this.body.position.x * 3, this.body.position.y, this.body.position.z * 3)
+        } else {
+          this.body.force.set(-this.body.position.x / 20, -9, -this.body.position.z / 20)
+        }
       }
     }
-  }
   }
 
   handleHover() {
     this.webgl.textHandler.changeTo(this.title)
-    if (this.active){
-    this.body.linearDamping = 0.99;
+    if (this.active) {
+      this.body.linearDamping = 0.99;
     }
   }
 
   handleNoHover() {
-    if (this.active){
-    if (this.mode === 1) {
-      this.body.linearDamping = 0.8;
-    } else {
-      this.body.linearDamping = 0.1;
+    if (this.active) {
+      if (this.mode === 1) {
+        this.body.linearDamping = 0.8;
+      } else {
+        this.body.linearDamping = 0.1;
+      }
     }
   }
-  }
 
-  drop() { 
+  drop() {
     this.webgl.scene.work.workSingles[this.index].dispose();
     this.mode = 1;
     this.body.addShape(this.cylinderShape)
@@ -138,6 +140,26 @@ export default class Pill extends THREE.Group {
       (Math.random() - 0.5) * 2,);
   }
 
+  dispell() {
+
+    this.webgl.scene.work.workSingles[this.index].dispose();
+    setTimeout(() => {
+      if (this.mode == 0 && Math.random() > 0.5) {
+        this.body.addShape(this.sphereShape);
+        this.body.removeShape(this.cylinderShape)
+      }
+    }, 1000)
+
+    this.mode = 3;
+    this.body.linearDamping = 0.1;
+    this.body.angularVelocity.set(
+      (Math.random() - 0.5) * 2,
+      (Math.random() - 0.5) * 2,
+      (Math.random() - 0.5) * 2,
+    );
+
+  }
+
   moveToRight() {
     this.mode = 2;
     this.body.addShape(this.cylinderShape)
@@ -155,25 +177,25 @@ export default class Pill extends THREE.Group {
       z: 2,
     })
     gsap.to(this.rotation, {
-      x: Math.PI/2,
+      x: Math.PI / 2,
       y: 0,
       z: 0.5,
     })
   }
 
   removeFocus() {
-    if (this.active){
-    this.body.addShape(this.cylinderShape)
-    this.body.removeShape(this.sphereShape);
-    gsap.to(this.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
-    })
-  }
+    if (this.active) {
+      this.body.addShape(this.cylinderShape)
+      this.body.removeShape(this.sphereShape);
+      gsap.to(this.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+      })
+    }
   }
 
-  loadWorkSingle(){
+  loadWorkSingle() {
     this.webgl.scene.work.workSingles[this.index].initialise();
   }
 
@@ -202,7 +224,7 @@ export default class Pill extends THREE.Group {
     }
   }
 
-  dispose(){
+  dispose() {
     this.active = false;
     this.webgl.raycastHandler.removeHoverable(this.pill);
     this.webgl.raycastHandler.removeClickable(this.pills);
