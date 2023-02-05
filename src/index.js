@@ -56,6 +56,28 @@ webgl.canvas.style.visibility = 'hidden'
 
 console.log('loading')
 
+const isMobileLayout = window.matchMedia("(max-width: 700px)").matches;
+if (isMobileLayout) {
+  document.getElementById('overlayTop').setAttribute("viewBox", "0 0 300 100");
+  document.getElementById('topLine').setAttribute('d', "M 60 35 H 260 l 20 20")
+  document.getElementById('leftDetail').setAttribute('d', "M 110 50 h 15 l 7 -7 h 30 l 25 -25 h 50 l 1 -1 h -60 l -26 26 h -35 Z")
+  document.getElementById('glitchedText').setAttribute('x', "235")
+  document.getElementById('glitchedText').setAttribute('y', "29")
+
+  document.getElementById('overlayBottom').setAttribute("viewBox", "0 0 300 50");
+  document.getElementById('bottomLine').setAttribute('d', "M 20 0 l 20 20 H 260 l 20 -20")
+  document.getElementById('bottomLeftDetail').setAttribute('d', "M 60 120 V 10 l -10 -10 v -60")
+  document.getElementById('bottomText1').setAttribute('x', "57")
+  document.getElementById('bottomText1').setAttribute('y', "-30")
+  document.getElementById('bottomText2').setAttribute('x', "57")
+  document.getElementById('bottomText2').setAttribute('y', "-24")
+  document.getElementById('bottomText3').setAttribute('x', "57")
+  document.getElementById('bottomText3').setAttribute('y', "-18")
+  document.getElementById('bottomDetail').setAttribute('transform', 'translate(-160 -7) scale(0.6 0.6)')
+}
+
+webgl.isMobileLayout = isMobileLayout;
+
 
 // load any queued assets
 assets.load({ renderer: webgl.renderer }).then(() => {

@@ -74,7 +74,12 @@ export class Contact extends THREE.Group {
     const cubeGltf = assets.get(cubeKey)
     for (let i = 0; i < this.config.length; i++){
       const cube = new ContactSquare(this.webgl, i, this.config[i].normalKey, this.config[i].url,cubeGltf, plantKeys);
-      cube.position.setX((i + 0.5 - this.config.length/2) * 2)
+      if (this.webgl.isMobileLayout){
+        cube.position.setY((i + 0.5 - this.config.length/2) * 1.2)
+      } else {
+        cube.position.setX((i + 0.5 - this.config.length/2) * 2)
+      }
+     
       this.cubes.push(cube)
       this.add(cube);
     }

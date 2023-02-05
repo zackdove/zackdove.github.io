@@ -130,34 +130,39 @@
 
   <div id="overlay">
     <div id="svgTopContainer">
-      <svg id="overlayTop version="1.1" viewbox="0 0 800 100" xmlns="http://www.w3.org/2000/svg"
+      <svg id="overlayTop" version=" 1.1" viewbox="0 0 800 100" xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMid meet">
         <!-- <rect width="100%" height="100%" fill="red" /> -->
-        <path d="M 60 35 H 705 l 45 45" stroke="#0000ff" stroke-width="1" fill="none" id="topLine"/>
-        <circle cx="50" cy="50" r="4" fill="none" stroke="#0000ff" stroke-width="1" id="rockCircle"/>
-        <circle cx="50" cy="50" r="10.5" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="1.0471975512" id="innerCircle"/>
-        <circle cx="50" cy="50" r="18" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="48.171087355" id="outerCircle" stroke-linecap="round" />
-        <circle cx="50" cy="50" r="18" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="30 80" stroke-dashoffset="20" stroke-linecap="round" id="cusp"/>
-        <path d="M 150 50 h 50 l 10 -10 h 100 l 25 -25 h 50 l 2 -2 h -60 l -26 26 h -140  Z" stroke="#0000ff" stroke-width="2" fill="#0000ff" />
-        <path d="M 150 50 h 50 l 10 -10 h 100 l 25 -25 h 50 l 2 -2 h -60 l -26 26 h -140  Z" stroke="#0000ff" stroke-width="2" fill="#0000ff" transform="scale(-1, 1) translate(-800, 000)"></path>/>
-        <text x="400" y="28" font-size="10" text-anchor="middle" fill="#0000ff" id="topTextBack" visibility="hidden">zckdzckd</text>
-        <text x="400" y="28" font-size="10" text-anchor="middle" fill="#0000ff" id="topText" visibility="hidden">∂▓5░24▒▓∆∂</text>
+        <path d="M 60 35 H 705 l 45 45" stroke="#0000ff" stroke-width="1" fill="none" id="topLine" />
+        <circle cx="50" cy="50" r="4" fill="none" stroke="#0000ff" stroke-width="1" id="rockCircle" />
+        <circle cx="50" cy="50" r="10.5" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="1.0471975512"
+          id="innerCircle" />
+        <circle cx="50" cy="50" r="18" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="48.171087355"
+          id="outerCircle" stroke-linecap="round" />
+        <circle cx="50" cy="50" r="18" fill="none" stroke="#0000ff" stroke-width="1" stroke-dasharray="30 80"
+          stroke-dashoffset="20" stroke-linecap="round" id="cusp" />
+        <path id="leftDetail" d="M 150 50 h 50 l 10 -10 h 100 l 25 -25 h 50 l 2 -2 h -60 l -26 26 h -140  Z" stroke="#0000ff"
+          stroke-width="1" fill="#0000ff" />
+        <path d="M 150 50 h 50 l 10 -10 h 100 l 25 -25 h 50 l 2 -2 h -60 l -26 26 h -140  Z" stroke="#0000ff"
+          stroke-width="2" fill="#0000ff" transform="scale(-1, 1) translate(-800, 000)"></path>/>
         <text x="400" y="27.5" font-size="8" text-anchor="middle" fill="#0000ff" id="glitchedText">生</text>
-       </svg>
+      </svg>
     </div>
     <div id="svgBottomContainer">
       <svg id="overlayBottom" version="1.1" viewbox="0 0 800 80" xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="xMaxYMid meet">
         <!-- <rect width="100%" height="100%" fill="red" /> -->
-        <path d="M 50 0 L 95 45 H 705 l 45 -45" stroke="#0000ff" stroke-width="1" fill="none" />
-        <path d="M 120 120 V 30 l -10 -10 v -60" stroke="#0000ff" stroke-width="0.5" fill="none" />
-        <text x="118" y="-20" font-size="6" text-anchor="middle" fill="#0000ff">31</text>
-        <text x="118" y="-10" font-size="6" text-anchor="middle" fill="#0000ff">41</text>
-        <text x="118" y="0" font-size="6" text-anchor="middle" fill="#0000ff">59</text>
-        <path d="M 450 50 h 30 l 20 -20 h 45 v 20 h 32 l 10 10 h 15 l 24 -24 h 30 l 3 3 h -25 l -25 25 h -23 l -5 -5 h -45 v -25 h -20 l -20 20 h -40 Z" stroke="#0000ff" stroke-width="0" fill="#0000ff" />
-        <line x1="550" y1="34" x2="551.5" y2="34" stroke="#0000ff"  stroke-width="2" />
-        <line x1="553" y1="34" x2="554.5" y2="34" stroke="#0000ff"  stroke-width="2" />
-        <line x1="556" y1="34" x2="557.5" y2="34" stroke="#0000ff"  stroke-width="2" />
+        <path d="M 50 0 L 95 45 H 705 l 45 -45" stroke="#0000ff" stroke-width="1" fill="none" id="bottomLine"/>
+        <path d="M 120 120 V 30 l -10 -10 v -60" stroke="#0000ff" stroke-width="0.5" fill="none" id="bottomLeftDetail" />
+        <text x="118" y="-20" font-size="6" text-anchor="middle" fill="#0000ff" id="bottomText1">31</text>
+        <text x="118" y="-10" font-size="6" text-anchor="middle" fill="#0000ff" id="bottomText2">41</text>
+        <text x="118" y="0" font-size="6" text-anchor="middle" fill="#0000ff" id="bottomText3">59</text>
+        <path
+          d="M 450 50 h 30 l 20 -20 h 45 v 20 h 32 l 10 10 h 15 l 24 -24 h 30 l 3 3 h -25 l -25 25 h -23 l -5 -5 h -45 v -25 h -20 l -20 20 h -40 Z"
+          stroke="#0000ff" stroke-width="0" fill="#0000ff" id="bottomDetail"/>
+        <line x1="550" y1="34" x2="551.5" y2="34" stroke="#0000ff" stroke-width="2" />
+        <line x1="553" y1="34" x2="554.5" y2="34" stroke="#0000ff" stroke-width="2" />
+        <line x1="556" y1="34" x2="557.5" y2="34" stroke="#0000ff" stroke-width="2" />
         <text x="594" y="57" font-size="7" text-anchor="middle" fill="#0000ff">∂</text>
       </svg>
     </div>

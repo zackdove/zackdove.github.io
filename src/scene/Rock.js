@@ -156,9 +156,9 @@ export default class Rock extends THREE.Group {
       z: 0,
     })
     gsap.to(this.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
+      x: (this.webgl.isMobileLayout ? 0.6 : 1),
+      y: (this.webgl.isMobileLayout ? 0.6 : 1),
+      z: (this.webgl.isMobileLayout ? 0.6 : 1),
     })
     gsap.to(document.getElementById('rockCircle'), {
       r: 4
@@ -207,9 +207,9 @@ export default class Rock extends THREE.Group {
       z: this.cornerPosition.z,
     })
     gsap.to(this.scale, {
-      x: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
-      y: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
-      z: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight),
+      x: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight) * (this.webgl.isMobileLayout ? 2.4 : 1),
+      y: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight) * (this.webgl.isMobileLayout ? 2.4 : 1),
+      z: 0.2 * (window.innerWidth / 1600) * (1000 / window.innerHeight) * (this.webgl.isMobileLayout ? 2.4 : 1),
       onComplete: () => {
         this.webgl.scene.rock.rock.children[0].geometry.computeBoundingBox();
         const box = new THREE.Box3();
@@ -242,9 +242,9 @@ export default class Rock extends THREE.Group {
 
   animateIn() {
     gsap.to(this.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
+      x: (this.webgl.isMobileLayout ? 0.6 : 1),
+      y: (this.webgl.isMobileLayout ? 0.6 : 1),
+      z: (this.webgl.isMobileLayout ? 0.6 : 1),
       duration: 1.5,
       onComplete: () => {
         this.littleDots.show();

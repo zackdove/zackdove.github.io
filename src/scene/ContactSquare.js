@@ -94,21 +94,41 @@ export class ContactSquare extends THREE.Group {
       child.handleNoHover = this.handleNoHover.bind(this);
       child.handleClick = this.handleClick.bind(this);
     });
-    this.position.set(0,3,0)
     this.scale.set(0,0,0)
-    gsap.to(this.position, {
-      y: 0,
-      ease: "elastic.out(0.5, 0.2)",
-      duration: 2,
-      delay: this.index/3,
-    })
-    gsap.to(this.scale, {
-      x: 0.5,
-      y: 0.5,
-      z: 0.5,
-      duration: 1,
-      delay: this.index/3,
-    })
+    if (this.webgl.isMobileLayout){
+      this.position.set(-3,0,0)
+      gsap.to(this.position, {
+        x: 0,
+        ease: "elastic.out(0.5, 0.2)",
+        duration: 2,
+        delay: this.index/3,
+      })
+      gsap.to(this.scale, {
+        x: 0.3,
+        y: 0.3,
+        z: 0.3,
+        duration: 1,
+        delay: this.index/3,
+      })
+    } else {
+      this.position.set(0,3,0)
+      gsap.to(this.position, {
+        y: 0,
+        ease: "elastic.out(0.5, 0.2)",
+        duration: 2,
+        delay: this.index/3,
+      })
+      gsap.to(this.scale, {
+        x: 0.5,
+        y: 0.5,
+        z: 0.5,
+        duration: 1,
+        delay: this.index/3,
+      })
+    }
+  
+   
+   
   }
 
   easeOutCubic(t) {
@@ -198,15 +218,28 @@ export class ContactSquare extends THREE.Group {
   }
 
   animOut(){
-    gsap.to(this.position, {
-      y: 3,
-      ease: "elastic.out(0.5, 0.2)",
-      duration: 2,
-      onComplete: ()=>{
-        this.dispose();
-      },
-      delay: this.index/3,
-    })
+    if (this.webgl.isMobileLayout){
+      gsap.to(this.position, {
+        x: 3,
+        ease: "elastic.out(0.5, 0.2)",
+        duration: 2,
+        onComplete: ()=>{
+          this.dispose();
+        },
+        delay: this.index/3,
+      })
+    } else {
+      gsap.to(this.position, {
+        y: 3,
+        ease: "elastic.out(0.5, 0.2)",
+        duration: 2,
+        onComplete: ()=>{
+          this.dispose();
+        },
+        delay: this.index/3,
+      })
+    }
+   
     gsap.to(this.scale, {
       x: 0,
       y: 0,

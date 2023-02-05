@@ -99,6 +99,7 @@ export default class WorkSingle extends THREE.Group {
   }
 
   handlePointerDown(event){
+    event.preventDefault()
     this.isDragging = true
     this.startX = event.offsetX
     this.startY = event.offsetY
@@ -111,6 +112,7 @@ export default class WorkSingle extends THREE.Group {
   }
 
   handlePointerMove(event){
+    event.preventDefault()
     const position = {
       x: event.offsetX,
       y: event.offsetY,

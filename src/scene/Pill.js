@@ -5,7 +5,7 @@ import TopLeftCalculator from '../utils/TopLeftCalculator';
 import assets from '../utils/AssetManager'
 import workSpec from './WorkSpec';
 
-const radius = 0.6;
+const radius = 0.7;
 
 const pillKey = assets.queue({
   url: 'assets/models/pill.glb',
@@ -39,8 +39,8 @@ export default class Pill extends THREE.Group {
         Math.cos(positionAngle) * positionRadius,
         (Math.random() - 0.5) * 5,
       ),
-      // shape: new CANNON.Cylinder(radius, radius, 0.2, 8),
-      shape: this.sphereShape
+      shape: this.cylinderShape,
+      // shape: this.sphereShape
     });
 
 
@@ -113,8 +113,8 @@ export default class Pill extends THREE.Group {
   drop() {
     this.webgl.scene.work.workSingles[this.index].dispose();
     this.mode = 1;
-    this.body.addShape(this.cylinderShape)
-    this.body.removeShape(this.sphereShape);
+    // this.body.addShape(this.cylinderShape)
+    // this.body.removeShape(this.sphereShape);
     this.body.linearDamping = 0.8;
     this.body.angularDamping = 0.8;
   }
@@ -127,8 +127,8 @@ export default class Pill extends THREE.Group {
     this.webgl.scene.work.workSingles[this.index].dispose();
     setTimeout(() => {
       if (this.mode == 0 && Math.random() > 0.5) {
-        this.body.addShape(this.sphereShape);
-        this.body.removeShape(this.cylinderShape)
+        // this.body.addShape(this.sphereShape);
+        // this.body.removeShape(this.cylinderShape)
       }
     }, 1000)
 
@@ -145,8 +145,8 @@ export default class Pill extends THREE.Group {
     this.webgl.scene.work.workSingles[this.index].dispose();
     setTimeout(() => {
       if (this.mode == 0 && Math.random() > 0.5) {
-        this.body.addShape(this.sphereShape);
-        this.body.removeShape(this.cylinderShape)
+        // this.body.addShape(this.sphereShape);
+        // this.body.removeShape(this.cylinderShape)
       }
     }, 1000)
 
@@ -162,12 +162,12 @@ export default class Pill extends THREE.Group {
 
   moveToRight() {
     this.mode = 2;
-    this.body.addShape(this.cylinderShape)
-    this.body.removeShape(this.sphereShape);
+    // this.body.addShape(this.cylinderShape)
+    // this.body.removeShape(this.sphereShape);
     this.midRightPosition.copy(this.topLeftCalculator.getMidRightPosition());
     // this.position.copy(this.cornerPosition);
     gsap.to(this.position, {
-      x: this.midRightPosition.x,
+      x: this.midRightPosition.x + (this.webgl.isMobileLayout ? 0.6 : 0),
       y: this.midRightPosition.y,
       z: this.midRightPosition.z + 2,
     })
@@ -185,8 +185,8 @@ export default class Pill extends THREE.Group {
 
   removeFocus() {
     if (this.active) {
-      this.body.addShape(this.cylinderShape)
-      this.body.removeShape(this.sphereShape);
+      // this.body.addShape(this.cylinderShape)
+      // this.body.removeShape(this.sphereShape);
       gsap.to(this.scale, {
         x: 1,
         y: 1,

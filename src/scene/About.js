@@ -230,9 +230,9 @@ export class About extends THREE.Group {
     this.geometry = new THREE.PlaneGeometry(2, 3, 200, 200);
     this.mesh = new THREE.Mesh(this.geometry, this.material)
     this.add(this.mesh)
-    this.mesh.scale.setScalar(2);
+    this.mesh.scale.setScalar(this.webgl.isMobileLayout ? 2.75 : 4);
     this.active = true;
-    this.position.set(0, -0.25, 0)
+    this.position.set(0, -0.25, -5)
     this.texture.offset.y = -1
     this.velocity = 0.03
     this.animateTexture = true;
