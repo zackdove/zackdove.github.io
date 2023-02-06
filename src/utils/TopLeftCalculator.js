@@ -13,7 +13,7 @@ export default class TopLeftCalculator extends THREE.Plane {
   }
 
   getTopLeftPosition() {
-    const circleBBox = document.getElementById('rockCircle').getBoundingClientRect()
+    const circleBBox = document.getElementById('rockCircleHelper').getBoundingClientRect()
     const cX = (((circleBBox.x + circleBBox.width/2) / window.innerWidth) - 0.5) * 2;
     const cY = (((circleBBox.y + circleBBox.height/2) / window.innerHeight) - 0.5) * -2;
     this.corner.set(cX, cY); 

@@ -56,9 +56,13 @@ webgl.canvas.style.visibility = 'hidden'
 
 console.log('loading')
 
+const isTouch = window.matchMedia('(pointer: coarse)').matches
+webgl.isTouch = isTouch
+
 const isMobileLayout = window.matchMedia("(max-width: 700px)").matches;
 if (isMobileLayout) {
   document.getElementById('overlayTop').setAttribute("viewBox", "0 0 300 100");
+  document.getElementById('overlayTopHelper').setAttribute("viewBox", "0 0 300 100");
   document.getElementById('topLine').setAttribute('d', "M 60 35 H 260 l 20 20")
   document.getElementById('leftDetail').setAttribute('d', "M 110 50 h 15 l 7 -7 h 30 l 25 -25 h 50 l 1 -1 h -60 l -26 26 h -35 Z")
   document.getElementById('glitchedText').setAttribute('x', "235")
@@ -82,6 +86,29 @@ webgl.isMobileLayout = isMobileLayout;
 // load any queued assets
 assets.load({ renderer: webgl.renderer }).then(() => {
   console.log('loaded')
+
+  webgl.useAccelerometer = false;
+
+  function getAccel() {
+    DeviceMotionEvent.requestPermission().then(response => {
+      if (response == 'granted') {
+        webgl.useAccelerometer = true;
+        webgl.scene.rock.addDeviceOrientation()
+        // Add a listener to get smartphone acceleration 
+        // in the XYZ axes (units in m/s^2)
+        window.addEventListener('devicemotion', (event) => {
+          // console.log(event);
+        });
+        // Add a listener to get smartphone orientation 
+        // in the alpha-beta-gamma axes (units in degrees)
+        window.addEventListener('deviceorientation', (event) => {
+          // console.log(event);
+        });
+      }
+    });
+  }
+
+  document.addEventListener('click', getAccel, {once: true});
 
 
   // add any "WebGL components" here...
@@ -128,8 +155,12 @@ assets.load({ renderer: webgl.renderer }).then(() => {
 
   const raycastHandler = new RaycastHandler(webgl, webgl.hoverables, webgl.clickables)
   webgl.raycastHandler = raycastHandler;
+  if (!webgl.isTouch){
+   
+    webgl.onPointerMove(raycastHandler.handlePointerMove)
+  }
   webgl.onPointerDown(raycastHandler.handlePointerDown);
-  webgl.onPointerMove(raycastHandler.handlePointerMove)
+
 
   webgl.textHandler = new TextHandler(webgl)
 

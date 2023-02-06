@@ -22,8 +22,5 @@ export function addNaturalLight(webgl) {
   const ambientLight = new THREE.AmbientLight(0xffffff, 1.0)
   webgl.scene.add(ambientLight)
 
-  const pLight = new THREE.PointLight();
-  pLight.intensity = 2;
-  pLight.position.set(-1,3,3)
-    webgl.scene.add(pLight);
+
 }

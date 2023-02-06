@@ -61,6 +61,9 @@ export default class Work extends THREE.Group {
     this.webgl.scene.currentScene = 'work'
     this.webgl.cssGroundHandler.render()
     this.webgl.scene.ribbons.moveToFloor()
+    if (this.webgl.isTouch){
+      this.webgl.textHandler.changeTo('WORK')
+    }
   }
 
   dispose() {

@@ -3,6 +3,7 @@ import * as CANNON from 'cannon-es';
 import Pill from './Pill';
 import Floor from './Floor';
 import WorkSingle from './WorkSingle';
+import { gsap } from 'gsap';
 
 export default class WorkPills extends THREE.Group {
   constructor(webgl) {
@@ -39,12 +40,20 @@ export default class WorkPills extends THREE.Group {
     this.webgl.cssGroundHandler.render()
     document.getElementById('cssGround').classList.add('show')
     this.webgl.scene.currentScene = 'work'
+    gsap.to(this.floor.material, {
+      opacity: 0.4,
+      duration: 4
+    })
   }
 
   switchFrom(){
     for (let i = 0; i < this.pills.length; i++){
       this.pills[i].dispell()
     }
+    gsap.to(this.floor.material, {
+      opacity: 0.0,
+      duration: 4
+    })
     setTimeout(()=> this.dispose(), 4000)
   }
 

@@ -28,6 +28,8 @@ export default class WorkSingle extends THREE.Group {
     this.startX;
     this.startY;
     this.isDragging = false;
+    this.mouse = new THREE.Vector2(0, 0);
+    this.mouseTarget = new THREE.Vector3(0, 0, 0)
   }
 
   initialise() {
@@ -93,7 +95,10 @@ export default class WorkSingle extends THREE.Group {
     document.body.addEventListener('pointermove', this.handlePointerMove);
     document.body.addEventListener('pointerdown', this.handlePointerDown);
     document.body.addEventListener('pointerup', this.handlePointerUp);
-   
+    this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
+    if (this.webgl.useAccelerometer) {
+      window.addEventListener('deviceorientation', this.handleDeviceOrientation);
+    }
 
 
   }
@@ -138,6 +143,12 @@ export default class WorkSingle extends THREE.Group {
     }
   }
 
+  handleDeviceOrientation(event){
+    this.position.x = event.gamma / 80
+    this.position.y =( -event.beta / 160) + 0
+  }
+
+
   handleWheel(event){
     this.velocity += event.deltaY * 0.0008
   }
@@ -146,7 +157,10 @@ export default class WorkSingle extends THREE.Group {
     // this.webgl.orbitControls.enabled = false;
     this.initialise();
     this.webgl.scene.currentScene = 'work'
-    this.webgl.scene.ribbons.moveToFloor()
+    this.webgl.scene.ribbons.moveToFloor() 
+    if (this.webgl.isTouch){
+      this.webgl.textHandler.changeTo('WORK')
+    }
   }
 
   dispose() {
@@ -167,6 +181,7 @@ export default class WorkSingle extends THREE.Group {
     document.body.removeEventListener('pointermove', this.handlePointerMove);
     document.body.removeEventListener('pointerdown', this.handlePointerDown);
     document.body.removeEventListener('pointerup', this.handlePointerUp);
+    window.removeEventListener('deviceorientation', this.handleDeviceOrientation);
   }
 
   update(dt, time) {

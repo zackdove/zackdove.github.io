@@ -1,11 +1,12 @@
 import * as THREE from 'three';
 import * as CANNON from 'cannon-es';
 
+
 export default class Floor extends THREE.Mesh{
   constructor(webgl, world) {
     const geometry = new THREE.PlaneGeometry(40, 20)
     const material = new THREE.ShadowMaterial();
-    material.opacity = 0.4;
+    material.opacity = 0.0;
     super(geometry, material)
     this.receiveShadow = true;
     this.shape = new CANNON.Plane()
@@ -22,6 +23,10 @@ export default class Floor extends THREE.Mesh{
     this.wallBody.quaternion.setFromEuler(0, 0, 0)
     this.wallBody.position.set(0,0, -3);
     world.addBody(this.wallBody);
+
+
+
+
 
    
   }

@@ -86,10 +86,10 @@ export class Contact extends THREE.Group {
     // this.instagramCube = new ContactSquare(this.webgl);
     // this.add(this.instagramCube);
     this.active = true;
-    // this.light = new THREE.PointLight();
-    // this.light.intensity = 2;
-    // this.light.position.set(-1,3,3)
-    // this.add(this.light);
+    this.light = new THREE.PointLight();
+    this.light.intensity = 2;
+    this.light.position.set(-1,3,3)
+    this.add(this.light);
   }
 
   dispose() {
@@ -98,14 +98,17 @@ export class Contact extends THREE.Group {
       this.cubes[i].animOut()
     }
     this.cubes = [];
-    // this.light.removeFromParent()
-    // this.light = null;
+    this.light.removeFromParent()
+    this.light = null;
   }
 
 
   switchTo() {
     this.webgl.scene.currentScene = 'contact'
     this.initialise()
+    if (this.webgl.isTouch){
+      this.webgl.textHandler.changeTo('CONTACT')
+    }
   }
 
 

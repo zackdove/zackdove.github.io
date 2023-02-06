@@ -94,6 +94,8 @@ export class About extends THREE.Group {
     }
     this.velocity = 0;
     this.scrollAmount = -1;
+    this.mouse = new THREE.Vector2(0, 0);
+    this.mouseTarget = new THREE.Vector3(0, 0, 0)
   }
 
   initialise() {
@@ -237,6 +239,10 @@ export class About extends THREE.Group {
     this.velocity = 0.03
     this.animateTexture = true;
     window.tempFace = this;
+    this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
+    if (this.webgl.useAccelerometer) {
+      window.addEventListener('deviceorientation', this.handleDeviceOrientation);
+    }
   }
 
   dispose() {
@@ -254,12 +260,15 @@ export class About extends THREE.Group {
     this.texture = null;
     this.velocity = 0;
     this.scrollAmount = 0;
+    window.removeEventListener('deviceorientation', this.handleDeviceOrientation);
   }
 
 
   switchTo() {
     this.webgl.scene.currentScene = 'about'
-
+    if (this.webgl.isTouch){
+      this.webgl.textHandler.changeTo('WORK')
+    }
     this.initialise();
   }
 
@@ -295,17 +304,16 @@ export class About extends THREE.Group {
     }
   }
 
+  handleDeviceOrientation(event){
+    this.mouse.x = event.gamma / 10
+    this.mouse.y =( -event.beta / 20) + 2
+  }
+
 
   update(dt, time) {
     if (this.active) {
 
-      this.rotationCoords.x += (this.targetCoords.x - this.rotationCoords.x) * 0.05;
-      this.rotationCoords.y += (this.targetCoords.y - this.rotationCoords.y) * 0.05;
-      this.setRotationFromEuler(new THREE.Euler(
-        this.rotationCoords.y / this.webgl.height - 0.5,
-        this.rotationCoords.x / this.webgl.width - 0.5,
-        0
-      ));
+    
 
       if (this.animateTexture) {
         this.scrollAmount += this.velocity;
@@ -316,6 +324,20 @@ export class About extends THREE.Group {
           this.texture.needsUpdate = true;
 
         }
+      }
+      if (this.webgl.useAccelerometer){
+        this.mouseTarget.x += (this.mouse.x - this.mouseTarget.x) * 0.02;
+        this.mouseTarget.y += (this.mouse.y - this.mouseTarget.y) * 0.02;
+        this.mouseTarget.z = 1;
+        this.lookAt(this.mouseTarget)
+      } else {
+        this.rotationCoords.x += (this.targetCoords.x - this.rotationCoords.x) * 0.05;
+        this.rotationCoords.y += (this.targetCoords.y - this.rotationCoords.y) * 0.05;
+        this.setRotationFromEuler(new THREE.Euler(
+          this.rotationCoords.y / this.webgl.height - 0.5,
+          this.rotationCoords.x / this.webgl.width - 0.5,
+          0
+        ));
       }
 
     }

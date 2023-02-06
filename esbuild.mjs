@@ -6,7 +6,7 @@ import browserSync from 'browser-sync'
 import openBrowser from 'react-dev-utils/openBrowser.js'
 import { devLogger, prodLogger } from './logging-utils.mjs'
 
-const HTTPS = false // enable https here
+const HTTPS = true // enable https here
 const PORT = '8080'
 
 const isDevelopment = process.env.NODE_ENV === 'development'

@@ -67,7 +67,7 @@ export class ContactSquare extends THREE.Group {
       shininess: 100,
       normalMap: normal,
       // normalMapType: THREE.ObjectSpaceNormalMap,
-      normalScale: new THREE.Vector2(-3,3),
+      normalScale: new THREE.Vector2(-3, 3),
       // bumpScale: -1,
     })
 
@@ -94,41 +94,48 @@ export class ContactSquare extends THREE.Group {
       child.handleNoHover = this.handleNoHover.bind(this);
       child.handleClick = this.handleClick.bind(this);
     });
-    this.scale.set(0,0,0)
-    if (this.webgl.isMobileLayout){
-      this.position.set(-3,0,0)
+    this.scale.set(0, 0, 0)
+    if (this.webgl.isMobileLayout) {
+      this.position.set(-3, 0, 0)
       gsap.to(this.position, {
         x: 0,
         ease: "elastic.out(0.5, 0.2)",
         duration: 2,
-        delay: this.index/3,
+        delay: this.index / 3,
       })
       gsap.to(this.scale, {
         x: 0.3,
         y: 0.3,
         z: 0.3,
         duration: 1,
-        delay: this.index/3,
+        delay: this.index / 3,
       })
     } else {
-      this.position.set(0,3,0)
+      this.position.set(0, 3, 0)
       gsap.to(this.position, {
         y: 0,
         ease: "elastic.out(0.5, 0.2)",
         duration: 2,
-        delay: this.index/3,
+        delay: this.index / 3,
       })
       gsap.to(this.scale, {
         x: 0.5,
         y: 0.5,
         z: 0.5,
         duration: 1,
-        delay: this.index/3,
+        delay: this.index / 3,
       })
     }
-  
-   
-   
+
+    this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
+    if (this.webgl.useAccelerometer) {
+      window.addEventListener('deviceorientation', this.handleDeviceOrientation);
+    }
+  }
+
+  handleDeviceOrientation(event){
+    this.mouse.x = event.gamma / 10
+    this.mouse.y =( -event.beta / 20) + 1
   }
 
   easeOutCubic(t) {
@@ -192,7 +199,7 @@ export class ContactSquare extends THREE.Group {
   dispose() {
     this.active = false;
     console.log('diposing contactsquare')
-    for (let i = 0; i < this.plants.length; i++){
+    for (let i = 0; i < this.plants.length; i++) {
       this.plants[i].removeFromParent();
       this.plants[i].geometry.dispose()
       this.plants[i].material.dispose()
@@ -208,44 +215,45 @@ export class ContactSquare extends THREE.Group {
     this.material = null;
     this.normal = null;
     this.cube = null;
-    for (let i = 0; i < this.meshes.length; i++){
+    for (let i = 0; i < this.meshes.length; i++) {
       this.meshes[i].removeFromParent();
       this.meshes[i].geometry.dispose()
       this.meshes[i].material.dispose()
     }
+    window.removeEventListener('deviceorientation', this.handleDeviceOrientation);
 
     this.meshes = [];
   }
 
-  animOut(){
-    if (this.webgl.isMobileLayout){
+  animOut() {
+    if (this.webgl.isMobileLayout) {
       gsap.to(this.position, {
         x: 3,
         ease: "elastic.out(0.5, 0.2)",
         duration: 2,
-        onComplete: ()=>{
+        onComplete: () => {
           this.dispose();
         },
-        delay: this.index/3,
+        delay: this.index / 3,
       })
     } else {
       gsap.to(this.position, {
         y: 3,
         ease: "elastic.out(0.5, 0.2)",
         duration: 2,
-        onComplete: ()=>{
+        onComplete: () => {
           this.dispose();
         },
-        delay: this.index/3,
+        delay: this.index / 3,
       })
     }
-   
+
     gsap.to(this.scale, {
       x: 0,
       y: 0,
       z: 0,
       duration: 1,
-      delay: this.index/3,
+      delay: this.index / 3,
     })
   }
 
@@ -270,6 +278,8 @@ export class ContactSquare extends THREE.Group {
     }
   }
 
+
+
   onPointerMove(event, { x, y }) {
     var vector = new THREE.Vector3(
       (x / this.webgl.width) * 2 - 1,
@@ -291,8 +301,14 @@ export class ContactSquare extends THREE.Group {
     }
   }
 
+  onPointerDown(event, { x, y }) {
+    if (this.webgl.isTouch){
+      this.onPointerMove(event, { x, y })
+    }
+  }
+
   handleHover() {
-    if (!this.hover){
+    if (!this.hover) {
       this.hover = true;
       gsap.to(this.variables, {
         scaleFactor: 2,
@@ -302,17 +318,22 @@ export class ContactSquare extends THREE.Group {
   }
 
   handleNoHover() {
-    if (this.hover){
+    if (this.hover) {
       this.hover = false
       gsap.to(this.variables, {
         scaleFactor: 4,
         timeFactor: 0.5,
       })
     }
-   
+
   }
 
   handleClick() {
-    window.open(this.url)
+    console.log('hello')
+    setTimeout( () => {
+      console.log('hh')
+      window.open(this.url, '_blank')
+    }, 0)
+    
   }
 }

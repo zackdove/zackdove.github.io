@@ -52,6 +52,7 @@ export default class Rock extends THREE.Group {
     this.scale.set(0, 0, 0)
     this.position.set(2, 0, 0)
 
+   
     // apply the material to the model
     rock.traverse((child) => {
       if (child.isMesh) {
@@ -69,7 +70,10 @@ export default class Rock extends THREE.Group {
     this.blueMaterial.roughness = 0;
     this.blueMaterial.color = new THREE.Color(0x0000ff);
 
-    this.add(rock)
+    this.clickGroup = new THREE.Group();
+    this.add(this.clickGroup)
+    this.clickGroup.add(rock)
+
     this.rotation.x = 0.5;
     this.rotation.y = 0.5;
 
@@ -77,9 +81,9 @@ export default class Rock extends THREE.Group {
     // this.webgl.scene.background = envMap
 
     this.littleDots = new LittleDots(webgl)
-    this.add(this.littleDots)
+    this.clickGroup.add(this.littleDots)
     this.menuDots = new MenuDots(webgl)
-    this.add(this.menuDots)
+    this.clickGroup.add(this.menuDots)
     this.webgl.hoverables.push(this.rock)
     this.webgl.clickables.push(this.rock)
     this.rock.traverse((child) => {
@@ -90,6 +94,24 @@ export default class Rock extends THREE.Group {
     this.topLeftCalculator = new TopLeftCalculator(webgl);
     this.cornerPosition = this.topLeftCalculator.getTopLeftPosition().clone();
     this.isTopLeft = false;
+    this.useDeviceOrientation = false;
+    this.handleDeviceOrientation = this.handleDeviceOrientation.bind(this)
+    if (this.webgl.useAccelerometer) {
+      this.addDeviceOrientation()
+    }
+    this.mouse = new THREE.Vector3(0, 0);
+    this.mouseTarget = new THREE.Vector3(0, 0, 0)
+
+  }
+
+  addDeviceOrientation(){
+    window.addEventListener('deviceorientation', this.handleDeviceOrientation);
+    this.useDeviceOrientation = true;
+  }
+
+  handleDeviceOrientation(event){
+    this.mouse.x = event.gamma / 5
+    this.mouse.y =( -event.beta / 5) + 2
   }
 
   handleHover() {
@@ -115,8 +137,8 @@ export default class Rock extends THREE.Group {
   }
 
   handleClick() {
-    let newX = this.rotation.x + Math.PI / 2;
-    gsap.to(this.rotation, {
+    let newX = this.clickGroup.rotation.x + Math.PI / 2;
+    gsap.to(this.clickGroup.rotation, {
       x: newX,
       y: Math.random() * Math.PI,
       // z: Math.random() * Math.PI ,
@@ -144,6 +166,7 @@ export default class Rock extends THREE.Group {
       default:
         break;
     }
+    this.webgl.textHandler.clearActive();
     this.webgl.scene.currentScene = 'landing'
   }
 
@@ -177,7 +200,7 @@ export default class Rock extends THREE.Group {
       strokeDashoffset: 20,
     })
     gsap.to(document.getElementById('topLine'), {
-      attr: { d: "M 60 35 H 705 l 45 45" },
+      attr: { d: this.webgl.isMobileLayout ? "M 60 35 H 260 l 20 20" :  "M 60 35 H 705 l 45 45"   },
       onComplete: () => {
         this.littleDots.show();
         this.menuDots.show();
@@ -189,6 +212,13 @@ export default class Rock extends THREE.Group {
   update(dt, time) {
     this.rock.rotation.x += 0.3 * dt;
     this.rock.rotation.y += 0.1 * dt;
+    if (DeviceMotionEvent.requestPermission){
+      this.mouseTarget.x += (this.mouse.x - this.mouseTarget.x) * 0.02;
+      this.mouseTarget.y += (this.mouse.y - this.mouseTarget.y) * 0.02;
+      this.mouseTarget.z = 1;
+      this.lookAt(this.mouseTarget)
+    }
+   
   }
 
   moveToTopLeft(isIntro) {
@@ -234,7 +264,7 @@ export default class Rock extends THREE.Group {
       strokeDashoffset: 40,
     })
     gsap.to(document.getElementById('topLine'), {
-      attr: { d: "M 93 35 H 705 l 45 45" }
+      attr: { d: this.webgl.isMobileLayout ? "M 93 35 H 260 l 20 20" : "M 93 35 H 705 l 45 45" }
     })
   }
 
