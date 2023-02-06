@@ -163,6 +163,13 @@ canvas {
   transition: top 1s, transform 1s;
 }
 
+#svgTopContainerHelper {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  transform: 0;
+}
+
 #svgBottomContainer.loaded{
   bottom: 0;
   transform: translateY(000%);
