@@ -39,7 +39,6 @@ export default class WorkSingle extends THREE.Group {
     this.camera.position.set(0, 0, 6)
     const div = document.createElement('div');
     div.innerHTML = workSpec.projects[this.workIndex].title;
-    div.classList.add('SLAG')
     const objectCSS = new CSS3DObject(div);
     this.add(objectCSS);
     objectCSS.position.set(Math.random() - 0.5, Math.random() - 0.5, prevPos)
@@ -57,6 +56,7 @@ export default class WorkSingle extends THREE.Group {
         el.controls = false;
         el.playsInline = true;
         el.playsinline = true;
+        el.loop = true;
         el.muted = true;
         el.autoplay = true;
         el.onload = () => {el.play()}
@@ -65,6 +65,11 @@ export default class WorkSingle extends THREE.Group {
         el.addEventListener('pointerdown', () => {
           console.log('pointerdown');
         })
+      } else if (workSpec.projects[this.workIndex].slides[j].type == 'text'){
+        el = document.createElement('div');
+        el.style.width = "300px"
+        el.classList.add('workText')
+        el.innerHTML = workSpec.projects[this.workIndex].slides[j].content
       }
       el.style.width = '200px'
       const objectCSS = new CSS3DObject(el);
@@ -74,9 +79,12 @@ export default class WorkSingle extends THREE.Group {
         // Make last one closer to middle
         objectCSS.position.set(0.75 * Math.random() - 0.325, 0.75 * Math.random() - 0.325, prevPos)
       } else {
-        objectCSS.position.set(1.5 * Math.random() - 0.75, 1.5 * Math.random() - 0.75, prevPos)
+        objectCSS.position.set(1 * Math.random() - 0.5, 1 * Math.random() - 0.5, prevPos)
       }
       objectCSS.scale.set(0.004, 0.004, 0.004);
+      if (workSpec.projects[this.workIndex].slides[j].scale){
+        objectCSS.scale.multiplyScalar(workSpec.projects[this.workIndex].slides[j].scale)
+      }
       this.divs.push(el);
       this.css3dObjects.push(objectCSS);
 
@@ -118,11 +126,12 @@ export default class WorkSingle extends THREE.Group {
 
   handlePointerMove(event){
     event.preventDefault()
+    console.log(event.offsetX)
     const position = {
-      x: event.offsetX,
-      y: event.offsetY,
-      ...(this.startX !== undefined && { dragX: event.offsetX - this.startX }),
-      ...(this.startY !== undefined && { dragY: event.offsetY - this.startY }),
+      x: event.pageX,
+      y: event.pageY,
+      ...(this.startX !== undefined && { dragX: event.pageX - this.startX }),
+      ...(this.startY !== undefined && { dragY: event.pageY - this.startY }),
     }
     if (this.active) {
       // Add velocity

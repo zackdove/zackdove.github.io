@@ -29,7 +29,7 @@ export default class Pill extends THREE.Group {
     this.castShadow = true;
     const positionRadius = 9 + Math.random() * 10;
     const positionAngle = - Math.PI / 2 + Math.random() * 1 * Math.PI;
-    this.cylinderShape = new CANNON.Cylinder(radius, radius, 0.5, 8)
+    this.cylinderShape = new CANNON.Cylinder(radius, radius, 0.6, 8)
     this.sphereShape = new CANNON.Sphere(radius)
 
     this.body = new CANNON.Body({

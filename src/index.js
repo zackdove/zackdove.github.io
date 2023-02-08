@@ -90,25 +90,27 @@ assets.load({ renderer: webgl.renderer }).then(() => {
   webgl.useAccelerometer = false;
 
   function getAccel() {
-    DeviceMotionEvent.requestPermission().then(response => {
-      if (response == 'granted') {
-        webgl.useAccelerometer = true;
-        webgl.scene.rock.addDeviceOrientation()
-        // Add a listener to get smartphone acceleration 
-        // in the XYZ axes (units in m/s^2)
-        window.addEventListener('devicemotion', (event) => {
-          // console.log(event);
-        });
-        // Add a listener to get smartphone orientation 
-        // in the alpha-beta-gamma axes (units in degrees)
-        window.addEventListener('deviceorientation', (event) => {
-          // console.log(event);
-        });
-      }
-    });
+    if (DeviceMotionEvent.requestPermission) {
+      DeviceMotionEvent.requestPermission().then(response => {
+        if (response == 'granted') {
+          webgl.useAccelerometer = true;
+          webgl.scene.rock.addDeviceOrientation()
+          // Add a listener to get smartphone acceleration 
+          // in the XYZ axes (units in m/s^2)
+          window.addEventListener('devicemotion', (event) => {
+            // console.log(event);
+          });
+          // Add a listener to get smartphone orientation 
+          // in the alpha-beta-gamma axes (units in degrees)
+          window.addEventListener('deviceorientation', (event) => {
+            // console.log(event);
+          });
+        }
+      });
+    }
   }
 
-  document.addEventListener('click', getAccel, {once: true});
+  document.addEventListener('click', getAccel, { once: true });
 
 
   // add any "WebGL components" here...
@@ -155,8 +157,8 @@ assets.load({ renderer: webgl.renderer }).then(() => {
 
   const raycastHandler = new RaycastHandler(webgl, webgl.hoverables, webgl.clickables)
   webgl.raycastHandler = raycastHandler;
-  if (!webgl.isTouch){
-   
+  if (!webgl.isTouch) {
+
     webgl.onPointerMove(raycastHandler.handlePointerMove)
   }
   webgl.onPointerDown(raycastHandler.handlePointerDown);
