@@ -209,3 +209,19 @@ canvas {
 #outerCircle {
   animation: outerCircleAnim 10s linear infinite;
 }
+
+.workText{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.workText a{
+  color: black;
+  width: 300px;
+  pointer-events: all!important;
+}
+
+
+.workText a:hover{
+  color: #444444;
+}
