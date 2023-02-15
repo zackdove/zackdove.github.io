@@ -50,9 +50,9 @@ export default class MenuDot extends THREE.Group {
     this.cssGroup.add(this.objectCSS)
     // this.objectCSS.position.set(100,1,0)
     // this.cssGroup.rotation.copy(this.rotation);
-    this.cssGroup.position.set(0,0,-6)
+    this.cssGroup.position.set(0, 0, -6)
     this.cssGroup.scale.setScalar(0.01)
-    this.webgl.cssHandler.scene.add(this.cssGroup )
+    this.webgl.cssHandler.scene.add(this.cssGroup)
 
 
     webgl.hoverables.push(this.raycastSphere);
@@ -69,55 +69,57 @@ export default class MenuDot extends THREE.Group {
       this.rotation.y += dt * this.yVelocity;
       this.outerPoint.getWorldPosition(this.objectCSS.position).multiplyScalar(110)
       // console.log(this.objectCSS.position.z)
-      this.div.style.opacity = this.webgl.scene.rock.menuDots.scale.x * (this.objectCSS.position.z + 170) / 50;
+      this.div.style.opacity = this.webgl.isMobileLayout ?
+        this.webgl.scene.rock.menuDots.scale.x * (this.objectCSS.position.z + 102) / 30 :
+        this.webgl.scene.rock.menuDots.scale.x * (this.objectCSS.position.z + 170) / 50;
       // this.cssGroup.rotation.x += dt * this.xVelocity
       // this.cssGroup.rotation.y += dt * this.yVelocity;
     }
-    if (Math.random() > 0.97){
+    if (Math.random() > 0.97) {
       this.changeChar();
-    } else if (Math.random() > 0.8){
+    } else if (Math.random() > 0.8) {
       this.resetChar();
     }
   }
 
-  resetText(){
+  resetText() {
     this.text = this.section.title.split('');
     this.div.innerHTML = this.text.join('')
   }
 
-  resetChar(){
-    const i = Math.floor(Math.random()*this.section.title.length);
+  resetChar() {
+    const i = Math.floor(Math.random() * this.section.title.length);
     this.text[i] = this.section.title[i];
     this.div.innerHTML = this.text.join('')
 
   }
 
-  changeChar(){
-    this.text[Math.floor(Math.random()*this.section.title.length)] = allowedChars[Math.floor(Math.random()*allowedChars.length)]
+  changeChar() {
+    this.text[Math.floor(Math.random() * this.section.title.length)] = allowedChars[Math.floor(Math.random() * allowedChars.length)]
     this.div.innerHTML = this.text.join('')
   }
 
-  handleHover(){
+  handleHover() {
 
     this.webgl.textHandler.changeTo(this.section.title)
     this.isHit = true;
     this.webgl.scene.rock.littleDots.setSlerpTo(this.quaternion)
   }
 
-  handleNoHover(){
-   
+  handleNoHover() {
+
     this.isHit = false;
     // Needs to be called on parent
     this.webgl.scene.rock.littleDots.clearSlerp()
 
   }
 
-  handleClick(){
+  handleClick() {
     this.webgl.scene.rock.moveToTopLeft();
-    history.replaceState(null, '', '?'+this.section.title.toLowerCase());
-    setTimeout( () => this.section.switchTo(), 1000)
+    history.replaceState(null, '', '?' + this.section.title.toLowerCase());
+    setTimeout(() => this.section.switchTo(), 1000)
   }
 
- 
+
 
 }
