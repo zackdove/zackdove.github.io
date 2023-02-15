@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { CSS3DObject } from '../utils/CSS3DRenderer';
 
 const sphereGeo = new THREE.SphereGeometry(0.05, 20, 20);
 const cylinderGeo = new THREE.CylinderGeometry(0.003, 0.003);
@@ -28,8 +29,24 @@ export default class MenuDot extends THREE.Group {
     line.rotation.set(0, 0, Math.PI / 2)
     this.add(line);
     this.rotation.set(Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI, 0)
-    this.xVelocity = (Math.random() * 0.5 + 0.1) * (Math.random() < 0.5 ? -1 : 1)
-    this.yVelocity = (Math.random() * 0.5 + 0.1) * (Math.random() < 0.5 ? -1 : 1)
+    this.xVelocity = (Math.random() * 0.1 + 0.1) * (Math.random() < 0.5 ? -1 : 1)
+    this.yVelocity = (Math.random() * 0.1 + 0.1) * (Math.random() < 0.5 ? -1 : 1)
+
+    this.css3DRenderer = this.webgl.cssHandler.css3DRenderer;
+
+    const div = document.createElement('div');
+    div.innerHTML = '666'
+    this.cssGroup = new THREE.Group();
+    this.objectCSS = new CSS3DObject(div);
+    this.objectCSS.position.copy(this.outerPoint.position)
+    this.objectCSS.position.multiplyScalar(100)
+    this.cssGroup.add(this.objectCSS)
+    // this.objectCSS.position.set(100,1,0)
+    // this.cssGroup.rotation.copy(this.rotation);
+    this.cssGroup.position.set(0,0,-6)
+    this.cssGroup.scale.setScalar(0.01)
+    this.webgl.cssHandler.scene.add(this.cssGroup )
+
 
     webgl.hoverables.push(this.raycastSphere);
     webgl.clickables.push(this.raycastSphere)
@@ -43,6 +60,9 @@ export default class MenuDot extends THREE.Group {
     if (!this.isHit) {
       this.rotation.x += dt * this.xVelocity
       this.rotation.y += dt * this.yVelocity;
+      this.outerPoint.getWorldPosition(this.objectCSS.position).multiplyScalar(100)
+      // this.cssGroup.rotation.x += dt * this.xVelocity
+      // this.cssGroup.rotation.y += dt * this.yVelocity;
     }
   }
 
