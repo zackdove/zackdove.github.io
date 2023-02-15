@@ -52,7 +52,7 @@ export default class Rock extends THREE.Group {
     this.scale.set(0, 0, 0)
     this.position.set(2, 0, 0)
 
-   
+
     // apply the material to the model
     rock.traverse((child) => {
       if (child.isMesh) {
@@ -104,14 +104,14 @@ export default class Rock extends THREE.Group {
 
   }
 
-  addDeviceOrientation(){
+  addDeviceOrientation() {
     window.addEventListener('deviceorientation', this.handleDeviceOrientation);
     this.useDeviceOrientation = true;
   }
 
-  handleDeviceOrientation(event){
+  handleDeviceOrientation(event) {
     this.mouse.x = event.gamma / 5
-    this.mouse.y =( -event.beta / 5) + 2
+    this.mouse.y = (-event.beta / 5) + 2
   }
 
   handleHover() {
@@ -200,25 +200,27 @@ export default class Rock extends THREE.Group {
       strokeDashoffset: 20,
     })
     gsap.to(document.getElementById('topLine'), {
-      attr: { d: this.webgl.isMobileLayout ? "M 60 35 H 260 l 20 20" :  "M 60 35 H 705 l 45 45"   },
+      attr: { d: this.webgl.isMobileLayout ? "M 60 35 H 260 l 20 20" : "M 60 35 H 705 l 45 45" },
       onComplete: () => {
         this.littleDots.show();
         this.menuDots.show();
+       
       }
     })
+  
   }
 
 
   update(dt, time) {
     this.rock.rotation.x += 0.3 * dt;
     this.rock.rotation.y += 0.1 * dt;
-    if (DeviceMotionEvent.requestPermission){
+    if (DeviceMotionEvent.requestPermission) {
       this.mouseTarget.x += (this.mouse.x - this.mouseTarget.x) * 0.02;
       this.mouseTarget.y += (this.mouse.y - this.mouseTarget.y) * 0.02;
       this.mouseTarget.z = 1;
       this.lookAt(this.mouseTarget)
     }
-   
+
   }
 
   moveToTopLeft(isIntro) {
@@ -266,6 +268,8 @@ export default class Rock extends THREE.Group {
     gsap.to(document.getElementById('topLine'), {
       attr: { d: this.webgl.isMobileLayout ? "M 93 35 H 260 l 20 20" : "M 93 35 H 705 l 45 45" }
     })
+
+   
   }
 
 
@@ -279,6 +283,7 @@ export default class Rock extends THREE.Group {
       onComplete: () => {
         this.littleDots.show();
         this.menuDots.show();
+       
       },
     })
     gsap.to(this.rotation, {

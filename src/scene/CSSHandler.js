@@ -22,6 +22,10 @@ export default class CSSHandler extends THREE.Group{
      css3DScene.classList.add("css3DScene");
   }
 
+  resize({ width, height, pixelRatio }) {
+    this.css3DRenderer.setSize(width, height)
+  }
+
 
 
  update(dt, time){

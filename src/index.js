@@ -70,7 +70,7 @@ if (isMobileLayout) {
 
   document.getElementById('overlayBottom').setAttribute("viewBox", "0 0 300 50");
   document.getElementById('bottomLine').setAttribute('d', "M 20 0 l 20 20 H 260 l 20 -20")
-  document.getElementById('bottomLeftDetail').setAttribute('d', "M 60 120 V 10 l -10 -10 v -60")
+  document.getElementById('bottomLeftDetail').setAttribute('d', "M 60 120 V 10 l -10 -10 v -50")
   document.getElementById('bottomText1').setAttribute('x', "57")
   document.getElementById('bottomText1').setAttribute('y', "-30")
   document.getElementById('bottomText2').setAttribute('x', "57")

@@ -7,11 +7,16 @@ export default class MenuDots extends THREE.Group {
     super()
     this.groups = []
     this.webgl = webgl
-    this.points = [];
+    this.dots = [];
     this.scale.set(0,0,0)
     for (let i = 0; i < webgl.scene.sections.length; i++) {
-      this.add(new MenuDot(webgl, webgl.scene.sections[i]));
+      const dot = new MenuDot(webgl, webgl.scene.sections[i]);
+      this.add(dot);
+      this.dots.push(dot);
     }
+    
+    this.show = this.show.bind(this)
+    this.hide = this.hide.bind(this)
   }
 
 
@@ -21,10 +26,19 @@ export default class MenuDots extends THREE.Group {
       y: 1,
       z: 1,
       duration: 2.5,
+      onComplete: () => {
+        console.log(this)
+        for (let i = 0; i < this.dots.length; i++) {
+          this.dots[i].div.classList.remove('hidden');
+        }
+      }
     })
   }
 
   hide(){
+    for (let i = 0; i < this.dots.length; i++) {
+      this.dots[i].div.classList.add('hidden');
+    }
     gsap.to(this.scale, {
       x: 0,
       y: 0,
