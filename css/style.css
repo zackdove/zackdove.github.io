@@ -225,3 +225,17 @@ canvas {
 .workText a:hover{
   color: #444444;
 }
+
+.menuDotLabel{
+  font-family: 'KareliaOuttakes';
+  padding-left:42px;
+  padding-top: 28px;
+  font-size: 8px;
+  transition: opacity 0.8s;
+  color: #0000ff;
+}
+
+.menuDotLabel.hidden{
+
+  opacity: 0!important;
+}
