@@ -182,7 +182,7 @@ canvas {
 
 @keyframes innerCircleAnim {
   from {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0%;
   }
 
   to {
@@ -197,7 +197,7 @@ canvas {
 
 @keyframes outerCircleAnim {
   from {
-    stroke-dashoffset: 0;
+    stroke-dashoffset: 0%;
   }
 
   to {
@@ -238,4 +238,18 @@ canvas {
 .menuDotLabel.hidden{
 
   opacity: 0!important;
+}
+
+#hyperlink{}
+
+#hyperlink>div{
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  display: none;
+}
+#hyperlink.enable>div{
+  display: block;
 }
