@@ -47,6 +47,7 @@ export default class RaycastHandler {
 
 
   handlePointerDown(event, { x, y }) {
+    event.preventDefault();
     const coords = new THREE.Vector2().set(
       (x / this.webgl.width) * 2 - 1,
       (-y / this.webgl.height) * 2 + 1

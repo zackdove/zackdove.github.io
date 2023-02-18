@@ -133,9 +133,9 @@ export class ContactSquare extends THREE.Group {
     }
   }
 
-  handleDeviceOrientation(event){
+  handleDeviceOrientation(event) {
     this.mouse.x = event.gamma / 10
-    this.mouse.y =( -event.beta / 20) + 1
+    this.mouse.y = (-event.beta / 20) + 1
   }
 
   easeOutCubic(t) {
@@ -302,7 +302,7 @@ export class ContactSquare extends THREE.Group {
   }
 
   onPointerDown(event, { x, y }) {
-    if (this.webgl.isTouch){
+    if (this.webgl.isTouch) {
       this.onPointerMove(event, { x, y })
     }
   }
@@ -330,10 +330,17 @@ export class ContactSquare extends THREE.Group {
 
   handleClick() {
     console.log('hello')
-    setTimeout( () => {
+    setTimeout(() => {
       console.log('hh')
       window.open(this.url, '_blank')
     }, 0)
-    
+    const hyperlink = document.getElementById('hyperlink')
+    hyperlink.href = this.url;
+    hyperlink.classList.add('enable')
+    setTimeout(() => {
+      hyperlink.classList.remove('enable')
+      hyperlink.href = '';
+    }, 1000)
+
   }
 }
